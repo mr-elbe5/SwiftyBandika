@@ -26,39 +26,39 @@ It lacks
 
 Just contact me!
 
-#App View
+# App View
 
 The frontend of the app has two panels: the server and the layout panel.
 
-##Server Panel
+## Server Panel
 
 On the server panel you can set the basic configuration and start and stop the HTTP server.
 
-###Configuration
+### Configuration
 
 Here you can set 
 - the App name (for the web as well),
 - the web host name (which should be known to the system) and 
 - the web port (which should not be occupied by another app).
 
-###Backups
+### Backups
 
 You can also create and restore backups. So if you make changes, you should create a backup first.
 Backups include all data, settings, designs and templates.
 Make sure the server ist stopped, before you restore a backup.
 
-###Log View
+### Log View
 
 The right side of this panel shows the log with all important runtime information.
 Warnings and errors are highlighted.
 
-##Layout Panel
+## Layout Panel
 
-###Logo and Styles
+### Logo and Styles
 
 On the layout panel you can edit your design including the logo, style sheet and style images.
 
-###Templates
+### Templates
 
 You can also create and update your templates using HTML and special <spg:...> tags.
 You will always need a default master template, so you cannot delete it.
@@ -66,14 +66,14 @@ Templates are always embedded in an xml tag which holds the template's attribute
 
 The starting point for the layout and its templates is the current blue one, which is also used for administration pages.
 
-##Usage
+## Usage
 
 All other instructions how to use this CMS you will find on the default home page after you started the server.
 
 The login for the super admin is 'root' with the password 'pass'. For production, you should obviously change this.
 
 
-#Web View
+# Web View
 
 The web view shows content or page is governed by the current content's page type and its master page.
 

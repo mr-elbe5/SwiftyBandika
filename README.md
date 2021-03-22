@@ -1,4 +1,5 @@
 # SwiftyBandika
+
 A CMS server app for the Mac, based on Swift, NIO and JSON Persistance
 
 This app has been completely written by the author, but beside the Apple libs he used the external libraries of SwiftSoup for prettyfying HTML, Zip for backups, a modified version of CKEditor 4.10 as WYSIWYG web editor and an adapted version of Bootstrap 4 for web styles.
@@ -26,37 +27,56 @@ It lacks
 Just contact me!
 
 #App View
+
 The frontend of the app has two panels: the server and the layout panel.
+
 ##Server Panel
+
 On the server panel you can set the basic configuration and start and stop the HTTP server.
+
 ###Configuration
+
 Here you can set 
 - the App name (for the web as well),
 - the web host name (which should be known to the system) and 
 - the web port (which should not be occupied by another app).
+
 ###Backups
+
 You can also create and restore backups. So if you make changes, you should create a backup first.
 Backups include all data, settings, designs and templates.
 Make sure the server ist stopped, before you restore a backup.
+
 ###Log View
+
 The right side of this panel shows the log with all important runtime information.
 Warnings and errors are highlighted.
+
 ##Layout Panel
+
 ###Logo and Styles
+
 On the layout panel you can edit your design including the logo, style sheet and style images.
+
 ###Templates
+
 You can also create and update your templates using HTML and special <spg:...> tags.
 You will always need a default master template, so you cannot delete it.
 Templates are always embedded in an xml tag which holds the template's attributes.
 
 The starting point for the layout and its templates is the current blue one, which is also used for administration pages.
+
 ##Usage
+
 All other instructions how to use this CMS you will find on the default home page after you started the server.
 
 The login for the super admin is 'root' with the password 'pass'. For production, you should obviously change this.
 
+
 #Web View
+
 The web view shows content or page is governed by the current content's page type and its master page.
+
 ###System Menu
 The system menu is a list of small icons on the top right.
 ##### Home icon (House)

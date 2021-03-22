@@ -1,0 +1,8 @@
+<div id="pageContent">
+    <spg:message/>
+    <spg:contenttree />
+</div>
+<script type="text/javascript">
+    $('.tree').treed('fa fa-minus-square-o', 'fa fa-plus-square-o');
+</script>
+

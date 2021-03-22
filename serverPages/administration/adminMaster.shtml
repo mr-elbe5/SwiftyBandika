@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:spg = "" lang="{{language}}">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>{{appName}}
+    </title>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/bandika.css"/>
+    <link rel="stylesheet" href="/css/admin.css"/>
+    <script type="text/javascript" src="/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.tree.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="/js/locales/bootstrap-datepicker.de.js"></script>
+    <script type="text/javascript" src="/js/bandika.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="top row">
+            <section class="col-12 sysnav">
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link fa fa-home" href="/" title="{{_home}}>"></a></li>
+                    <li class="nav-item">
+                        <a class="nav-link fa fa-sign-out" href="/ctrl/user/logout" title="{{_logout}}"></a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+            <div class="menu row">
+                <section class="col-12 menu">
+                    <nav class="navbar navbar-expand-lg">
+                        <span class="navbar-brand" >{{_administration}}</span>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <spg:if condition="{{hasUserRights}}">
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/ctrl/admin/openUserAdministration">{{_userAdministration}}
+                                    </a>
+                                </li>
+                                </spg:if>
+                                <spg:if condition="{{hasContentRights}}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/ctrl/admin/openContentAdministration">{{_contentAdministration}}
+                                    </a>
+                                </li>
+                                </spg:if>
+                            </ul>
+                        </div>
+                    </nav>
+                </section>
+            </div>
+        </header>
+        <main id="main" role="main">
+            <div id="pageContainer">
+                <spg:include include="{{includeUrl}}" />
+            </div>
+        </main>
+    </div>
+    <div class="container fixed-bottom">
+        <footer>
+            <div class="container">
+                <ul class="nav">
+                    &copy; {{_copyright}}
+                </ul>
+            </div>
+        </footer>
+    </div>
+    <div class="modal" id="modalDialog" tabindex="-1" role="dialog"></div>
+<script type="text/javascript">
+    function confirmDelete() {
+        return confirm('{{_confirmDelete}}');
+    }
+
+    function confirmExecute() {
+        return confirm('{{_confirmExecute}}');
+    }
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,11 @@
+<div id="pageContent">
+    <form action="{{url}}" method="POST" id="forwardform" accept-charset="UTF-8">
+        <spg:if condition="{{hasMessage}}">
+        <input type="hidden" name="message" value="{{msg}}"/>
+        <input type="hidden" name="messageType" value="{{msgType}}"/>
+        </spg:if>
+    </form>
+</div>
+<script type="text/javascript">
+    $('#forwardform').submit();
+</script>

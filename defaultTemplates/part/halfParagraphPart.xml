@@ -1,0 +1,7 @@
+<template type="part" name="halfParagraphPart" displayName="Paragraph 50%" css="col-lg-6">
+                        <div class="paragraph">
+                            <spg:htmlfield name="html">Lorem ipsum</spg:htmlfield>
+                        </div>
+</template>
+
+

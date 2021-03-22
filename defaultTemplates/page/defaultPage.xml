@@ -1,0 +1,7 @@
+<template type="page" name="defaultPage" displayName="Default Page">
+                        <spg:message/>
+                        <section name="content" css="contentSection" >
+                            <spg:section name="main" css="row"/>
+                        </section>
+</template>
+    

@@ -1,0 +1,6 @@
+<template type="part" name="defaultPart" displayName="Default Part" css="col-lg-12">
+                        <div>
+                            <spg:htmlfield name="html">Lorem ipsum</spg:htmlfield>
+                        </div>
+</template>
+    

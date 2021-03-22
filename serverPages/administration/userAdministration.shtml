@@ -1,0 +1,36 @@
+<div id="pageContent">
+    <spg:message/>
+    <section class="treeSection">
+        <ul class="tree">
+            <li class="open">
+                <a class="treeRoot">{{_users}}
+                </a>
+                <spg:if condition="{{hasUserRights}}" >
+                <ul>
+                    <li class="open">
+                        <span>{{_groups}}</span>
+                        <div class="icons">
+                            <a class="icon fa fa-plus" href="" onclick="return openModalDialog('/ajax/group/openCreateGroup');" title="{{_new}}"> </a>
+                        </div>
+                        <ul>
+                        <spg:grouplist />
+                        </ul>
+                    </li>
+                    <li class="open">
+                        <span>{{_users}}</span>
+                        <div class="icons">
+                            <a class="icon fa fa-plus" href="" onclick="return openModalDialog('/ajax/user/openCreateUser');" title="{{_new}}"> </a>
+                        </div>
+                        <ul>
+                        <spg:userlist />
+                        </ul>
+                    </li>
+                </ul>
+                </spg:if>
+            </li>
+        </ul>
+    </section>
+</div>
+<script type="text/javascript">
+    $('.tree').treed('fa fa-minus-square-o', 'fa fa-plus-square-o');
+</script>

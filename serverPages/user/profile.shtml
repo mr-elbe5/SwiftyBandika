@@ -1,0 +1,52 @@
+<div id="pageContent">
+    <spg:message/>
+    <h1 class="title">
+        {{_profile}}
+    </h1>
+    <div class="row">
+        <section class="col-md-8 contentSection">
+            <div class="paragraph form">
+                <spg:line label="_id">{{user.getId())}}
+                </spg:line>
+                <spg:line label="_login">{{user.getLogin())}}
+                </spg:line>
+                <spg:line label="_title">{{user.getTitle())}}
+                </spg:line>
+                <spg:line label="_firstName">{{user.getFirstName())}}
+                </spg:line>
+                <spg:line label="_lastName">{{user.getLastName())}}
+                </spg:line>
+                <h3>{{_address}}
+                </h3>
+                <spg:line label="_street">{{user.getStreet())}}
+                </spg:line>
+                <spg:line label="_zipCode">{{user.getZipCode())}}
+                </spg:line>
+                <spg:line label="_city">{{user.getCity())}}
+                </spg:line>
+                <spg:line label="_country">{{user.getCountry())}}
+                </spg:line>
+                <h3>{{_contact}}
+                </h3>
+                <spg:line label="_email">{{user.getEmail())}}
+                </spg:line>
+                <spg:line label="_phone">{{user.getPhone())}}
+                </spg:line>
+            </div>
+        </section>
+        <aside class="col-md-4 asideSection">
+            <div class="section">
+                <div class="paragraph form">
+                    <div>
+                        <a class="link" href="#" onclick="return openModalDialog('/ajax/user/openChangePassword');">{{_changePassword}}
+                        </a>
+                    </div>
+                    <div>
+                        <a class="link" href="#" onclick="return openModalDialog('/ajax/user/openChangeProfile');">{{_changeProfile}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>

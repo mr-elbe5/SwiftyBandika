@@ -1,0 +1,469 @@
+//
+//  ContentController.swift
+//  SwiftyBandika
+//
+//  Created by Michael Rönnau on 08.02.21.
+//
+
+import Foundation
+
+class ContentController: Controller {
+
+    override func processRequest(method: String, id: Int?, request: Request) -> Response? {
+        switch method {
+        case "show": return show(id: id, request: request)
+        case "openCreateContentData": return openCreateContentData(request: request)
+        case "openEditContentData": return openEditContentData(id: id, request: request)
+        case "saveContentData": return saveContentData(id: id, request: request)
+        case "openEditRights": return openEditRights(id: id, request: request)
+        case "saveRights": return saveRights(id: id, request: request)
+        case "cutContent": return cutContent(id: id, request: request)
+        case "copyContent": return copyContent(id: id, request: request)
+        case "pasteContent": return pasteContent(request: request)
+        case "deleteContent": return deleteContent(id: id, request: request)
+        case "openSortChildPages": return openSortChildPages(id: id, request: request)
+        case "saveChildPageRanking": return saveChildPageRanking(id: id, request: request)
+        case "showDraft": return showDraft(id: id, request: request)
+        case "showPublished": return showPublished(id: id, request: request)
+        case "publishPage": return publishPage(id: id, request: request)
+        default:
+            return nil
+        }
+    }
+
+    func show(id: Int?, request: Request) -> Response? {
+        if let id = id, let content = ContentContainer.instance.getContent(id: id) {
+            request.setContent(content)
+            request.addPageVar("language", Statics.instance.defaultLocale.languageCode ?? "en")
+            request.addPageVar("title", Statics.title.toHtml())
+            request.addPageVar("keywords", content.keywords.toHtml())
+            request.addPageVar("description", content.description.toHtml())
+            let master = TemplateCache.getTemplate(type: TemplateType.master, name: content.master)
+            if let html = master?.getHtml(request: request) {
+                return Response(html: Html.prettyfy(src: html))
+            }
+        } else {
+            Log.warn("content id not found : \(id ?? 0)")
+        }
+        return Response(code: .notFound)
+    }
+
+    func openCreateContentData(request: Request) -> Response {
+        let parentId = request.getInt("parentId")
+        if let parent = ContentContainer.instance.getContent(id: parentId) {
+            if !Right.hasUserEditRight(user: request.user, content: parent) {
+                return Response(code: .forbidden)
+            }
+            if let type = DataType(rawValue: request.getString("type")), let data = DataFactory.create(type: type) as? ContentData{
+                data.setCreateValues(parent: parent, request: request)
+                data.parentId = parent.id
+                data.parentVersion = parent.version
+                request.setSessionContent(data)
+                return showEditContent(contentData: data, request: request)
+            }
+        }
+        return Response(code: .badRequest)
+    }
+
+    func openEditContentData(id: Int?, request: Request) -> Response {
+        if let id = id {
+            if !Right.hasUserEditRight(user: request.user, contentId: id) {
+                return Response(code: .forbidden)
+            }
+            if let original = ContentContainer.instance.getContent(id: id) {
+                if let data = DataFactory.create(type: original.type) as? PageData {
+                    data.copyFixedAttributes(from: original)
+                    data.copyEditableAttributes(from: original)
+                    request.setSessionContent(data)
+                    return showEditContent(contentData: data, request: request)
+                }
+            }
+        }
+        return Response(code: .badRequest)
+    }
+
+    func saveContentData(id: Int?, request: Request) -> Response {
+        if let id = id, let data = request.getSessionContent(type: PageData.self), data.id == id {
+            if (request.hasFormError) {
+                return showEditContent(contentData: data, request: request)
+            }
+            if data.isNew {
+                if !Right.hasUserEditRight(user: request.user, contentId: data.parentId) {
+                    return Response(code: .forbidden)
+                }
+            } else {
+                if !Right.hasUserEditRight(user: request.user, content: data) {
+                    return Response(code: .forbidden)
+                }
+            }
+            data.readRequest(request)
+            if request.hasFormError {
+                return showEditContent(contentData: data, request: request)
+            }
+            if data.isNew {
+                if !ContentContainer.instance.addContent(data: data, userId: request.userId) {
+                    Log.warn("data could not be added");
+                    request.setMessage("_versionError", type: .danger)
+                    return showEditContent(contentData: data, request: request)
+                }
+                data.isNew = false
+            } else {
+                if !ContentContainer.instance.updateContent(data: data, userId: request.userId) {
+                    Log.warn("original data not found for update")
+                    request.setMessage("_versionError", type: .danger)
+                    return showEditContent(contentData: data, request: request)
+                }
+            }
+            request.removeSessionContent()
+            request.setMessage("_contentSaved", type: .success)
+            return CloseDialogResponse(url: "/ctrl/admin/openContentAdministration?contentId=\(id)", request: request)
+        }
+        return Response(code: .badRequest)
+    }
+
+    func openEditRights(id: Int?, request: Request) -> Response {
+        if let id = id, let data = ContentContainer.instance.getContent(id: id) {
+            if !Right.hasUserEditRight(user: request.user, contentId: data.id) {
+                return Response(code: .forbidden)
+            }
+            request.setSessionContent(data)
+            request.setContent(data)
+            return showEditRights(contentData: data, request: request)
+        }
+        return Response(code: .badRequest)
+    }
+
+    func saveRights(id: Int?, request: Request) -> Response {
+        if let id = id, let data = ContentContainer.instance.getContent(id: id) {
+            let version = request.getInt("version")
+            if data.version != version {
+                Log.warn("original data not found for update.")
+                request.setMessage("_saveError", type: .danger)
+                return showEditRights(contentData: data, request: request)
+            }
+            if !Right.hasUserEditRight(user: request.user, content: data) {
+                return Response(code: .forbidden)
+            }
+            var rights = Dictionary<Int, Right>()
+            let groups = UserContainer.instance.groups
+            for group in groups {
+                if group.id <= GroupData.ID_MAX_FINAL {
+                    continue
+                }
+                let value = request.getInt("groupright_\(group.id)")
+                if let right = Right(rawValue: value) {
+                    rights[group.id] = right
+                }
+            }
+            if !ContentContainer.instance.updateContentRights(data: data, rightDictionary: rights, userId: request.userId) {
+                Log.warn("content rights could not be updated")
+                request.setMessage("_saveError", type: .danger)
+                return showEditRights(contentData: data, request: request)
+            }
+            request.removeSessionContent()
+            request.setMessage("_rightsSaved", type: .success);
+            return CloseDialogResponse(url: "/ctrl/admin/openContentAdministration?contentId=\(id)", request: request)
+        }
+        return Response(code: .badRequest)
+    }
+
+    func cutContent(id: Int?, request: Request) -> Response {
+        if let id = id {
+            if id == ContentData.ID_ROOT {
+                return showContentAdministration(contentId: ContentData.ID_ROOT, request: request)
+            }
+            if let data = ContentContainer.instance.getContent(id: id) {
+                if !Right.hasUserEditRight(user: request.user, content: data) {
+                    return Response(code: .forbidden)
+                }
+                Clipboard.instance.setData(type: .content, data: data)
+                return showContentAdministration(contentId: data.id, request: request)
+            }
+        }
+        return Response(code: .badRequest)
+    }
+
+    func copyContent(id: Int?, request: Request) -> Response {
+        if let id = id {
+            if (id == ContentData.ID_ROOT) {
+                return showContentAdministration(contentId: ContentData.ID_ROOT, request: request)
+            }
+            if let srcData = ContentContainer.instance.getContent(id: id) {
+                if !Right.hasUserEditRight(user: request.user, content: srcData) {
+                    return Response(code: .forbidden)
+                }
+                if let data = DataFactory.create(type: srcData.type) as? ContentData{
+                    if ContentContainer.instance.getContent(id: srcData.parentId) != nil {
+                        data.copyEditableAttributes(from: srcData)
+                        data.setCreateValues(request: request)
+                        //marking as copy
+                        data.parentId = 0
+                        data.parentVersion = 0
+                        Clipboard.instance.setData(type: .content, data: data)
+                        return showContentAdministration(contentId: data.id, request: request)
+                    }
+                }
+            }
+        }
+        return Response(code: .badRequest)
+    }
+
+    func pasteContent(request: Request) -> Response {
+        let parentId = request.getInt("parentId")
+        let parentVersion = request.getInt("parentVersion")
+        if let data = Clipboard.instance.getData(type: .content) as? ContentData {
+            if !Right.hasUserEditRight(user: request.user, contentId: parentId) {
+                return Response(code: .forbidden)
+            }
+            let parentIds = ContentContainer.instance.collectParentIds(contentId: data.id)
+            if parentIds.contains(data.id) {
+                request.setMessage("_actionNotExcecuted", type: .danger)
+                return showContentAdministration(request: request)
+            }
+            if data.parentId != 0 {
+                //has been cut
+                if !ContentContainer.instance.moveContent(data: data, newParentId: parentId, parentVersion: parentVersion, userId: request.userId) {
+                    request.setMessage("_actionNotExcecuted", type: .danger)
+                    return showContentAdministration(request: request)
+                }
+            } else {
+                // has been copied
+                data.parentId = parentId
+                data.parentVersion = parentVersion
+                if !ContentContainer.instance.addContent(data: data, userId: request.userId) {
+                    request.setMessage("_actionNotExcecuted", type: .danger)
+                    return showContentAdministration(request: request);
+                }
+            }
+            Clipboard.instance.removeData(type: .content)
+            request.setMessage("_contentPasted", type: .success)
+            return showContentAdministration(contentId: data.id, request: request);
+        }
+        return Response(code: .badRequest)
+    }
+
+    func deleteContent(id: Int?, request: Request) -> Response {
+        if let id = id {
+            if id == ContentData.ID_ROOT {
+                request.setMessage("_notDeletable", type: .danger)
+                return showContentAdministration(request: request)
+            }
+            if let data = ContentContainer.instance.getContent(id: id) {
+                if !Right.hasUserEditRight(user: request.user, content: data) {
+                    return Response(code: .forbidden)
+                }
+                if let parent = ContentContainer.instance.getContent(id: data.parentId) {
+                    parent.children.remove(obj: data)
+                    _ = ContentContainer.instance.removeContent(data: data)
+                    request.setParam("contentId", String(parent.id))
+                    request.setMessage("_contentDeleted", type: .success)
+                    return showContentAdministration(contentId: parent.id, request: request)
+                }
+            }
+        }
+        return Response(code: .badRequest)
+    }
+
+    func openSortChildPages(id: Int?, request: Request) -> Response {
+        if let id = id {
+            if let data = ContentContainer.instance.getContent(id: id) {
+                if !Right.hasUserEditRight(user: request.user, content: data) {
+                    return Response(code: .forbidden)
+                }
+                request.setSessionContent(data)
+                return showSortChildContents(contentData: data, request: request)
+            }
+        }
+        return Response(code: .badRequest)
+    }
+
+    func saveChildPageRanking(id: Int?, request: Request) -> Response {
+        if let id = id, let data = request.getContent(), id == data.id {
+            if !Right.hasUserEditRight(user: request.user, content: data) {
+                return Response(code: .forbidden)
+            }
+            var rankMap = Dictionary<Int, Int>()
+            for child in data.children {
+                let ranking = request.getInt("select\(child.id)", def: -1)
+                rankMap[child.id] = ranking
+            }
+            if !ContentContainer.instance.updateChildRanking(data: data, rankDictionary: rankMap, userId: request.userId) {
+                Log.warn("sorting did not succeed");
+                return showSortChildContents(contentData: data, request: request)
+            }
+            request.removeSessionContent()
+            request.setMessage("_newRankingSaved", type: .success);
+            return CloseDialogResponse(url: "/ctrl/admin/openContentAdministration?contentId=\(id)", request: request)
+        }
+        return Response(code: .badRequest)
+    }
+
+
+    func clearClipboard(request: Request) -> Response {
+        Clipboard.instance.removeData(type: .content)
+        Clipboard.instance.removeData(type: .file)
+        return showContentAdministration(request: request)
+    }
+
+    func showEditPage(id: Int?, request: Request) -> Response {
+        if let id = id {
+            if !Right.hasUserEditRight(user: request.user, contentId: id) {
+                return Response(code: .forbidden)
+            }
+            request.viewType = .edit
+            return show(id: id, request: request) ?? Response(code: .internalServerError)
+        }
+        return Response(code: .badRequest)
+    }
+
+    func showDraft(id: Int?, request: Request) -> Response {
+        if let id = id, let data = ContentContainer.instance.getContent(id: id) {
+            if !Right.hasUserReadRight(user: request.user, contentId: data.id) {
+                return Response(code: .forbidden)
+            }
+            request.viewType = .showDraft
+            return show(id: data.id, request: request) ?? Response(code: .internalServerError)
+        }
+        return Response(code: .badRequest)
+    }
+
+    func showPublished(id: Int?, request: Request) -> Response {
+        if let id = id, let data = ContentContainer.instance.getContent(id: id) {
+            if !Right.hasUserReadRight(user: request.user, contentId: data.id) {
+                return Response(code: .forbidden)
+            }
+            request.viewType = .showPublished
+            return show(id: data.id, request: request) ?? Response(code: .internalServerError)
+        }
+        return Response(code: .badRequest)
+    }
+
+    func publishPage(id: Int?, request: Request) -> Response {
+        if let id = id, let data = ContentContainer.instance.getContent(id: id) as? PageData {
+            if !Right.hasUserApproveRight(user: request.user, contentId: data.id) {
+                return Response(code: .forbidden)
+            }
+            data.createPublishedContent(request: request)
+            data.changerId = request.userId
+            data.changeDate = App().currentTime
+            _ = ContentContainer.instance.publishContent(data: data)
+            return show(id: data.id, request: request) ?? Response(code: .internalServerError)
+        }
+        return Response(code: .badRequest)
+    }
+
+    func showEditContent(contentData: ContentData, request: Request) -> Response {
+        if let cnt = request.getSessionContent() {
+            request.setContent(cnt)
+        }
+        request.addPageVar("url", "/ctrl/content/saveContentData/\(contentData.id)")
+        setEditPageVars(contentData: contentData, request: request)
+        return ForwardResponse(page: "content/editContentData.ajax", request: request)
+    }
+
+    func setEditPageVars(contentData: ContentData, request: Request) {
+        request.addPageVar("id", String(contentData.id))
+        request.addPageVar("creationDate", contentData.creationDate.dateTimeString())
+        if let user = UserContainer.instance.getUser(id: contentData.creatorId) {
+            request.addPageVar("creatorName", user.name.toHtml())
+        }
+        request.addPageVar("changeDate", String(contentData.changeDate.dateTimeString()))
+        if let user = UserContainer.instance.getUser(id: contentData.changerId) {
+            request.addPageVar("changerName", user.name.toHtml())
+        }
+        request.addPageVar("displayName", contentData.displayName.toHtml())
+        request.addPageVar("description", contentData.description.toHtml())
+        request.addConditionalPageVar("isOpenSelected", "selected", if: contentData.accessType == ContentData.ACCESS_TYPE_OPEN)
+        request.addConditionalPageVar("isInheritsSelected", "selected", if: contentData.accessType == ContentData.ACCESS_TYPE_INHERITS)
+        request.addConditionalPageVar("isIndividualSelected", "selected", if: contentData.accessType == ContentData.ACCESS_TYPE_INDIVIDUAL)
+        request.addConditionalPageVar("isNoneNavSelected", "selected", if: contentData.navType == ContentData.NAV_TYPE_NONE)
+        request.addConditionalPageVar("isHeaderNavSelected", "selected", if: contentData.navType == ContentData.NAV_TYPE_HEADER)
+        request.addConditionalPageVar("isFooterNavSelected", "selected", if: contentData.navType == ContentData.NAV_TYPE_FOOTER)
+        request.addPageVar("active", contentData.active ? "true" : "false")
+        var str = FormSelectTag.getOptionHtml(value: "", isSelected: contentData.master.isEmpty, text: "_pleaseSelect".toLocalizedHtml())
+        if let masters = TemplateCache.getTemplates(type: .master) {
+            for masterName in masters.keys {
+                str.append(FormSelectTag.getOptionHtml(value: masterName.toHtml(), isSelected: contentData.master == masterName, text: masterName.toHtml()))
+            }
+        }
+        request.addPageVar("masterOptions", str)
+    }
+
+    func showEditRights(contentData: ContentData, request: Request) -> Response {
+        request.addPageVar("url", "/ctrl/\(contentData.type.rawValue)/saveRights/\(contentData.id)")
+        var html = ""
+        for group in UserContainer.instance.groups {
+            if group.id <= GroupData.ID_MAX_FINAL {
+                continue
+            }
+            let name = "groupright_\(group.id)"
+            let lineTag = FormLineTag()
+            let rights = contentData.groupRights[group.id]
+            lineTag.label = group.name.toHtml()
+            lineTag.padded = true
+            html.append(lineTag.getStartHtml(request: request))
+            let radioTag = FormRadioTag()
+            radioTag.name = name
+            radioTag.checked = rights != nil
+            radioTag.value = ""
+            html.append(radioTag.getStartHtml(request: request))
+            html.append("_rightnone".toLocalizedHtml())
+            html.append(radioTag.getEndHtml(request: request))
+            html.append("<br/>")
+            radioTag.checked = rights?.includesRight(right: .READ) ?? false
+            radioTag.value = String(Right.READ.rawValue)
+            html.append(radioTag.getStartHtml(request: request))
+            html.append("_rightread".toLocalizedHtml())
+            html.append(radioTag.getEndHtml(request: request))
+            html.append("<br/>")
+            radioTag.checked = rights?.includesRight(right: .EDIT) ?? false
+            radioTag.value = String(Right.EDIT.rawValue)
+            html.append(radioTag.getStartHtml(request: request))
+            html.append("_rightedit".toLocalizedHtml())
+            html.append(radioTag.getEndHtml(request: request))
+            html.append("<br/>")
+            radioTag.checked = rights?.includesRight(right: .APPROVE) ?? false
+            radioTag.value = String(Right.APPROVE.rawValue)
+            html.append(radioTag.getStartHtml(request: request))
+            html.append("_rightapprove".toLocalizedHtml())
+            html.append(radioTag.getEndHtml(request: request))
+            html.append(lineTag.getEndHtml(request: request))
+        }
+        request.addPageVar("groupRights", html)
+        print(html)
+        return ForwardResponse(page: "content/editGroupRights.ajax", request: request);
+    }
+
+    func showSortChildContents(contentData: ContentData, request: Request) -> Response {
+        var childSortList = Array<(Int,String)>()
+        for subpage in contentData.children {
+            childSortList.append((subpage.id, subpage.name))
+        }
+        var idx = 0
+        var html = ""
+        for pair in childSortList {
+            let name = "select" + String(pair.0)
+            let onchange = "setRanking(" + pair.1 + ");"
+            let lineTag = FormLineTag()
+            lineTag.label = pair.1.toHtml()
+            lineTag.padded = true
+            html.append(lineTag.getStartHtml(request: request))
+            let select = FormSelectTag()
+            select.name = name
+            select.label = String(idx)
+            select.onChange = onchange
+            html.append(FormSelectTag.preControlHtml.format([
+                "name": name,
+                "onchange": onchange]))
+            for i in 0..<childSortList.count {
+                html.append(FormSelectTag.getOptionHtml(value: String(i), isSelected: i == idx, text: String(i + 1)))
+            }
+            html.append(FormSelectTag.postControlHtml)
+            html.append(lineTag.getEndHtml(request: request))
+            idx += 1
+        }
+        request.addPageVar("sortContents", html)
+        return ForwardResponse(page: "content/sortChildContents.ajax", request: request);
+    }
+
+}

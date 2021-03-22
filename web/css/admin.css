@@ -1,0 +1,129 @@
+body {
+  height: 100%;
+  background: #343a40 url("../img/admin-raster.png");
+  color: #343a40; }
+
+a, a:visited {
+  text-decoration: none;
+  color: #343a40; }
+
+a:active, a:hover {
+  color: #343a40; }
+
+button:focus, a:focus, .btn:focus {
+  outline: 0 !important;
+  box-shadow: none; }
+
+header {
+  color: #f8f9fa;
+  background: transparent;
+  padding: 0 1rem; }
+  header a, header a:visited {
+    color: #f8f9fa; }
+  header a:active, header a:hover {
+    color: #f8f9fa; }
+  header section.sysnav {
+    background: transparent;
+    font-size: 0.875rem; }
+    header section.sysnav a.nav-link {
+      padding: 0;
+      margin: 0.25rem 0 0.25rem 0.5rem;
+      color: #f8f9fa; }
+    header section.sysnav .nav-item a {
+      color: #f8f9fa; }
+    header section.sysnav .dropdown-menu {
+      padding: 0;
+      background: #f8f9fa;
+      border: 1px solid #343a40; }
+      header section.sysnav .dropdown-menu .dropdown-item {
+        font-size: 0.8rem;
+        color: #343a40; }
+      header section.sysnav .dropdown-menu .dropdown-item:focus, header section.sysnav .dropdown-menu .dropdown-item:hover, header section.sysnav .dropdown-menu .dropdown-item.active {
+        background: rgba(255, 255, 255, 0.2); }
+  header div.menu {
+    border-bottom: 1px solid #f8f9fa; }
+    header div.menu section.menu nav.navbar {
+      padding: 0; }
+      header div.menu section.menu nav.navbar .navbar-toggler span {
+        color: #f8f9fa; }
+      header div.menu section.menu nav.navbar .navbar-brand {
+        font-size: 2rem;
+        padding-bottom: 0; }
+      header div.menu section.menu nav.navbar nav.navbar .navbar-collapse {
+        margin-top: 1rem; }
+      header div.menu section.menu nav.navbar .nav-link {
+        padding: 0.25rem 1rem; }
+      header div.menu section.menu nav.navbar .nav-item a {
+        color: #f8f9fa; }
+  header div.bc .breadcrumb {
+    background: transparent;
+    margin: 0;
+    font-size: 0.8rem;
+    padding: 0.25rem 0; }
+    header div.bc .breadcrumb .breadcrumb-item.active {
+      color: #f8f9fa; }
+    header div.bc .breadcrumb a, header div.bc .breadcrumb a:visited {
+      color: #f8f9fa; }
+    header div.bc .breadcrumb a:active, header div.bc .breadcrumb a:hover {
+      color: #f8f9fa; }
+
+main {
+  padding-bottom: 3rem; }
+  main div#pageContainer {
+    margin-top: 1rem;
+    background: #ffffff;
+    color: #000000;
+    border-radius: 5px;
+    min-height: 500px; }
+    main div#pageContainer a, main div#pageContainer a:active, main div#pageContainer a:hover, main div#pageContainer a:visited {
+      color: #000000; }
+  main div#pageContent h1, main div#pageContent h2, main div#pageContent h3 {
+    margin: 0; }
+  main div#pageContent h1.title {
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #f8f9fa; }
+  main div#pageContent .contentTop {
+    color: #343a40; }
+  main div#pageContent .paragraph {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #343a40;
+    color: #343a40;
+    border-radius: 15px;
+    padding: 1rem;
+    height: calc(100% - 30px);
+    margin-top: 15px;
+    overflow: hidden; }
+    main div#pageContent .paragraph a, main div#pageContent .paragraph a:visited {
+      color: #343a40; }
+    main div#pageContent .paragraph a:active, main div#pageContent .paragraph a:hover {
+      color: #343a40; }
+    main div#pageContent .paragraph h2 {
+      border-bottom: 1px solid;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem; }
+    main div#pageContent .paragraph h3 {
+      border-width: 1px 0;
+      border-style: solid;
+      padding: 0.5rem 0;
+      margin: 0.5rem 0; }
+    main div#pageContent .paragraph h3.partHeader {
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.95); }
+    main div#pageContent .paragraph img {
+      max-width: 100%; }
+
+.container.fixed-bottom {
+  background: #343a40 url("../img/admin-raster.png");
+  border-top: 1px solid #343a40;
+  height: 2.25rem; }
+
+footer {
+  font-size: 0.8rem;
+  padding: 0;
+  color: #f8f9fa; }
+  footer a, footer a:visited {
+    color: #f8f9fa; }
+  footer a:active, footer a:hover, footer a:focus {
+    color: #f8f9fa; }
+

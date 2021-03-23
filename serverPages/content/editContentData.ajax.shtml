@@ -9,7 +9,7 @@
         </div>
         <spg:form url="{{url}}" name="pageform" ajax="true">
             <div class="modal-body">
-                <spg:error/>
+                <spg:formerror/>
                 <h3>{{_settings}}
                 </h3>
                 <spg:line label="_idAndUrl">{{id}}

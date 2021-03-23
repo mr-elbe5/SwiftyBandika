@@ -6,31 +6,31 @@
     <div class="row">
         <section class="col-md-8 contentSection">
             <div class="paragraph form">
-                <spg:line label="_id">{{user.getId())}}
+                <spg:line label="_id">{{id}}
                 </spg:line>
-                <spg:line label="_login">{{user.getLogin())}}
+                <spg:line label="_loginName">{{login}}
                 </spg:line>
-                <spg:line label="_title">{{user.getTitle())}}
+                <spg:line label="_title">{{title}}
                 </spg:line>
-                <spg:line label="_firstName">{{user.getFirstName())}}
+                <spg:line label="_firstName">{{firstName}}
                 </spg:line>
-                <spg:line label="_lastName">{{user.getLastName())}}
+                <spg:line label="_lastName">{{lastName}}
                 </spg:line>
                 <h3>{{_address}}
                 </h3>
-                <spg:line label="_street">{{user.getStreet())}}
+                <spg:line label="_street">{{street}}
                 </spg:line>
-                <spg:line label="_zipCode">{{user.getZipCode())}}
+                <spg:line label="_zipCode">{{zipCode}}
                 </spg:line>
-                <spg:line label="_city">{{user.getCity())}}
+                <spg:line label="_city">{{city}}
                 </spg:line>
-                <spg:line label="_country">{{user.getCountry())}}
+                <spg:line label="_country">{{country}}
                 </spg:line>
                 <h3>{{_contact}}
                 </h3>
-                <spg:line label="_email">{{user.getEmail())}}
+                <spg:line label="_email">{{email}}
                 </spg:line>
-                <spg:line label="_phone">{{user.getPhone())}}
+                <spg:line label="_phone">{{phone}}
                 </spg:line>
             </div>
         </section>

@@ -9,7 +9,7 @@
         </div>
         <spg:form url="{{url}}" name="fileform" ajax="true" multi="true">
             <div class="modal-body">
-                <spg:error/>
+                <spg:formerror/>
                 <spg:line label="_idAndFileName">{{id}} - {{fileName}}
                 </spg:line>
                 <spg:line label="_creation">{{creationDate}} - {{creatorName}}

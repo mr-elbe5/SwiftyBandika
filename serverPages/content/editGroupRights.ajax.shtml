@@ -9,7 +9,7 @@
         </div>
         <spg:form url="{{url}}" name="pageform" ajax="true">
             <div class="modal-body">
-                <spg:error/>
+                <spg:formerror/>
                 <spg:line label="_group" padded="true">{{_rights}}
                 </spg:line>
                 {{groupRights}}

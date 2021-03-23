@@ -11,6 +11,7 @@
 
         <spg:form url="/ajax/user/login" name="loginForm" ajax="true" >
             <div class="modal-body">
+                <spg:formerror/>
                 <div class="form-group">
                     <label for="login" class="sr-only">{{_loginName}}
                     </label>
@@ -25,9 +26,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-outline-primary" type="submit">{{_login}}
-                </button>
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">{{_close}}
+                </button>
+                <button class="btn btn-primary" type="submit">{{_login}}
                 </button>
             </div>
         </spg:form>

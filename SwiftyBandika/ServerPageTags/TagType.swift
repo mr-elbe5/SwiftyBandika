@@ -20,7 +20,7 @@ enum TagType: String, Codable {
     case spgFormCheck = "check"
     case spgFormDate = "date"
     case spgFormEditor = "editor"
-    case spgFormError = "error"
+    case spgFormError = "formerror"
     case spgFormFile = "file"
     case spgFormLine = "line"
     case spgFormPassword = "password"

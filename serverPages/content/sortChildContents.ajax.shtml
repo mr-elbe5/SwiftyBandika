@@ -9,7 +9,7 @@
         </div>
         <spg:form url="{{url}}" name="pageform" ajax="true" multi="true">
             <div class="modal-body">
-                <spg:error/>
+                <spg:formerror/>
                 <h3>{{_sequence}}
                 </h3>
                 {{sortContents}}

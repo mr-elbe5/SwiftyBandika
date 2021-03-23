@@ -8,12 +8,12 @@
         </div>
         <spg:form url="{{url}}" name="userform" ajax="true">
             <div class="modal-body">
-                <spg:error/>
+                <spg:formerror/>
                 <h3>{{_settings}}
                 </h3>
                 <spg:line label="_id">{{id}}
                 </spg:line>
-                <spg:text name="login" label="_login" required="true" value="{{login}}"/>
+                <spg:text name="login" label="_loginName" required="true" value="{{login}}"/>
                 <spg:password name="password" label="_password"/>
                 <spg:password name="passwordCopy" label="_passwordCopy"/>
                 <spg:text name="title" label="_title" value="{{title}}"/>

@@ -101,7 +101,7 @@ class GroupController: Controller {
         request.addPageVar("url", "/ctrl/group/saveGroup/\(group.id)")
         request.addPageVar("id", String(group.id))
         request.addPageVar("name", group.name.toHtml())
-        request.addPageVar("notes", group.notes.toHtmlMultiline())
+        request.addPageVar("notes", group.notes.trim().toHtml())
         var str = ""
         for zone in SystemZone.allCases {
             str.append(FormCheckTag.getCheckHtml(name: "zoneright_"+zone.rawValue, value: String(true), label: ("_zone."+zone.rawValue).toLocalizedHtml(), checked: group.hasSystemRight(zone: zone)))

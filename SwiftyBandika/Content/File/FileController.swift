@@ -247,7 +247,7 @@ class FileController: Controller {
         request.addPageVar("fileName", file.fileName.toHtml())
         request.addPageVar("fileRequired", String(file.isNew))
         request.addPageVar("displayName", file.displayName.toHtml())
-        request.addPageVar("description", file.description.toHtmlMultiline())
+        request.addPageVar("description", file.description.trim().toHtml())
     }
 
 }

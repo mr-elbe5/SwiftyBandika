@@ -39,7 +39,7 @@ class ContentController: Controller {
             request.addPageVar("language", Statics.instance.defaultLocale.languageCode ?? "en")
             request.addPageVar("title", Statics.title.toHtml())
             request.addPageVar("keywords", content.keywords.toHtml())
-            request.addPageVar("description", content.description.toHtml())
+            request.addPageVar("description", content.description.trim().toHtml())
             let master = TemplateCache.getTemplate(type: TemplateType.master, name: content.master)
             if let html = master?.getHtml(request: request) {
                 return Response(html: Html.prettyfy(src: html))
@@ -374,7 +374,7 @@ class ContentController: Controller {
             request.addPageVar("changerName", user.name.toHtml())
         }
         request.addPageVar("displayName", contentData.displayName.toHtml())
-        request.addPageVar("description", contentData.description.toHtml())
+        request.addPageVar("description", contentData.description.trim().toHtml())
         request.addConditionalPageVar("isOpenSelected", "selected", if: contentData.accessType == ContentData.ACCESS_TYPE_OPEN)
         request.addConditionalPageVar("isInheritsSelected", "selected", if: contentData.accessType == ContentData.ACCESS_TYPE_INHERITS)
         request.addConditionalPageVar("isIndividualSelected", "selected", if: contentData.accessType == ContentData.ACCESS_TYPE_INDIVIDUAL)

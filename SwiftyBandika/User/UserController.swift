@@ -47,10 +47,11 @@ class UserController: Controller {
         if let user = UserContainer.instance.getUser(login: login, pwd: password) {
             Log.info("user \(login) logged in")
             request.session?.user = user
-        } else {
-            Log.warn("login of user \(login) failed")
+            return CloseDialogResponse(url: "/", request: request)
         }
-        return CloseDialogResponse(url: "/", request: request)
+        Log.warn("login of user \(login) failed")
+        request.addFormError("_badLogin".localize())
+        return showLogin(request: request)
     }
 
     func logout(request: Request) -> Response {
@@ -78,7 +79,7 @@ class UserController: Controller {
             if let original = UserContainer.instance.getUser(id: id) {
                 data.copyFixedAttributes(from: original)
                 data.copyEditableAttributes(from: original)
-                request.setSessionAttribute("user", value: data)
+                request.setSessionUser(data)
                 return showEditUser(user: data, request: request)
             }
         }
@@ -144,14 +145,14 @@ class UserController: Controller {
 
     func openProfile(request: Request) -> Response {
         if request.isLoggedIn {
-            return showProfile(request: request)
+            return showProfile(user: request.user!, request: request)
         }
         return Response(code: .forbidden)
     }
 
     func openChangePassword(request: Request) -> Response {
         if request.isLoggedIn {
-            return showChangePassword(request: request)
+            return showChangePassword(user: request.user!, request: request)
         }
         return Response(code: .forbidden)
     }
@@ -160,27 +161,28 @@ class UserController: Controller {
         if request.isLoggedIn, let id = id, id == request.userId {
             if let user = UserContainer.instance.getUser(id: id) {
                 let oldPassword = request.getString("oldPassword")
-                let newPassword = request.getString("newPassword1")
-                let newPassword2 = request.getString("newPassword2")
-                if newPassword.count < UserData.minPasswordLength {
-                    request.addFormField("newPassword1")
-                    request.addFormError("_passwordLengthError".localize())
-                    return showChangePassword(request: request)
-                }
-                if newPassword != newPassword2 {
-                    request.addFormField("newPassword1")
-                    request.addFormField("newPassword2")
-                    request.addFormError("_passwordsDontMatch".localize())
-                    return showChangePassword(request: request)
-                }
                 if let data = UserContainer.instance.getUser(login: user.login, pwd: oldPassword) {
+                    let newPassword = request.getString("newPassword1")
+                    let newPassword2 = request.getString("newPassword2")
+                    if newPassword.count < UserData.minPasswordLength {
+                        request.addFormField("newPassword1")
+                        request.addFormError("_passwordLengthError".localize())
+                        return showChangePassword(user: request.user!, request: request)
+                    }
+                    if newPassword != newPassword2 {
+                        request.addFormField("newPassword1")
+                        request.addFormField("newPassword2")
+                        request.addFormError("_passwordsDontMatch".localize())
+                        return showChangePassword(user: request.user!, request: request)
+                    }
                     _ = UserContainer.instance.updateUserPassword(data: data, newPassword: newPassword)
                     request.setMessage("_passwordChanged", type: .success)
                     return CloseDialogResponse(url: "/ctrl/user/openProfile", request: request)
+
                 } else {
-                    request.addFormField("newPassword1");
+                    request.addFormField("oldPassword");
                     request.addFormError("_badLogin".localize())
-                    return showChangePassword(request: request)
+                    return showChangePassword(user: request.user!, request: request)
                 }
             }
             return Response(code: .forbidden)
@@ -190,7 +192,7 @@ class UserController: Controller {
 
     func openChangeProfile(request: Request) -> Response {
         if request.isLoggedIn {
-            return showChangeProfile(request: request)
+            return showChangeProfile(user: request.user!, request: request)
         }
         return Response(code: .forbidden)
     }
@@ -201,7 +203,7 @@ class UserController: Controller {
                 if let data = UserContainer.instance.getUser(id: id){
                     data.readProfileRequest(request)
                     if request.hasFormError {
-                        return showChangeProfile(request: request)
+                        return showChangeProfile(user: request.user!, request: request)
                     }
                     if UserContainer.instance.updateUser(data: data, userId: request.userId) {
                         request.session?.user = UserContainer.instance.getUser(id: data.id)
@@ -211,7 +213,7 @@ class UserController: Controller {
                     else{
                         Log.warn("original data not found for update.")
                         request.setMessage("_saveError", type: .danger)
-                        return showChangeProfile(request: request)
+                        return showChangeProfile(user: request.user!, request: request)
                     }
                 }
             }
@@ -226,6 +228,32 @@ class UserController: Controller {
 
     func showEditUser(user: UserData, request: Request) -> Response {
         request.addPageVar("url", "/ctrl/user/saveUser/\(user.id)")
+        setUserVars(user: user, request: request)
+        var str = ""
+        for group in UserContainer.instance.groups{
+            str.append(FormCheckTag.getCheckHtml(name: "groupIds", value: String(group.id), label: group.name, checked: group.userIds.contains(user.id)))
+        }
+        request.addPageVar("groupChecks", str)
+        return ForwardResponse(page: "user/editUser.ajax", request: request)
+    }
+
+    func showProfile(user: UserData, request: Request) -> Response {
+        setUserVars(user: user, request: request)
+        return TemplateController.instance.processPageInMaster(page: "user/profile", request: request)
+    }
+
+    func showChangePassword(user: UserData, request: Request) -> Response {
+        request.addPageVar("url", "/ctrl/user/changePassword/\(user.id)")
+        return ForwardResponse(page: "user/editPassword.ajax", request: request)
+    }
+
+    func showChangeProfile(user: UserData, request: Request) -> Response {
+        request.addPageVar("url", "/ctrl/user/changeProfile/\(user.id)")
+        setUserVars(user: user, request: request)
+        return ForwardResponse(page: "user/editProfile.ajax", request: request)
+    }
+
+    func setUserVars(user: UserData, request: Request){
         request.addPageVar("id", String(user.id))
         request.addPageVar("login", user.login.toHtml())
         request.addPageVar("firstName", user.firstName.toHtml())
@@ -237,24 +265,6 @@ class UserController: Controller {
         request.addPageVar("country", user.country.toHtml())
         request.addPageVar("email", user.email.toHtml())
         request.addPageVar("phone", user.phone.toHtml())
-        var str = ""
-        for group in UserContainer.instance.groups{
-            str.append(FormCheckTag.getCheckHtml(name: "groupIds", value: String(group.id), label: group.name, checked: group.userIds.contains(user.id)))
-        }
-        request.addPageVar("groupChecks", str)
-        return ForwardResponse(page: "user/editUser.ajax", request: request)
-    }
-
-    func showProfile(request: Request) -> Response {
-        TemplateController.instance.processPageInMaster(page: "user/profile", request: request)
-    }
-
-    func showChangePassword(request: Request) -> Response {
-        return ForwardResponse(page: "user/editPassword.ajax", request: request)
-    }
-
-    func showChangeProfile(request: Request) -> Response {
-        return ForwardResponse(page: "user/editProfile.ajax", request: request)
     }
 
 }

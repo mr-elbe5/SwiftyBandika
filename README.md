@@ -261,7 +261,7 @@ A dialog lets you change the sequential appearance of child contents in any list
 
 ##### Cut Content (Scissor)
 
-Cut cotent to the internal clipboard. Only after pasting the content is actually moved.
+Cut content to the internal clipboard. Only after pasting the content is actually moved.
 
 ##### Copy Content (Empty double Page)
 
@@ -272,4 +272,39 @@ Copy content to the clipboard. During this operation the new content gets a new 
 Deletes the content permanantly.
 The root content (Home page) cannot be deleted - it can only be changed.
 
+### File Administration
+
+For each content the content administration lets you create files, or edit file settings.
+
+##### Add (new) File (Plus with Down Arrow)
+
+Create new file data and opens a dialog to edit it (see below).
+
+##### Paste File (Filled double Page)
+
+Lets you paste a file from the internal clipboard if present.
+
+##### View File (Eye)
+
+Open the file in a new window.
+
+##### Download File (Arrow down)
+
+Lets you save this file locally.
+
+##### Edit File Settings (Pencil)
+
+A dialog lets you edit the file's settings, including name, description and the file itself (replace).
+
+##### Cut File (Scissor)
+
+Cut the file to the internal clipboard. Only after pasting the file is actually moved.
+
+##### Copy File (Empty double Page)
+
+Copy the file to the clipboard. During this operation the new file gets a new ID and a new physical file, but all other attributes are exactly copied.
+
+##### Delete File (Trash)
+
+Deletes the file permanantly.
 

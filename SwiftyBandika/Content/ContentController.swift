@@ -56,12 +56,21 @@ class ContentController: Controller {
             if !Right.hasUserEditRight(user: request.user, content: parent) {
                 return Response(code: .forbidden)
             }
-            if let type = DataType(rawValue: request.getString("type")), let data = DataFactory.create(type: type) as? ContentData{
+            let type = request.getString("type")
+            if let type = DataType(rawValue: type), let data = DataFactory.create(type: type) as? ContentData{
                 data.setCreateValues(parent: parent, request: request)
                 data.parentId = parent.id
                 data.parentVersion = parent.version
                 request.setSessionContent(data)
-                return showEditContent(contentData: data, request: request)
+                if let controller = ControllerFactory.getDataController(type: data.type) as? ContentController{
+                    return controller.showEditContent(contentData: data, request: request)
+                }
+                else{
+                    Log.error("controller type not found: \(type)")
+                }
+            }
+            else{
+                Log.error("data type not found: \(type)")
             }
         }
         return Response(code: .badRequest)

@@ -289,7 +289,7 @@ class ContentController: Controller {
     }
 
     func saveChildPageRanking(id: Int?, request: Request) -> Response {
-        if let id = id, let data = request.getContent(), id == data.id {
+        if let id = id, let data = request.getSessionContent(), id == data.id {
             if !Right.hasUserEditRight(user: request.user, content: data) {
                 return Response(code: .forbidden)
             }
@@ -394,7 +394,7 @@ class ContentController: Controller {
     }
 
     func showEditRights(contentData: ContentData, request: Request) -> Response {
-        request.addPageVar("url", "/ctrl/\(contentData.type.rawValue)/saveRights/\(contentData.id)")
+        request.addPageVar("url", "/ctrl/\(contentData.type.rawValue)/saveRights/\(contentData.id)?version=\(contentData.version)")
         var html = ""
         for group in UserContainer.instance.groups {
             if group.id <= GroupData.ID_MAX_FINAL {
@@ -434,11 +434,11 @@ class ContentController: Controller {
             html.append(lineTag.getEndHtml(request: request))
         }
         request.addPageVar("groupRights", html)
-        print(html)
         return ForwardResponse(page: "content/editGroupRights.ajax", request: request);
     }
 
     func showSortChildContents(contentData: ContentData, request: Request) -> Response {
+        request.addPageVar("url", "/ctrl/\(contentData.type.rawValue)/saveChildPageRanking/\(contentData.id)?version=\(contentData.version)")
         var childSortList = Array<(Int,String)>()
         for subpage in contentData.children {
             childSortList.append((subpage.id, subpage.name))

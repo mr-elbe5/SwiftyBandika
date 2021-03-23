@@ -53,7 +53,6 @@
 		3324D5959BD6516CC22ED7D2 /* ContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D891C8EE8AF696E399A9 /* ContentData.swift */; };
 		3324D5B8C3D763922687954E /* CkTreeTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D9455862C7794DDCB8CD /* CkTreeTag.swift */; };
 		3324D5BB1B5E2494702E3929 /* Right.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D621620F6AE0025E6A92 /* Right.swift */; };
-		3324D5C0626400A69902A333 /* DefaultContentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D729447A39649D8E70A3 /* DefaultContentContainer.swift */; };
 		3324D5E5A4046DE563DAE1B9 /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D544D3EB55725A242F15 /* MessageType.swift */; };
 		3324D5F09D4B5141A799E456 /* IdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D153397BFD1398E765C6 /* IdService.swift */; };
 		3324D5F10F9CB18204FAA34E /* PartField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D9EB7B484686E6081F45 /* PartField.swift */; };
@@ -98,6 +97,7 @@
 		3324DAB5011DFC283B97B1D5 /* SessionCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D177FB8580FB5248E27D /* SessionCache.swift */; };
 		3324DAD836B98B7A80A81D3F /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D60C36BC7A9DC658183C /* Alert.swift */; };
 		3324DADB5B8DFCADA7903778 /* FooterTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324DF82D6F9D4E2374C0E7B /* FooterTag.swift */; };
+		3324DAF8278AA774ACD1D036 /* defaultContent in Resources */ = {isa = PBXBuildFile; fileRef = 3324DA4D2E33043EB56E89DF /* defaultContent */; };
 		3324DAFED5C30A9A22723E19 /* defaultTemplates in Resources */ = {isa = PBXBuildFile; fileRef = 3324D1E4FB7331B82B1ABA26 /* defaultTemplates */; };
 		3324DB163833B4E1291B7645 /* SysNavTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D4E566529D1C7A94013B /* SysNavTag.swift */; };
 		3324DB370D5B410F81FFE715 /* ActionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324DD5BC4AFE7D6CCD30E10 /* ActionQueue.swift */; };
@@ -238,7 +238,6 @@
 		3324D6CF41AAC039822D4FD5 /* ServerPageParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerPageParser.swift; sourceTree = "<group>"; };
 		3324D6D9D488D9A6C8653F8D /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		3324D6F2BC88B807824EE9A5 /* Separator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
-		3324D729447A39649D8E70A3 /* DefaultContentContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultContentContainer.swift; sourceTree = "<group>"; };
 		3324D766A12962A99D72A9A5 /* ContentTreeTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentTreeTag.swift; sourceTree = "<group>"; };
 		3324D7B67CEE9308E039526D /* LayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutViewController.swift; sourceTree = "<group>"; };
 		3324D7CFF164BBD9E47DF048 /* SectionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionData.swift; sourceTree = "<group>"; };
@@ -258,6 +257,7 @@
 		3324DA2A9611D37893022B91 /* FormSelectTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormSelectTag.swift; sourceTree = "<group>"; };
 		3324DA2BB45292A0A99CB748 /* NSImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSImage.swift; sourceTree = "<group>"; };
 		3324DA4AEB6D556DAD260212 /* FormTextAreaTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormTextAreaTag.swift; sourceTree = "<group>"; };
+		3324DA4D2E33043EB56E89DF /* defaultContent */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = defaultContent; sourceTree = "<group>"; };
 		3324DA63E3F3FAF364E1834E /* HtmlFieldTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HtmlFieldTag.swift; sourceTree = "<group>"; };
 		3324DABDD6C7AFC7FE6D9656 /* TagType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagType.swift; sourceTree = "<group>"; };
 		3324DAC0BD11941FD7A76486 /* IncludeTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncludeTag.swift; sourceTree = "<group>"; };
@@ -367,7 +367,6 @@
 				3324D2E6F386FF4D23E970A2 /* ContentArray.swift */,
 				3324D5F57BC95F59427086D5 /* ContentContainer.swift */,
 				3324D891C8EE8AF696E399A9 /* ContentData.swift */,
-				3324D729447A39649D8E70A3 /* DefaultContentContainer.swift */,
 				3324DEB711D879CCCE7DAE5B /* File */,
 				3324DED40B881F92000AA7E6 /* FullPage */,
 				3324D2A7E9F4612125584BD0 /* Page */,
@@ -553,6 +552,7 @@
 				3324D1E4FB7331B82B1ABA26 /* defaultTemplates */,
 				3324D2E5729D563DE502F2BF /* defaultLayout */,
 				3324D14EA2A90A0FD798DEF8 /* README.md */,
+				3324DA4D2E33043EB56E89DF /* defaultContent */,
 			);
 			sourceTree = "<group>";
 		};
@@ -756,6 +756,7 @@
 				3324DAFED5C30A9A22723E19 /* defaultTemplates in Resources */,
 				3324D8F89A38AD79C5ACDA08 /* defaultLayout in Resources */,
 				3324D3191EBFEDEC2185C194 /* Credits.html in Resources */,
+				3324DAF8278AA774ACD1D036 /* defaultContent in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -797,7 +798,6 @@
 				3324DE7F9A8456540FF49133 /* ContentArray.swift in Sources */,
 				3324D0AE2ED20034796168FA /* ContentContainer.swift in Sources */,
 				3324D5959BD6516CC22ED7D2 /* ContentData.swift in Sources */,
-				3324D5C0626400A69902A333 /* DefaultContentContainer.swift in Sources */,
 				3324D2257BD2E53127319CD0 /* FileData.swift in Sources */,
 				3324DA3D247013312C8E5BF4 /* FileType.swift in Sources */,
 				3324DCBCCCBC2194B5B23A5D /* FullPageData.swift in Sources */,

@@ -28,6 +28,7 @@ struct Paths{
     static var resourceDirectory = Bundle.main.resourceURL
     static var webDirectory = URL(fileURLWithPath: "web", isDirectory: true, relativeTo: resourceDirectory)
     static var serverPagesDirectory = URL(fileURLWithPath: "serverPages", isDirectory: true, relativeTo: resourceDirectory)
+    static var defaultContentDirectory = URL(fileURLWithPath: "defaultContent", isDirectory: true, relativeTo: resourceDirectory)
     static var defaultTemplateDirectory = URL(fileURLWithPath: "defaultTemplates", isDirectory: true, relativeTo: resourceDirectory)
     static var defaultLayoutDirectory = URL(fileURLWithPath: "defaultLayout", isDirectory: true, relativeTo: resourceDirectory)
 

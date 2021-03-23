@@ -61,7 +61,7 @@ class FullPageData: PageData {
     override func createPublishedContent(request: Request) {
         publishedContent = Html.prettyfy(src: """
                                <div class="{{cssClass}}">
-                                   {{content]}
+                                   {{content}}
                                </div>
                            """.format([
                                 "cssClass": cssClass,

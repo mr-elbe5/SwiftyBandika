@@ -79,4 +79,12 @@ class FullPageData: PageData {
         content = request.getString("content")
     }
 
+    override func displayEditContent(request: Request) -> String {
+        getEditContentHtml(request: request)
+    }
+
+    override func displayDraftContent(request: Request) -> String {
+        getDraftContentHtml(request: request)
+    }
+
 }

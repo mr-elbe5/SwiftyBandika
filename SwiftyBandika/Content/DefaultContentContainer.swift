@@ -24,7 +24,7 @@ class DefaultContentContainer : ContentContainer{
     }
     
     func initializeRootContent(){
-        let contentData = TemplatePageData()
+        let contentData = FullPageData()
         contentData.isNew = false
         contentData.id = ContentData.ID_ROOT
         contentData.creationDate = App().currentTime
@@ -34,7 +34,6 @@ class DefaultContentContainer : ContentContainer{
         contentData.name = ""
         contentData.displayName = "Home"
         contentData.description = "Content Root"
-        contentData.template = "defaultPage"
         contentData.publishDate = contentData.changeDate
         contentData.publishedContent = "Lorem ipsum"
         contentData.version = 1

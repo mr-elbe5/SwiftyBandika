@@ -309,13 +309,6 @@ class ContentController: Controller {
         return Response(code: .badRequest)
     }
 
-
-    func clearClipboard(request: Request) -> Response {
-        Clipboard.instance.removeData(type: .content)
-        Clipboard.instance.removeData(type: .file)
-        return showContentAdministration(request: request)
-    }
-
     func showEditPage(id: Int?, request: Request) -> Response {
         if let id = id {
             if !Right.hasUserEditRight(user: request.user, contentId: id) {

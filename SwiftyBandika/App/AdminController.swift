@@ -23,6 +23,7 @@ class AdminController: Controller {
         switch method {
         case "openUserAdministration": return openUserAdministration(request: request)
         case "openContentAdministration": return openContentAdministration(request: request)
+        case "clearClipboard": return clearClipboard(request: request)
         default:
             return nil
         }
@@ -35,6 +36,12 @@ class AdminController: Controller {
 
     func openContentAdministration(request: Request) -> Response {
         if !SystemZone.hasUserAnySystemRight(user: request.user){ return Response(code: .forbidden)}
+        return showContentAdministration(request: request)
+    }
+
+    func clearClipboard(request: Request) -> Response {
+        Clipboard.instance.removeData(type: .content)
+        Clipboard.instance.removeData(type: .file)
         return showContentAdministration(request: request)
     }
 

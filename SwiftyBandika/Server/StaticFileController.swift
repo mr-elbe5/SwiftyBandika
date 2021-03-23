@@ -18,7 +18,7 @@ class StaticFileController: Controller {
         let fullURL = URL(fileURLWithPath: path.removeLeadingSlash(), relativeTo: Paths.webDirectory)
         if let data : Data = Files.readFile(url: fullURL){
             let contentType = fullURL.path.mimeType()
-            return Response(data: data, contentType: contentType)
+            return Response(data: data, fileName: fullURL.lastPathComponent, contentType: contentType)
         }
         Log.info("reading file from \(fullURL.absoluteURL) failed")
         return Response(code: .notFound)
@@ -31,7 +31,7 @@ class StaticFileController: Controller {
         let fullURL = URL(fileURLWithPath: path, relativeTo: Paths.layoutDirectory)
         if let data : Data = Files.readFile(url: fullURL){
             let contentType = fullURL.path.mimeType()
-            return Response(data: data, contentType: contentType)
+            return Response(data: data, fileName: fullURL.lastPathComponent, contentType: contentType)
         }
         Log.info("reading file from \(fullURL.absoluteURL) failed")
         return Response(code: .notFound)

@@ -43,9 +43,11 @@ class Response {
         body = ByteBuffer(string: json)
     }
 
-    init(data: Data, contentType: String){
+    init(data: Data, fileName: String, contentType: String, download: Bool = false){
         status = .ok
         headers.replaceOrAdd(name: "Content-Type", value: contentType)
+        let disposition = "\(download ? "attachment" : "inline"); filename=\"\(fileName.toSafeWebName())\""
+        headers.replaceOrAdd(name: "Content-Disposition", value: disposition)
         body = ByteBuffer(bytes: data)
     }
 

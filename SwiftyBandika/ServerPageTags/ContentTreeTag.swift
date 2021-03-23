@@ -19,7 +19,7 @@ class ContentTreeTag: ServerPageTag {
         var html = ""
         html.append("""
                     <section class="treeSection">
-                        <div><a href="/ctrl/content/clearClipboard">{{_clearClipboard}}</a></div>
+                        <div><a href="/ctrl/admin/clearClipboard">{{_clearClipboard}}</a></div>
                         <ul class="tree pagetree">
                     """.format(nil))
         if Right.hasUserReadRight(user: request.user, contentId: ContentData.ID_ROOT) {

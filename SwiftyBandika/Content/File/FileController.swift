@@ -64,8 +64,9 @@ class FileController: Controller {
             }
             Log.info("loading file \(id)")
             if let data: Data = Files.readFile(url: file.file.url) {
+                let download = request.getBool("download")
                 let contentType = file.file.url.path.mimeType()
-                return Response(data: data, contentType: contentType)
+                return Response(data: data, fileName: file.fileName, contentType: contentType, download: download)
             }
             Log.info("reading file for id \(id) failed")
         }
@@ -80,7 +81,7 @@ class FileController: Controller {
             Log.info("loading preview file \(id)")
             if let pvf = file.previewFile, let data: Data = Files.readFile(url: pvf.url) {
                 let contentType = file.file.url.path.mimeType()
-                return Response(data: data, contentType: contentType)
+                return Response(data: data, fileName: file.fileName, contentType: contentType)
             }
             Log.info("reading preview file for id \(id) failed")
         }
@@ -164,22 +165,21 @@ class FileController: Controller {
                 return Response(code: .forbidden)
             }
             let data = FileData()
+            data.copyFixedAttributes(from: original)
             data.copyEditableAttributes(from: original)
             data.setCreateValues(request: request)
             // marking as copy
             data.parentId = 0
             data.parentVersion = 0
-            if original.file.live , data.file.live {
-                var success = Files.copyFile(fromURL: original.file.url, toURL: data.file.url)
-                if original.isImage, let opf = original.previewFile, let npf = data.previewFile {
-                    success = success && Files.copyFile(fromURL: opf.url, toURL: npf.url)
-                }
-                if !success {
-                    return Response(code: .internalServerError)
-                }
-                Clipboard.instance.setData(type: DataType.file, data: data)
-                return showContentAdministration(contentId: data.id, request: request)
+            var success = Files.copyFile(fromURL: original.file.url, toURL: data.file.url)
+            if original.isImage, let opf = original.previewFile, let npf = data.previewFile {
+                success = success && Files.copyFile(fromURL: opf.url, toURL: npf.url)
             }
+            if !success {
+                return Response(code: .internalServerError)
+            }
+            Clipboard.instance.setData(type: DataType.file, data: data)
+            return showContentAdministration(contentId: data.id, request: request)
         }
         return Response(code: .badRequest)
     }

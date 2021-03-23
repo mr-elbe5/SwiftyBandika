@@ -121,6 +121,14 @@ class FileData: BaseData {
         try container.encode(fileType, forKey: .fileType)
     }
 
+    override func copyFixedAttributes(from data: TypedData) {
+        super.copyFixedAttributes(from: data)
+        if let fileData = data as? FileData {
+            parentId = fileData.parentId
+            parentVersion = fileData.parentVersion
+        }
+    }
+
     override func copyEditableAttributes(from data: TypedData) {
         super.copyEditableAttributes(from: data)
         if let fileData = data as? FileData {
@@ -136,6 +144,14 @@ class FileData: BaseData {
             if isImage{
                 previewFile = DiskFile(name: previewFileName, live: fileData.live)
             }
+        }
+    }
+
+    override func setCreateValues(request: Request) {
+        super.setCreateValues(request: request)
+        file = DiskFile(name: fileName, live: false)
+        if isImage{
+            previewFile = DiskFile(name: previewFileName, live: false)
         }
     }
 

@@ -175,19 +175,6 @@ main div#pageContent .paragraph a:active, main div#pageContent .paragraph a:hove
     color: #343a40;
 }
 
-main div#pageContent .paragraph h2 {
-    border-bottom: 1px solid;
-    padding-bottom: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-main div#pageContent .paragraph h3 {
-    border-width: 1px 0;
-    border-style: solid;
-    padding: 0.5rem 0;
-    margin: 0.5rem 0;
-}
-
 main div#pageContent .paragraph h3.partHeader {
     padding: 0.5rem 1rem;
     background: rgba(255, 255, 255, 0.95);

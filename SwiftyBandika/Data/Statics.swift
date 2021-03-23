@@ -1,9 +1,11 @@
-//
-//  AppStatics.swift
-//  
-//
-//  Created by Michael Rönnau on 02.02.21.
-//
+/*
+ SwiftyBandika CMS - A Swift based Content Management System with JSON Database
+ Copyright (C) 2021 Michael Roennau
+
+ This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ You should have received a copy of the GNU General Public License along with this program; if not, see <http://www.gnu.org/licenses/>.
+*/
 
 import Foundation
 
@@ -37,11 +39,13 @@ class Statics: Codable{
         case salt
         case defaultPassword
         case defaultLocale
+        case cleanupInterval
     }
     
     var salt: String
     var defaultPassword: String
     var defaultLocale: Locale
+    var cleanupInterval : Int = 10
     
     required init(){
         salt = ""
@@ -53,7 +57,8 @@ class Statics: Codable{
         let values = try decoder.container(keyedBy: SectionDataCodingKeys.self)
         salt = try values.decode(String.self, forKey: .salt)
         defaultPassword = try values.decode(String.self, forKey: .defaultPassword)
-        defaultLocale = try values.decode(Locale.self, forKey: .defaultLocale)
+        defaultLocale = try values.decodeIfPresent(Locale.self, forKey: .defaultLocale) ?? Locale.init(identifier: "en")
+        cleanupInterval = try values.decodeIfPresent(Int.self, forKey: .cleanupInterval) ?? 10
     }
     
     func encode(to encoder: Encoder) throws {

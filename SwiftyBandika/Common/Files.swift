@@ -97,6 +97,25 @@ public class Files{
         }
     }
 
+    static func copyDirectory(fromURL: URL, toURL: URL){
+        do {
+            let childUrls = try FileManager.default.contentsOfDirectory(at: fromURL, includingPropertiesForKeys: nil)
+            for url in childUrls{
+                if url.isFileURL{
+                    try FileManager.default.copyItem(at: url, to: URL(fileURLWithPath: url.lastPathComponent, relativeTo: toURL))
+                }
+                else{
+                    let childDir = URL(fileURLWithPath: url.lastPathComponent, relativeTo: toURL)
+                    try FileManager.default.createDirectory(at: childDir, withIntermediateDirectories: true, attributes: nil)
+                    copyDirectory(fromURL: url, toURL: childDir)
+                }
+            }
+        }
+        catch{
+            Log.error("could not open directory")
+        }
+    }
+
     static func moveFile(fromURL: URL, toURL: URL, replace: Bool = false) -> Bool{
         do{
             if replace && fileExists(url: toURL){

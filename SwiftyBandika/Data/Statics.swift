@@ -55,8 +55,8 @@ class Statics: Codable{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: SectionDataCodingKeys.self)
-        salt = try values.decode(String.self, forKey: .salt)
-        defaultPassword = try values.decode(String.self, forKey: .defaultPassword)
+        salt = try values.decodeIfPresent(String.self, forKey: .salt) ?? ""
+        defaultPassword = try values.decodeIfPresent(String.self, forKey: .defaultPassword) ?? ""
         defaultLocale = try values.decodeIfPresent(Locale.self, forKey: .defaultLocale) ?? Locale.init(identifier: "en")
         cleanupInterval = try values.decodeIfPresent(Int.self, forKey: .cleanupInterval) ?? 10
     }

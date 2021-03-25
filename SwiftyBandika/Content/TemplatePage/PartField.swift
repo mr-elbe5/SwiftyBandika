@@ -9,40 +9,53 @@
 
 import Foundation
 
-class PartField : BaseData{
+class PartField : TypedData, Codable{
     
     static var PARTFIELD_KEY = "partfield";
     
     private enum PartFieldCodingKeys: CodingKey{
+        case id
+        case partId
         case name
         case content
     }
 
+    var type: DataType{
+        get{
+            .field
+        }
+    }
+
+    var partId: Int
     var name: String
     var content: String
 
     var identifier: String {
         get {
-            String(id) + "_" + name
+            String(partId) + "_" + name
         }
     }
     
-    override init(){
+    init(){
+        partId = 0
         name = ""
         content = ""
-        super.init()
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: PartFieldCodingKeys.self)
-        name = try values.decode(String.self, forKey: .name)
-        content = try values.decode(String.self, forKey: .content)
-        try super.init(from: decoder)
+        partId = try values.decodeIfPresent(Int.self, forKey: .partId) ?? 0
+        if partId == 0 {
+            //fallback
+            partId = try values.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        }
+        name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
+        content = try values.decodeIfPresent(String.self, forKey: .content) ?? ""
     }
     
-    override func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
+    func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: PartFieldCodingKeys.self)
+        try container.encode(partId, forKey: .partId)
         try container.encode(name, forKey: .name)
         try container.encode(content, forKey: .content)
     }
@@ -50,13 +63,19 @@ class PartField : BaseData{
     func getTypeKey() -> String{
         PartField.PARTFIELD_KEY
     }
+
+    func copyFixedAttributes(from data: TypedData) {
+    }
     
-    override func copyEditableAttributes(from data: TypedData) {
-        super.copyEditableAttributes(from: data)
+    func copyEditableAttributes(from data: TypedData) {
+
         if let partField = data as? PartField {
             name = partField.name
             content = partField.content
         }
     }
-    
+
+    func readRequest(_ request: Request) {
+    }
+
 }

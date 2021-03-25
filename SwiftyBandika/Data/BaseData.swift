@@ -51,12 +51,12 @@ class BaseData: TypedData, Identifiable, Codable, Hashable{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: BaseDataCodingKeys.self)
-        id = try values.decode(Int.self, forKey: .id)
-        version = try values.decode(Int.self, forKey: .version)
-        creationDate = try values.decode(Date.self, forKey: .creationDate)
-        changeDate = try values.decode(Date.self, forKey: .changeDate)
-        creatorId = try values.decode(Int.self, forKey: .creatorId)
-        changerId = try values.decode(Int.self, forKey: .changerId)
+        id = try values.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        version = try values.decodeIfPresent(Int.self, forKey: .version) ?? 1
+        creationDate = try values.decodeIfPresent(Date.self, forKey: .creationDate) ?? Date()
+        changeDate = try values.decodeIfPresent(Date.self, forKey: .changeDate) ?? Date()
+        creatorId = try values.decodeIfPresent(Int.self, forKey: .creatorId) ?? 1
+        changerId = try values.decodeIfPresent(Int.self, forKey: .changerId) ?? 1
     }
     
     func encode(to encoder: Encoder) throws {

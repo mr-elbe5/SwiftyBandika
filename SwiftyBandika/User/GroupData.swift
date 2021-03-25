@@ -47,10 +47,10 @@ class GroupData: BaseData{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: GroupDataCodingKeys.self)
-        name = try values.decode(String.self, forKey: .name)
-        notes = try values.decode(String.self, forKey: .notes)
-        systemRights = try values.decode(Array<SystemZone>.self, forKey: .systemRights)
-        userIds = try values.decode(Array<Int>.self, forKey: .userIds)
+        name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
+        notes = try values.decodeIfPresent(String.self, forKey: .notes) ?? ""
+        systemRights = try values.decodeIfPresent(Array<SystemZone>.self, forKey: .systemRights) ?? Array<SystemZone>()
+        userIds = try values.decodeIfPresent(Array<Int>.self, forKey: .userIds) ?? Array<Int>()
         try super.init(from: decoder)
     }
     

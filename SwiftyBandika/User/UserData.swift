@@ -78,18 +78,18 @@ class UserData: BaseData {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: UserDataCodingKeys.self)
-        title = try values.decode(String.self, forKey: .title)
-        firstName = try values.decode(String.self, forKey: .firstName)
-        lastName = try values.decode(String.self, forKey: .lastName)
-        email = try values.decode(String.self, forKey: .email)
-        login = try values.decode(String.self, forKey: .login)
-        passwordHash = try values.decode(String.self, forKey: .passwordHash)
-        street = try values.decode(String.self, forKey: .street)
-        zipCode = try values.decode(String.self, forKey: .zipCode)
-        city = try values.decode(String.self, forKey: .city)
-        country = try values.decode(String.self, forKey: .country)
-        phone = try values.decode(String.self, forKey: .phone)
-        groupIds = try values.decode(Array<Int>.self, forKey: .groupIds)
+        title = try values.decodeIfPresent(String.self, forKey: .title) ?? ""
+        firstName = try values.decodeIfPresent(String.self, forKey: .firstName) ?? ""
+        lastName = try values.decodeIfPresent(String.self, forKey: .lastName) ?? ""
+        email = try values.decodeIfPresent(String.self, forKey: .email) ?? ""
+        login = try values.decodeIfPresent(String.self, forKey: .login) ?? ""
+        passwordHash = try values.decodeIfPresent(String.self, forKey: .passwordHash) ?? ""
+        street = try values.decodeIfPresent(String.self, forKey: .street) ?? ""
+        zipCode = try values.decodeIfPresent(String.self, forKey: .zipCode) ?? ""
+        city = try values.decodeIfPresent(String.self, forKey: .city) ?? ""
+        country = try values.decodeIfPresent(String.self, forKey: .country) ?? ""
+        phone = try values.decodeIfPresent(String.self, forKey: .phone) ?? ""
+        groupIds = try values.decodeIfPresent(Array<Int>.self, forKey: .groupIds) ?? Array<Int>()
         try super.init(from: decoder)
     }
 

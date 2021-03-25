@@ -39,8 +39,8 @@ class TemplatePartData: PartData {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: TemplatePartDataCodingKeys.self)
-        template = try values.decode(String.self, forKey: .template)
-        let dict = try values.decode(Dictionary<String, TypedFieldItem>.self, forKey: .fields)
+        template = try values.decodeIfPresent(String.self, forKey: .template) ?? ""
+        let dict = try values.decodeIfPresent(Dictionary<String, TypedFieldItem>.self, forKey: .fields) ?? Dictionary<String, TypedFieldItem>()
         fields = dict.toPartArray()
         try super.init(from: decoder)
     }
@@ -89,7 +89,7 @@ class TemplatePartData: PartData {
         }
         let textfield = TextField()
         textfield.name = name
-        textfield.id = id
+        textfield.partId = id
         fields[name] = textfield
         return textfield
     }
@@ -100,7 +100,7 @@ class TemplatePartData: PartData {
         }
         let htmlfield = HtmlField()
         htmlfield.name = name
-        htmlfield.id = id
+        htmlfield.partId = id
         fields[name] = htmlfield
         return htmlfield
     }

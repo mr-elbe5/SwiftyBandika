@@ -97,18 +97,18 @@ class ContentData : BaseData{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: ContentDataCodingKeys.self)
-        name = try values.decode(String.self, forKey: .name)
-        displayName = try values.decode(String.self, forKey: .displayName)
-        description = try values.decode(String.self, forKey: .description)
-        keywords = try values.decode(String.self, forKey: .keywords)
-        master = try values.decode(String.self, forKey: .master)
-        accessType = try values.decode(String.self, forKey: .accessType)
-        navType = try values.decode(String.self, forKey: .navType)
-        active = try values.decode(Bool.self, forKey: .active)
-        groupRights = try values.decode(Dictionary<Int, Right>.self, forKey: .groupRights)
-        let items = try values.decode(Array<TypedContentItem>.self, forKey: .children)
+        name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
+        displayName = try values.decodeIfPresent(String.self, forKey: .displayName)  ?? ""
+        description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
+        keywords = try values.decodeIfPresent(String.self, forKey: .keywords) ?? ""
+        master = try values.decodeIfPresent(String.self, forKey: .master) ?? "defaultMaster"
+        accessType = try values.decodeIfPresent(String.self, forKey: .accessType) ?? "OPEN"
+        navType = try values.decodeIfPresent(String.self, forKey: .navType) ?? "NONE"
+        active = try values.decodeIfPresent(Bool.self, forKey: .active) ?? false
+        groupRights = try values.decodeIfPresent(Dictionary<Int, Right>.self, forKey: .groupRights) ?? Dictionary<Int, Right>()
+        let items = try values.decodeIfPresent(Array<TypedContentItem>.self, forKey: .children) ?? Array<TypedContentItem>()
         children = items.toContentArray()
-        files = try values.decode(Array<FileData>.self, forKey: .files)
+        files = try values.decodeIfPresent(Array<FileData>.self, forKey: .files) ?? Array<FileData>()
         try super.init(from: decoder)
     }
     

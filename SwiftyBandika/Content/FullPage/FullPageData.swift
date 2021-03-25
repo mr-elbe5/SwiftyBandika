@@ -33,8 +33,8 @@ class FullPageData: PageData {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: TemplatePageDataCodingKeys.self)
-        cssClass = try values.decode(String.self, forKey: .cssClass)
-        content = try values.decode(String.self, forKey: .content)
+        cssClass = try values.decodeIfPresent(String.self, forKey: .cssClass) ?? ""
+        content = try values.decodeIfPresent(String.self, forKey: .content) ?? ""
         try super.init(from: decoder)
     }
 

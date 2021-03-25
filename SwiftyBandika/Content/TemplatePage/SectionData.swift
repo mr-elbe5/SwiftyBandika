@@ -48,10 +48,10 @@ class SectionData : TypedData, Identifiable, Codable, Hashable{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: SectionDataCodingKeys.self)
-        name = try values.decode(String.self, forKey: .name)
-        contentId = try values.decode(Int.self, forKey: .contentId)
-        cssClass = try values.decode(String.self, forKey: .cssClass)
-        let items = try values.decode(Array<TypedPartItem>.self, forKey: .parts)
+        name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
+        contentId = try values.decodeIfPresent(Int.self, forKey: .contentId) ?? 0
+        cssClass = try values.decodeIfPresent(String.self, forKey: .cssClass) ?? ""
+        let items = try values.decodeIfPresent(Array<TypedPartItem>.self, forKey: .parts)  ?? Array<TypedPartItem>()
         parts = items.toPartArray()
     }
     

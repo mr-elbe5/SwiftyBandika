@@ -57,8 +57,8 @@ class PartData: BaseData {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: PartDataCodingKeys.self)
-        sectionName = try values.decode(String.self, forKey: .sectionName)
-        position = try values.decode(Int.self, forKey: .position)
+        sectionName = try values.decodeIfPresent(String.self, forKey: .sectionName) ?? ""
+        position = try values.decodeIfPresent(Int.self, forKey: .position) ?? 0
         try super.init(from: decoder)
     }
 

@@ -33,8 +33,8 @@ class TemplatePageData : PageData{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: TemplatePageDataCodingKeys.self)
-        template = try values.decode(String.self, forKey: .template)
-        sections = try values.decode(Dictionary<String, SectionData>.self, forKey: .sections)
+        template = try values.decodeIfPresent(String.self, forKey: .template) ?? ""
+        sections = try values.decodeIfPresent(Dictionary<String, SectionData>.self, forKey: .sections) ?? Dictionary<String, SectionData>()
         try super.init(from: decoder)
     }
     

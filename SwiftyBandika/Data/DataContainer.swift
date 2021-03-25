@@ -28,8 +28,8 @@ class DataContainer : Codable{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: DataContainerCodingKeys.self)
-        changeDate = try values.decode(Date.self, forKey: .changeDate)
-        version = try values.decode(Int.self, forKey: .version)
+        changeDate = try values.decodeIfPresent(Date.self, forKey: .changeDate) ?? Date()
+        version = try values.decodeIfPresent(Int.self, forKey: .version) ?? 1
     }
     
     func encode(to encoder: Encoder) throws {

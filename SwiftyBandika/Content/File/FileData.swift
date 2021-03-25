@@ -94,11 +94,11 @@ class FileData: BaseData {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: ContentDataCodingKeys.self)
-        fileName = try values.decode(String.self, forKey: .fileName)
-        displayName = try values.decode(String.self, forKey: .displayName)
-        description = try values.decode(String.self, forKey: .description)
-        contentType = try values.decode(String.self, forKey: .contentType)
-        fileType = try values.decode(FileType.self, forKey: .fileType)
+        fileName = try values.decodeIfPresent(String.self, forKey: .fileName) ?? ""
+        displayName = try values.decodeIfPresent(String.self, forKey: .displayName) ?? ""
+        description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
+        contentType = try values.decodeIfPresent(String.self, forKey: .contentType) ?? ""
+        fileType = try values.decodeIfPresent(FileType.self, forKey: .fileType) ?? FileType.unknown
         parentId = 0
         parentVersion = 0
         maxWidth = 0

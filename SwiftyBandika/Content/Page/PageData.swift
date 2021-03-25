@@ -32,8 +32,8 @@ class PageData: ContentData {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: PageDataCodingKeys.self)
-        publishDate = try values.decode(Date?.self, forKey: .publishDate)
-        publishedContent = try values.decode(String.self, forKey: .publishedContent)
+        publishDate = try values.decodeIfPresent(Date?.self, forKey: .publishDate) ?? nil
+        publishedContent = try values.decodeIfPresent(String.self, forKey: .publishedContent) ?? ""
         try super.init(from: decoder)
     }
 

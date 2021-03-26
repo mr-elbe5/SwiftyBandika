@@ -2,10 +2,12 @@
 
 A CMS server app for the Mac, based on Swift, NIO and JSON Persistance
 
-This app has been completely written by the author, but beside the Apple libs he used the external libraries of SwiftSoup for prettyfying HTML, Zip for backups, a modified version of CKEditor 4.10 as WYSIWYG web editor and an adapted version of Bootstrap 4 for web styles.
+This app and the server are completely based on Apple libraries without third party swift code.
+The web part uses a modified version of CKEditor 4.10 as WYSIWYG web editor and an adapted version of Bootstrap 4 for web styles.
 
 The app can be used for testing, production and pre-production.
 If you prefer running the production server on Linux, you will soon be able to use a backup of this app as input for its Java and Tomcat based sister application BandikaJson (also on GitHub).
+Additionally there will be a command line version for MacOS.
 
 It features 
 - template based content (three levels of templates),
@@ -19,7 +21,7 @@ It features
 - and much more
 
 
-It lacks
+It needs
 
 - more ideas and requests for better satisfying your demands.
 - more enthusiastic developers who would like to share this path. 

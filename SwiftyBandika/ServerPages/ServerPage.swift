@@ -20,11 +20,11 @@ class ServerPage{
     }
 
     func load() -> Bool{
-        let url = URL(fileURLWithPath: name + ".shtml", relativeTo: Paths.serverPagesDirectory)
-        if !Files.fileExists(url: url){
+        let path = Paths.serverPagesDirectory.appendPath(name + ".shtml")
+        if !Files.fileExists(path: path){
             return false
         }
-        if let source = Files.readTextFile(url: url) {
+        if let source = Files.readTextFile(path: path) {
             let parser = ServerPageParser()
             do {
                 try parser.parse(str: source)

@@ -19,7 +19,7 @@ class EditorViewController: NSViewController {
     
     let font = NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
 
-    var url : URL? = nil
+    var filePath = ""
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -71,12 +71,12 @@ class EditorViewController: NSViewController {
         super.viewDidLoad()
     }
 
-    func editFile(url: URL){
-        if Files.fileExists(url: url){
-            if let text = Files.readTextFile(url: url) {
+    func editFile(path: String){
+        if Files.fileExists(path: path){
+            if let text = Files.readTextFile(path: path) {
                 textView.string = text
-                label.stringValue = "Editor - \(url.lastPathComponent)"
-                self.url = url
+                label.stringValue = "Editor - \(path.lastPathComponent())"
+                self.filePath = path
             }
         }
     }
@@ -84,16 +84,16 @@ class EditorViewController: NSViewController {
     @objc func clear(){
         textView.string = ""
         label.stringValue = "Editor"
-        url = nil
+        filePath = ""
     }
 
     @objc func save(){
-        if let url = self.url{
+        if !self.filePath.isEmpty{
             // validate only templates
-            if url.pathExtension == "xml" && !validate(){
+            if filePath.pathExtension() == "xml" && !validate(){
                 Log.warn("edited file is not valid")
             }
-            if !Files.saveFile(text: textView.string, url: url){
+            if !Files.saveFile(text: textView.string, path: filePath){
                 Log.error("could not save edited file")
             }
         }

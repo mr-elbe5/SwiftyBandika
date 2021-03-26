@@ -8,7 +8,6 @@
 */
 
 import Cocoa
-import Zip
 
 class ServerControlViewController: NSViewController, HttpServerStateDelegate {
 
@@ -25,7 +24,7 @@ class ServerControlViewController: NSViewController, HttpServerStateDelegate {
     var backupButton: NSButton!
     var restoreButton : NSButton!
 
-    var backupUrls = Array<URL>()
+    var backupPaths = Array<String>()
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -53,14 +52,14 @@ class ServerControlViewController: NSViewController, HttpServerStateDelegate {
     }
 
     func loadGrid(){
-        loadUrls()
+        loadBackupPaths()
         view.removeAllSubviews()
         let boldFont = NSFont.boldSystemFont(ofSize: 12)
         var views = [[NSView]]()
-        startStopButton = NSButton(title: "Start", target: self, action: #selector(startStopServer))
+        startStopButton = NSButton(title: "", target: self, action: #selector(startStopServer))
         startStopButton.font = boldFont
         startStopButton.keyEquivalent = "\r"
-        statusField = NSTextField(labelWithString: "Server has stopped")
+        statusField = NSTextField(labelWithString: "")
         views.append([startStopButton, statusField])
         views.append([Separator(), Separator()])
         applicationNameField = NSTextField(string: Configuration.instance.applicationName)
@@ -74,49 +73,47 @@ class ServerControlViewController: NSViewController, HttpServerStateDelegate {
         views.append([NSTextField(labelWithString: "Autostart:"), autostartField])
         saveConfigButton = NSButton(title: "Save Configuration", target: self, action: #selector(saveConfiguration))
         views.append([NSGridCell.emptyContentView, saveConfigButton])
-        dataPathField = NSTextField(wrappingLabelWithString: Paths.dataDirectory.path)
+        dataPathField = NSTextField(wrappingLabelWithString: Paths.dataDirectory)
         dataPathField.lineBreakMode = .byWordWrapping
         views.append([NSTextField(labelWithString: "Data files location:"), dataPathField])
         views.append([Separator(), Separator()])
-        resourcePathField = NSTextField(wrappingLabelWithString: Paths.resourceDirectory?.path ?? "")
+        resourcePathField = NSTextField(wrappingLabelWithString: Paths.resourceDirectory)
         resourcePathField.lineBreakMode = .byWordWrapping
         views.append([NSTextField(labelWithString: "Resources location:"), resourcePathField])
         views.append([Separator(), Separator()])
         views.append([NSTextField(labelWithString: "Backups:"), NSGridCell.emptyContentView])
-        for url in backupUrls{
+        for path in backupPaths{
             let sv = NSStackView()
             sv.orientation = .horizontal
             if let img = NSImage(systemSymbolName: "square.and.arrow.up", accessibilityDescription: "Restore") {
-                let btn = UrlAttributedButton(image: img, target: self, action: #selector(restoreBackup(sender:)))
-                btn.url = url
+                let btn = AttributedButton(image: img, target: self, action: #selector(restoreBackup(sender:)))
+                btn.attribute = path
                 sv.addArrangedSubview(btn)
             }
             if let img = NSImage(systemSymbolName: "trash", accessibilityDescription: "Remove Backup") {
-                let btn = UrlAttributedButton(image: img, target: self, action: #selector(removeBackup(sender:)))
-                btn.url = url
+                let btn = AttributedButton(image: img, target: self, action: #selector(removeBackup(sender:)))
+                btn.attribute = path
                 sv.addArrangedSubview(btn)
             }
-            views.append([NSTextField(labelWithString: url.lastPathComponent), sv])
+            views.append([NSTextField(labelWithString: path.lastPathComponent()), sv])
         }
         backupButton = NSButton(title: "Create Backup", target: self, action: #selector(backupData))
         views.append([NSGridCell.emptyContentView, backupButton])
-        backupPathField = NSTextField(wrappingLabelWithString: Paths.backupDirectory?.path ?? "")
+        backupPathField = NSTextField(wrappingLabelWithString: Paths.backupDirectory)
         backupPathField.lineBreakMode = .byWordWrapping
         views.append([NSTextField(labelWithString: "Backup location:"), backupPathField])
         let grid = NSGridView(views: views)
         grid.rowAlignment = .firstBaseline
         view.addSubview(grid)
         grid.placeBelow(anchor: view.topAnchor)
+        serverStateChanged()
         view.needsDisplay = true
     }
 
-    func loadUrls(){
-        backupUrls.removeAll()
-        for url in Files.listAllURLs(dirURL: Paths.backupDirectory){
-            let ext = url.pathExtension.lowercased()
-            if ext == "zip" {
-                backupUrls.append(url)
-            }
+    func loadBackupPaths(){
+        backupPaths.removeAll()
+        for dir in Files.listAllDirectories(dirPath: Paths.backupDirectory){
+            backupPaths.append(dir)
         }
     }
 
@@ -140,56 +137,47 @@ class ServerControlViewController: NSViewController, HttpServerStateDelegate {
     }
 
     @objc func backupData() {
-        if let dataPath = Paths.dataDirectory {
-            let dtString = Date().fileDate()
-            let backupFile = URL(fileURLWithPath: "backup\(dtString).zip", relativeTo: Paths.backupDirectory)
-            do {
-                try Zip.zipFiles(paths: [dataPath], zipFilePath: backupFile, password: nil, progress: { (progress) -> () in
-                    Log.info("backup \(Int(progress * 100))%")
-                })
+        let backupDir = Paths.backupDirectory.appendPath(Date().fileDate())
+        if !Files.fileExists(path: backupDir) {
+            if Files.createDirectory(path: backupDir) {
+                Files.copyDirectory(from: Paths.dataDirectory, to: backupDir)
                 loadGrid()
-            } catch {
-                Log.error("could not save backup file")
             }
-        }
-        else{
-            Log.error("data directory not found")
         }
     }
 
     @objc func restoreBackup(sender: Any) {
-        if let btn = sender as? UrlAttributedButton, let backupFile = btn.url {
+        if let btn = sender as? AttributedButton, let backupDir = btn.attribute {
             if NSAlert.acceptWarning(message: "Do you really want to replace your current data with this backup?"){
                 ActionQueue.instance.stop()
                 HttpServer.instance.stop()
-                Files.deleteAllFiles(dirURL: Paths.dataDirectory)
-                do {
-                    try Zip.unzipFile(backupFile, destination: Paths.homeDirectory, overwrite: true, password: nil, progress: { (progress) -> () in
-                        Log.info("restore \(Int(progress * 100))%")
-                    })
+                if Files.fileExists(path: backupDir){
+                    Files.deleteAllFiles(dir: Paths.dataDirectory)
+                    Files.copyDirectory(from: backupDir, to: Paths.dataDirectory)
                     Paths.assertDirectories()
                     App().appDelegate.initializeData()
                     ActionQueue.instance.start()
                     loadGrid()
-                } catch {
-                    Log.error("could not restore backup file")
+                }
+                else{
+                    Log.error("backup directory not found")
                 }
             }
         }
     }
 
     @objc func removeBackup(sender: Any) {
-        if let btn = sender as? UrlAttributedButton, let url = btn.url {
+        if let btn = sender as? AttributedButton, let backupPath = btn.attribute {
             if NSAlert.acceptWarning(message: "Do you really want to delete this backup?"){
-                _ = Files.deleteFile(url: url)
+                _ = Files.deleteFile(path: backupPath)
                 loadGrid()
             }
         }
     }
 
-    func serverStateChanged(server: HttpServer) {
+    func serverStateChanged() {
         DispatchQueue.main.async {
-            if server.operating {
+            if HttpServer.instance.operating {
                 self.startStopButton.title = "Stop"
                 self.statusField.cell?.stringValue = "Server is running"
             }

@@ -15,12 +15,12 @@ class StaticFileController: Controller {
     
     func processPath(path: String, request: Request) -> Response?{
         //Log.info("loading static file \(path)")
-        let fullURL = URL(fileURLWithPath: path.removeLeadingSlash(), relativeTo: Paths.webDirectory)
-        if let data : Data = Files.readFile(url: fullURL){
-            let contentType = fullURL.path.mimeType()
-            return Response(data: data, fileName: fullURL.lastPathComponent, contentType: contentType)
+        let fullPath = Paths.webDirectory.appendPath(path.makeRelativePath())
+        if let data : Data = Files.readFile(path: fullPath){
+            let contentType = fullPath.mimeType()
+            return Response(data: data, fileName: fullPath.lastPathComponent(), contentType: contentType)
         }
-        Log.info("reading file from \(fullURL.absoluteURL) failed")
+        Log.info("reading file from \(fullPath) failed")
         return Response(code: .notFound)
     }
 
@@ -28,21 +28,21 @@ class StaticFileController: Controller {
         //Log.info("loading static file \(path)")
         var path = path
         path.removeFirst(Router.layoutPrefix.count)
-        let fullURL = URL(fileURLWithPath: path, relativeTo: Paths.layoutDirectory)
-        if let data : Data = Files.readFile(url: fullURL){
-            let contentType = fullURL.path.mimeType()
-            return Response(data: data, fileName: fullURL.lastPathComponent, contentType: contentType)
+        let fullPath = Paths.layoutDirectory.appendPath(path)
+        if let data : Data = Files.readFile(path: fullPath){
+            let contentType = fullPath.mimeType()
+            return Response(data: data, fileName: fullPath.lastPathComponent(), contentType: contentType)
         }
-        Log.info("reading file from \(fullURL.absoluteURL) failed")
+        Log.info("reading file from \(fullPath) failed")
         return Response(code: .notFound)
     }
 
     func ensureLayout(){
-        if Files.directoryIsEmpty(url: Paths.layoutDirectory) {
-            for sourceUrl in Files.listAllURLs(dirURL: Paths.defaultLayoutDirectory){
-                let targetUrl = URL(fileURLWithPath: sourceUrl.lastPathComponent, relativeTo: Paths.layoutDirectory)
-                if !Files.copyFile(fromURL: sourceUrl, toURL: targetUrl){
-                    Log.error("could not copy layout file \(sourceUrl.path)")
+        if Files.directoryIsEmpty(path: Paths.layoutDirectory) {
+            for sourcePath in Files.listAllFiles(dirPath: Paths.defaultLayoutDirectory){
+                let targetPath = Paths.layoutDirectory.appendPath(sourcePath.lastPathComponent())
+                if !Files.copyFile(from: sourcePath, to: targetPath){
+                    Log.error("could not copy layout file \(sourcePath)")
                 }
             }
         }

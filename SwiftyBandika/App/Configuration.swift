@@ -15,7 +15,7 @@ class Configuration: DataContainer{
 
     static func initialize(){
         Log.info("initializing configuration")
-        if !Files.fileExists(url: Paths.configFile){
+        if !Files.fileExists(path: Paths.configFile){
             let config = Configuration()
             if !config.save(){
                 Log.error("could not save default configuration")
@@ -24,7 +24,7 @@ class Configuration: DataContainer{
                 Log.info("created default configuration")
             }
         }
-        if let str = Files.readTextFile(url: Paths.configFile){
+        if let str = Files.readTextFile(path: Paths.configFile){
             if let config : Configuration = Configuration.fromJSON(encoded: str){
                 instance = config
                 Log.info("loaded app configuration")
@@ -97,7 +97,7 @@ class Configuration: DataContainer{
         lock()
         defer{unlock()}
         let json = toJSON()
-        if !Files.saveFile(text: json, url: Paths.configFile){
+        if !Files.saveFile(text: json, path: Paths.configFile){
             Log.warn("config file could not be saved")
             return false
         }

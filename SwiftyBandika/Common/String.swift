@@ -126,20 +126,6 @@ extension String {
         return result
     }
 
-    func ext() -> String {
-        if let idx = index(of: ".", from: startIndex) {
-            return String(self[index(idx, offsetBy: 1)..<endIndex])
-        }
-        return self
-    }
-
-    func withoutExt() -> String {
-        if let idx = index(of: ".", from: startIndex) {
-            return String(self[startIndex..<idx])
-        }
-        return self
-    }
-
     func trim() -> String {
         trimmingCharacters(in: .whitespacesAndNewlines)
     }
@@ -154,11 +140,51 @@ extension String {
         range(of: string, options: [], range: from..<endIndex, locale: nil)?.lowerBound
     }
 
-    func removeLeadingSlash() -> String {
+    func makeRelativePath() -> String {
         if hasPrefix("/") {
             var s = self
             s.removeFirst()
             return s
+        }
+        return self
+    }
+
+    func appendPath(_ path: String) -> String{
+        if path.isEmpty{
+            return self;
+        }
+        var newPath = self;
+        newPath.append("/")
+        newPath.append(path)
+        return newPath
+    }
+
+    func lastPathComponent() -> String{
+        if var pos = lastIndex(of: "/")    {
+            pos = index(after: pos)
+            return String(self[pos..<endIndex])
+        }
+        return self
+    }
+
+    func toFileUrl() -> URL?{
+        URL(fileURLWithPath: self, isDirectory: false)
+    }
+
+    func toDirectoryUrl() -> URL?{
+        URL(fileURLWithPath: self, isDirectory: true)
+    }
+
+    func pathExtension() -> String {
+        if let idx = index(of: ".", from: startIndex) {
+            return String(self[index(after: idx)..<endIndex])
+        }
+        return self
+    }
+
+    func pathWithoutExtension() -> String {
+        if let idx = index(of: ".", from: startIndex) {
+            return String(self[startIndex..<idx])
         }
         return self
     }

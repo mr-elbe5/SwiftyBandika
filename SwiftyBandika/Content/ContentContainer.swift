@@ -15,14 +15,14 @@ class ContentContainer: DataContainer {
 
     static func initialize() {
         Log.info("initializing content")
-        if !Files.fileExists(url: Paths.contentFile) {
+        if !Files.fileExists(path: Paths.contentFile) {
             if Files.copyFile(name: "content.json", fromDir: Paths.defaultContentDirectory, toDir: Paths.dataDirectory) {
                 Log.info("created default content")
             } else {
                 Log.error("could not save default content")
             }
         }
-        if let str = Files.readTextFile(url: Paths.contentFile) {
+        if let str = Files.readTextFile(path: Paths.contentFile) {
             Log.info("loading content")
             if let container: ContentContainer = ContentContainer.fromJSON(encoded: str) {
                 Log.info("loaded content")
@@ -426,7 +426,7 @@ class ContentContainer: DataContainer {
             fileNames.insert(file.idFileName)
             fileNames.insert(file.previewFileName)
         }
-        if !Files.deleteAllFiles(dirURL: Paths.fileDirectory, except: fileNames) {
+        if !Files.deleteAllFiles(dir: Paths.fileDirectory, except: fileNames) {
             Log.warn("not all files could be deleted")
         }
     }
@@ -451,7 +451,7 @@ class ContentContainer: DataContainer {
             unlock()
         }
         let json = toJSON()
-        if !Files.saveFile(text: json, url: Paths.contentFile) {
+        if !Files.saveFile(text: json, path: Paths.contentFile) {
             Log.warn("content file could not be saved")
             return false
         }

@@ -9,168 +9,205 @@
 
 import Foundation
 
-public class Files{
-    
-    static func fileExists(url: URL) -> Bool{
-        FileManager.default.fileExists(atPath: url.path)
+public class Files {
+
+    static func fileExists(path: String) -> Bool {
+        FileManager.default.fileExists(atPath: path)
     }
-    
-    static func directoryIsEmpty(url: URL) -> Bool{
-        if let contents = try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: .skipsHiddenFiles){
+
+    static func isDirectory(path: String) -> Bool {
+        var isDir = ObjCBool(false)
+        if FileManager.default.fileExists(atPath: path, isDirectory: &isDir){
+            return isDir.boolValue
+        }
+        return false
+    }
+
+    static func isFile(path: String) -> Bool {
+        var isDir = ObjCBool(false)
+        if FileManager.default.fileExists(atPath: path, isDirectory: &isDir){
+            return !isDir.boolValue
+        }
+        return false
+    }
+
+    static func directoryIsEmpty(path: String) -> Bool {
+        if let contents = try? FileManager.default.contentsOfDirectory(atPath: path) {
             return contents.isEmpty
         }
         return false
     }
-    
-    static func readFile(url: URL) -> Data?{
-        if let fileData = FileManager.default.contents(atPath: url.path){
+
+    static func createDirectory(path: String) -> Bool {
+        if let url = path.toDirectoryUrl() {
+            do {
+                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+                return true
+            } catch {
+            }
+        }
+        return false
+    }
+
+    static func readFile(path: String) -> Data? {
+        if let fileData = FileManager.default.contents(atPath: path) {
             return fileData
         }
         return nil
     }
-    
-    static func readTextFile(url: URL) -> String?{
-        do{
-            let string = try String(contentsOf: url, encoding: .utf8)
-            return string
-        }
-        catch{
-            return nil
-        }
-    }
-    
-    static func createDirectory(url: URL) -> Bool{
-        do{
-            try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
-            return true
-        }
-        catch{
-            return false
-        }
-    }
-    
-    static func saveFile(data: Data, url: URL) -> Bool{
-        do{
-            try data.write(to: url, options: .atomic)
-            return true
-        } catch let err{
-            Log.error("Error saving file \(url.path): " + err.localizedDescription)
-            return false
-        }
-    }
-    
-    static func saveFile(text: String, url: URL) -> Bool{
-        do{
-            try text.write(to: url, atomically: true, encoding: .utf8)
-            return true
-        } catch let err{
-            Log.error("Error saving file \(url.path): " + err.localizedDescription)
-            return false
-        }
-    }
-    
-    static func copyFile(name: String,fromDir: URL, toDir: URL, replace: Bool = false) -> Bool{
-        do{
-            let toURL = URL(fileURLWithPath: name, relativeTo: toDir)
-            if replace && fileExists(url: toURL){
-                _ = deleteFile(url: toURL)
+
+
+    static func readTextFile(path: String) -> String? {
+        if let url = path.toFileUrl() {
+            do {
+                let string = try String(contentsOf: url, encoding: .utf8)
+                return string
+            } catch {
             }
-            let fromURL = URL(fileURLWithPath: name, relativeTo: fromDir)
-            try FileManager.default.copyItem(at: fromURL, to: toURL)
+        }
+        return nil
+    }
+
+    static func saveFile(data: Data, path: String) -> Bool {
+        if let url = path.toFileUrl() {
+            do {
+                try data.write(to: url, options: .atomic)
+                return true
+            } catch let err {
+                Log.error("Error saving file \(url.path): " + err.localizedDescription)
+            }
+        }
+        return false
+    }
+
+    static func saveFile(text: String, path: String) -> Bool {
+        if let url = path.toFileUrl() {
+            do {
+                try text.write(to: url, atomically: true, encoding: .utf8)
+                return true
+            } catch let err {
+                Log.error("Error saving file \(url.path): " + err.localizedDescription)
+            }
+        }
+        return false
+    }
+
+    static func copyFile(name: String, fromDir: String, toDir: String, replace: Bool = false) -> Bool {
+        do {
+            let toPath = toDir.appendPath(name)
+            if replace && fileExists(path: toPath) {
+                _ = deleteFile(path: toPath)
+            }
+            let fromPath = fromDir.appendPath(name)
+            try FileManager.default.copyItem(atPath: fromPath, toPath: toPath)
             return true
-        } catch let err{
+        } catch let err {
             Log.error("Error copying file \(name): " + err.localizedDescription)
             return false
         }
     }
-    
-    static func copyFile(fromURL: URL, toURL: URL, replace: Bool = false) -> Bool{
-        do{
-            if replace && fileExists(url: toURL){
-                _ = deleteFile(url: toURL)
-            }
-            try FileManager.default.copyItem(at: fromURL, to: toURL)
-            return true
-        } catch let err{
-            Log.error("Error copying file \(fromURL.path): " + err.localizedDescription)
-            return false
-        }
-    }
 
-    static func copyDirectory(fromURL: URL, toURL: URL){
+    static func copyFile(from: String, to: String, replace: Bool = false) -> Bool {
         do {
-            let childUrls = try FileManager.default.contentsOfDirectory(at: fromURL, includingPropertiesForKeys: nil)
-            for url in childUrls{
-                if url.isFileURL{
-                    try FileManager.default.copyItem(at: url, to: URL(fileURLWithPath: url.lastPathComponent, relativeTo: toURL))
-                }
-                else{
-                    let childDir = URL(fileURLWithPath: url.lastPathComponent, relativeTo: toURL)
-                    try FileManager.default.createDirectory(at: childDir, withIntermediateDirectories: true, attributes: nil)
-                    copyDirectory(fromURL: url, toURL: childDir)
-                }
+            if replace && fileExists(path: to) {
+                _ = deleteFile(path: to)
             }
-        }
-        catch{
-            Log.error("could not open directory")
+            try FileManager.default.copyItem(atPath: from, toPath: to)
+            return true
+        } catch let err {
+            Log.error("Error copying file \(from): " + err.localizedDescription)
+            return false
         }
     }
 
-    static func moveFile(fromURL: URL, toURL: URL, replace: Bool = false) -> Bool{
-        do{
-            if replace && fileExists(url: toURL){
-                _ = deleteFile(url: toURL)
+    static func copyDirectory(from: String, to: String) {
+        do {
+            let childNames = try FileManager.default.contentsOfDirectory(atPath: from)
+            for name in childNames {
+                try FileManager.default.copyItem(atPath: from.appendPath(name), toPath: to.appendPath(name))
             }
-            try FileManager.default.moveItem(at: fromURL, to: toURL)
+        } catch let err {
+            Log.error("Error copying directory content: " + err.localizedDescription)
+        }
+    }
+
+    static func moveFile(from: String, to: String, replace: Bool = false) -> Bool {
+        do {
+            if replace && fileExists(path: to) {
+                _ = deleteFile(path: to)
+            }
+            try FileManager.default.moveItem(atPath: from, toPath: to)
             return true
-        } catch let err{
-            Log.error("Error moving file \(fromURL.path): " + err.localizedDescription)
+        } catch let err {
+            Log.error("Error moving file \(from): " + err.localizedDescription)
             return false
         }
     }
-    
-    static func renameFile(dirURL: URL, fromName: String, toName: String) -> Bool{
-        do{
-            try FileManager.default.moveItem(at: URL(fileURLWithPath: fromName, relativeTo: dirURL),to: URL(fileURLWithPath: toName, relativeTo: dirURL))
+
+    static func renameFile(dir: String, fromName: String, toName: String) -> Bool {
+        do {
+            try FileManager.default.moveItem(atPath: dir.appendPath(fromName), toPath: dir.appendPath(toName))
             return true
-        }
-        catch {
+        } catch {
             return false
         }
     }
-    
-    static func deleteFile(dirURL: URL, fileName: String) -> Bool{
-        do{
-            try FileManager.default.removeItem(at: URL(fileURLWithPath: fileName, relativeTo: dirURL))
+
+    static func deleteFile(dir: String, fileName: String) -> Bool {
+        do {
+            try FileManager.default.removeItem(atPath: dir.appendPath(fileName))
             Log.info("file deleted: \(fileName)")
             return true
-        }
-        catch {
+        } catch {
             return false
         }
     }
-    
-    static func deleteFile(url: URL) -> Bool{
-        do{
-            try FileManager.default.removeItem(at: url)
-            Log.info("file deleted: \(url)")
+
+    static func deleteFile(path: String) -> Bool {
+        do {
+            try FileManager.default.removeItem(atPath: path)
+            Log.info("file deleted: \(path)")
             return true
-        }
-        catch {
+        } catch {
             return false
         }
     }
-    
-    static func listAllFileNames(dirPath: String) -> Array<String>{
-        try! FileManager.default.contentsOfDirectory(atPath: dirPath)
+
+    static func listAllFileNames(dirPath: String) -> Array<String> {
+        if let arr = try? FileManager.default.contentsOfDirectory(atPath: dirPath) {
+            return arr
+        }
+        return Array<String>()
     }
-    
-    static func deleteAllFiles(dirURL: URL, except: Set<String>) -> Bool{
+
+    static func listAllDirectories(dirPath: String) -> Array<String> {
+        var dirs = Array<String>()
+        for name in listAllFileNames(dirPath: dirPath){
+            let path = dirPath.appendPath(name)
+            if isDirectory(path: path){
+                dirs.append(path)
+            }
+        }
+        return dirs
+    }
+
+    static func listAllFiles(dirPath: String) -> Array<String> {
+        var files = Array<String>()
+        for name in listAllFileNames(dirPath: dirPath){
+            let path = dirPath.appendPath(name)
+            if isFile(path: path){
+                files.append(path)
+            }
+        }
+        return files
+    }
+
+    static func deleteAllFiles(dir: String, except: Set<String>) -> Bool {
         var success = true
-        let fileNames = listAllFileNames(dirPath: dirURL.path)
-        for name in fileNames{
-            if !except.contains(name){
-                if !deleteFile(dirURL: dirURL, fileName: name){
+        let fileNames = listAllFileNames(dirPath: dir)
+        for name in fileNames {
+            if !except.contains(name) {
+                if !deleteFile(dir: dir, fileName: name) {
                     Log.warn("could not delete file \(name)")
                     success = false
                 }
@@ -178,116 +215,65 @@ public class Files{
         }
         return success
     }
-    
-    static func deleteAllFiles(dirURL: URL){
-        let fileNames = listAllFileNames(dirPath: dirURL.path)
+
+    static func deleteAllFiles(dir: String) {
+        let fileNames = listAllFileNames(dirPath: dir)
         var count = 0
-        for name in fileNames{
-            if deleteFile(dirURL: dirURL, fileName: name){
+        for name in fileNames {
+            if deleteFile(dir: dir, fileName: name) {
                 count += 1
             }
         }
         Log.info("\(count) files deleted")
     }
-    
-    static func getExtension(fileName: String) -> String{
+
+    static func getExtension(fileName: String) -> String {
         if let i = fileName.lastIndex(of: ".") {
             return String(fileName[i..<fileName.endIndex])
         }
         return ""
     }
-    
+
     static func getFileNameWithoutExtension(fileName: String) -> String {
         if let i = fileName.lastIndex(of: ".") {
             return String(fileName[fileName.startIndex..<i])
         }
         return fileName
     }
-    
-    static func unzipDirectory(zipPath: String, destinationPath: String){
+
+    static func zipDirectory(zipPath: String, sourcePath: String) {
+        // todo
+        let pipe = Pipe()
+        let task = Process()
+        task.executableURL = URL(fileURLWithPath: "/usr/bin/zip")
+        task.arguments = [zipPath, "-d", sourcePath]
+        task.standardOutput = pipe
+        let file = pipe.fileHandleForReading
+        do {
+            try task.run()
+            if let result = NSString(data: file.readDataToEndOfFile(), encoding: String.Encoding.utf8.rawValue) {
+                Log.info("unzip result: \(result as String)")
+            }
+        } catch {
+            Log.error(error.localizedDescription)
+        }
+    }
+
+    static func unzipDirectory(zipPath: String, destinationPath: String) {
         let pipe = Pipe()
         let task = Process()
         task.executableURL = URL(fileURLWithPath: "/usr/bin/unzip")
         task.arguments = [zipPath, "-d", destinationPath]
         task.standardOutput = pipe
         let file = pipe.fileHandleForReading
-        do{
+        do {
             try task.run()
             if let result = NSString(data: file.readDataToEndOfFile(), encoding: String.Encoding.utf8.rawValue) {
                 Log.info("unzip result: \(result as String)")
             }
-        }
-        catch{
+        } catch {
             Log.error(error.localizedDescription)
         }
     }
-    
-    static let homePath = NSHomeDirectory()
-    static let homeURL = URL(fileURLWithPath: homePath, isDirectory: true)
-    
-    static func getURL(dirURL: URL, fileName: String ) -> URL
-    {
-        dirURL.appendingPathComponent(fileName)
-    }
-    
-    static func listAllFiles(dirPath: String) -> Array<String>{
-        try! FileManager.default.contentsOfDirectory(atPath: dirPath)
-    }
-    
-    static func listAllURLs(dirURL: URL) -> Array<URL>{
-        let names = listAllFiles(dirPath: dirURL.path)
-        var urls = Array<URL>()
-        for name in names{
-            urls.append(getURL(dirURL: dirURL, fileName: name))
-        }
-        return urls
-    }
-    
-    static func printFiles(dirPath: String, level: Int=0){
-        var isDir : ObjCBool = false
-        let names = listAllFiles(dirPath: dirPath)
-        for name in names{
-            let path = dirPath + "/" + name
-            if FileManager.default.fileExists(atPath: path, isDirectory:&isDir){
-                var str = ""
-                for _ in 0..<level{
-                    str.append("  ")
-                }
-                str.append(name)
-                Log.info(str)
-                if isDir.boolValue{
-                    printFiles(dirPath: path, level: level+1)
-                }
-            }
-        }
-    }
-    
-    static func printWebFiles(){
-        if let url = Bundle.main.resourceURL{
-            let webURL = URL(fileURLWithPath: "Web", relativeTo: url)
-            Log.info("Web Files in \(webURL.path):")
-            printChildFiles(path: webURL.path, subPath: "")
-        }
-    }
-    
-    static func printChildFiles(path: String, subPath: String){
-        if let names = try? FileManager.default.contentsOfDirectory(atPath: path){
-            var isDir : ObjCBool = false
-            for name in names{
-                let childPath = path + "/" + name
-                if FileManager.default.fileExists(atPath: childPath, isDirectory:&isDir){
-                    let childSubPath = subPath + "/" + name
-                    if isDir.boolValue{
-                        printChildFiles(path: childPath, subPath: childSubPath)
-                    }
-                    else{
-                        Log.info(childSubPath)
-                    }
-                }
-                
-            }
-        }
-    }
-    
-    
+
 }

@@ -179,7 +179,7 @@ class FileData: BaseData {
                 }
             }
             if displayName.isEmpty {
-                displayName = fileName.withoutExt()
+                displayName = fileName.pathWithoutExtension()
             }
         } else if isNew {
             request.addIncompleteField("file")

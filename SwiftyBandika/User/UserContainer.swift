@@ -15,7 +15,7 @@ class UserContainer : DataContainer{
 
     static  func initialize(){
         Log.info("initializing users")
-        if !Files.fileExists(url: Paths.usersFile){
+        if !Files.fileExists(path: Paths.usersFile){
             let defaultContainer = DefaultUserContainer()
             if !defaultContainer.save(){
                 Log.error("could not save default user")
@@ -24,7 +24,7 @@ class UserContainer : DataContainer{
                 Log.info("created default user")
             }
         }
-        if let str = Files.readTextFile(url: Paths.usersFile){
+        if let str = Files.readTextFile(path: Paths.usersFile){
             if let container : UserContainer = UserContainer.fromJSON(encoded: str){
                 instance = container
                 Log.info("loaded users")
@@ -301,7 +301,7 @@ class UserContainer : DataContainer{
         lock()
         defer{unlock()}
         let json = toJSON()
-        if !Files.saveFile(text: json, url: Paths.usersFile){
+        if !Files.saveFile(text: json, path: Paths.usersFile){
             Log.warn("users file could not be saved")
             return false
         }

@@ -10,71 +10,68 @@
 import Foundation
 
 struct Paths{
+
+    static let homeDirectory = NSHomeDirectory()
+    static var dataDirectory = "."
+    static var fileDirectory = "."
+    static var tempFileDirectory = "."
+    static var templateDirectory = "."
+    static var layoutDirectory = "."
+    static var backupDirectory = "."
+    static var configFile = "."
+    static var contentFile = "."
+    static var nextIdFile = "."
+    static var staticsFile = "."
+    static var usersFile = "."
     
-    static let homeDirectory = Files.homeURL
-    static var dataDirectory : URL!
-    static var fileDirectory : URL!
-    static var tempFileDirectory : URL!
-    static var templateDirectory : URL!
-    static var layoutDirectory : URL!
-    static var backupDirectory : URL!
-    static var configFile : URL!
-    static var preferencesFile : URL!
-    static var contentFile : URL!
-    static var nextIdFile : URL!
-    static var staticsFile : URL!
-    static var usersFile : URL!
-    
-    static var resourceDirectory = Bundle.main.resourceURL
-    static var webDirectory = URL(fileURLWithPath: "web", isDirectory: true, relativeTo: resourceDirectory)
-    static var serverPagesDirectory = URL(fileURLWithPath: "serverPages", isDirectory: true, relativeTo: resourceDirectory)
-    static var defaultContentDirectory = URL(fileURLWithPath: "defaultContent", isDirectory: true, relativeTo: resourceDirectory)
-    static var defaultTemplateDirectory = URL(fileURLWithPath: "defaultTemplates", isDirectory: true, relativeTo: resourceDirectory)
-    static var defaultLayoutDirectory = URL(fileURLWithPath: "defaultLayout", isDirectory: true, relativeTo: resourceDirectory)
+    static var resourceDirectory = Bundle.main.resourceURL?.path ?? FileManager.default.currentDirectoryPath
+    static var webDirectory = resourceDirectory.appendPath("web")
+    static var serverPagesDirectory = resourceDirectory.appendPath("serverPages")
+    static var defaultContentDirectory = resourceDirectory.appendPath("defaultContent")
+    static var defaultTemplateDirectory = resourceDirectory.appendPath("defaultTemplates")
+    static var defaultLayoutDirectory = resourceDirectory.appendPath("defaultLayout")
 
     static func initPaths(){
-        dataDirectory = URL(fileURLWithPath: "BandikaData", isDirectory: true, relativeTo: homeDirectory)
-
-        fileDirectory = URL(fileURLWithPath: "files", isDirectory: true, relativeTo: dataDirectory)
-        tempFileDirectory = URL(fileURLWithPath: "tmp", isDirectory: true, relativeTo: fileDirectory)
-        templateDirectory = URL(fileURLWithPath: "templates", isDirectory: true, relativeTo: dataDirectory)
-        layoutDirectory = URL(fileURLWithPath: "layout", isDirectory: true, relativeTo: dataDirectory)
-        backupDirectory = URL(fileURLWithPath: "Backup", isDirectory: true, relativeTo: homeDirectory)
-        configFile = URL(fileURLWithPath: "config.json", relativeTo: dataDirectory)
-        preferencesFile = URL(fileURLWithPath: "preferences.json", relativeTo: dataDirectory)
-        contentFile = URL(fileURLWithPath: "content.json", relativeTo: dataDirectory)
-        nextIdFile = URL(fileURLWithPath: "next.id", relativeTo: dataDirectory)
-        staticsFile = URL(fileURLWithPath: "statics.json", relativeTo: dataDirectory)
-        usersFile = URL(fileURLWithPath: "users.json", relativeTo: dataDirectory)
+        dataDirectory = homeDirectory.appendPath("BandikaData")
+        fileDirectory = dataDirectory.appendPath("files")
+        tempFileDirectory = fileDirectory.appendPath("tmp")
+        templateDirectory = dataDirectory.appendPath("templates")
+        layoutDirectory = dataDirectory.appendPath("layout")
+        backupDirectory = homeDirectory.appendPath("Backup")
+        configFile = dataDirectory.appendPath("config.json")
+        contentFile = dataDirectory.appendPath("content.json")
+        nextIdFile = dataDirectory.appendPath("next.id")
+        staticsFile = dataDirectory.appendPath("statics.json")
+        usersFile = dataDirectory.appendPath("users.json")
         assertDirectories()
-        Log.info("home directory is \(homeDirectory.absoluteString)")
-        Log.info("data directory is \(dataDirectory.absoluteString)")
-        Log.info("file directory is \(fileDirectory.absoluteString)")
-        Log.info("template directory is \(templateDirectory.absoluteString)")
-        Log.info("layout directory is \(layoutDirectory.absoluteString)")
-        Log.info("resource directory is \(resourceDirectory!.absoluteString)")
-        Log.info("web directory is \(webDirectory.absoluteString)")
+        Log.info("home directory is \(homeDirectory)")
+        Log.info("data directory is \(dataDirectory)")
+        Log.info("file directory is \(fileDirectory)")
+        Log.info("template directory is \(templateDirectory)")
+        Log.info("layout directory is \(layoutDirectory)")
+        Log.info("resource directory is \(resourceDirectory)")
+        Log.info("web directory is \(webDirectory)")
     }
 
     static func assertDirectories(){
         do {
-            if !Files.fileExists(url: dataDirectory) {
-                try FileManager.default.createDirectory(at: dataDirectory, withIntermediateDirectories: true, attributes: nil)
+            if !Files.fileExists(path: dataDirectory) {
+                try FileManager.default.createDirectory(at: dataDirectory.toDirectoryUrl()!, withIntermediateDirectories: true, attributes: nil)
             }
-            if !Files.fileExists(url: fileDirectory) {
-                try FileManager.default.createDirectory(at: fileDirectory, withIntermediateDirectories: true, attributes: nil)
+            if !Files.fileExists(path: fileDirectory) {
+                try FileManager.default.createDirectory(at: fileDirectory.toDirectoryUrl()!, withIntermediateDirectories: true, attributes: nil)
             }
-            if !Files.fileExists(url: tempFileDirectory) {
-                try FileManager.default.createDirectory(at: tempFileDirectory, withIntermediateDirectories: true, attributes: nil)
+            if !Files.fileExists(path: tempFileDirectory) {
+                try FileManager.default.createDirectory(at: tempFileDirectory.toDirectoryUrl()!, withIntermediateDirectories: true, attributes: nil)
             }
-            if !Files.fileExists(url: templateDirectory) {
-                try FileManager.default.createDirectory(at: templateDirectory, withIntermediateDirectories: true, attributes: nil)
+            if !Files.fileExists(path: templateDirectory) {
+                try FileManager.default.createDirectory(at: templateDirectory.toDirectoryUrl()!, withIntermediateDirectories: true, attributes: nil)
             }
-            if !Files.fileExists(url: layoutDirectory) {
-                try FileManager.default.createDirectory(at: layoutDirectory, withIntermediateDirectories: true, attributes: nil)
+            if !Files.fileExists(path: layoutDirectory) {
+                try FileManager.default.createDirectory(at: layoutDirectory.toDirectoryUrl()!, withIntermediateDirectories: true, attributes: nil)
             }
-            if !Files.fileExists(url: backupDirectory) {
-                try FileManager.default.createDirectory(at: backupDirectory, withIntermediateDirectories: true, attributes: nil)
+            if !Files.fileExists(path: backupDirectory) {
+                try FileManager.default.createDirectory(at: backupDirectory.toDirectoryUrl()!, withIntermediateDirectories: true, attributes: nil)
             }
         }
         catch{

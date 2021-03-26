@@ -12,7 +12,7 @@ import NIO
 import NIOHTTP1
 
 protocol HttpServerStateDelegate{
-    func serverStateChanged(server: HttpServer)
+    func serverStateChanged()
 }
 
 class HttpServer{
@@ -49,7 +49,7 @@ class HttpServer{
             serverChannel = try bootstrap.bind(host: Configuration.instance.host, port: Configuration.instance.webPort)
                 .wait()
             operating = true
-            delegate?.serverStateChanged(server: self)
+            delegate?.serverStateChanged()
             Log.info("Server has started as \(Configuration.instance.host) on port \(Configuration.instance.webPort)")
             try serverChannel!.closeFuture.wait()
         }
@@ -68,7 +68,7 @@ class HttpServer{
             operating = false
             Log.info("Server has stopped")
             loopGroup = nil
-            delegate?.serverStateChanged(server: self)
+            delegate?.serverStateChanged()
         } catch {
             Log.error("Shutting down server failed: \(error)")
         }

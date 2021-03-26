@@ -15,11 +15,11 @@ class IdService {
 
     static func initialize(){
         //id
-        if let s : String = Files.readTextFile(url: Paths.nextIdFile){
+        if let s : String = Files.readTextFile(path: Paths.nextIdFile){
             instance.nextId = Int(s) ?? 1000
         }
         else{
-            _ = Files.saveFile(text: String(instance.nextId), url: Paths.nextIdFile)
+            _ = Files.saveFile(text: String(instance.nextId), path: Paths.nextIdFile)
         }
         instance.idChanged = false;
     }
@@ -57,7 +57,7 @@ class IdService {
     }
     
     private func saveId() -> Bool{
-        Files.saveFile(text: String(nextId), url: Paths.nextIdFile)
+        Files.saveFile(text: String(nextId), path: Paths.nextIdFile)
     }
     
 }

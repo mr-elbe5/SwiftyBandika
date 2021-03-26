@@ -13,13 +13,13 @@ class LayoutControlViewController: NSViewController {
 
     var editorController: EditorViewController? = nil
 
-    var cssUrl = URL(fileURLWithPath: "layout.css", relativeTo: Paths.layoutDirectory)
-    var logoUrl = URL(fileURLWithPath: "logo.png", relativeTo: Paths.layoutDirectory)
-    var imageUrls = Array<URL>()
+    var cssPath = Paths.layoutDirectory.appendPath("layout.css")
+    var logoPath = Paths.layoutDirectory.appendPath("logo.png")
+    var imagePaths = Array<String>()
 
-    var masterUrls = Array<URL>()
-    var pageUrls = Array<URL>()
-    var partUrls = Array<URL>()
+    var masterPaths = Array<String>()
+    var pagePaths = Array<String>()
+    var partPaths = Array<String>()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -54,8 +54,8 @@ class LayoutControlViewController: NSViewController {
         if let img = NSImage(systemSymbolName: "square.and.pencil", accessibilityDescription: "Edit style sheet") {
             let text = NSTextField(labelWithString: "Style Sheet")
             text.cell?.font = boldFont
-            let btn = UrlAttributedButton(image: img, target: self, action: #selector(editStyleSheet(sender:)))
-            btn.url = cssUrl
+            let btn = AttributedButton(image: img, target: self, action: #selector(editStyleSheet(sender:)))
+            btn.attribute = cssPath
             views.append([text, btn])
         }
         views.append([Separator(), Separator()])
@@ -65,11 +65,11 @@ class LayoutControlViewController: NSViewController {
 
             views.append([text, NSButton(image: img, target: self, action: #selector(addImage))])
         }
-        for url in imageUrls{
+        for path in imagePaths{
             if let img = NSImage(systemSymbolName: "trash", accessibilityDescription: "Remove Image") {
-                let btn = UrlAttributedButton(image: img, target: self, action: #selector(removeImage(sender:)))
-                btn.url = url
-                views.append([NSTextField(labelWithString: url.lastPathComponent), btn])
+                let btn = AttributedButton(image: img, target: self, action: #selector(removeImage(sender:)))
+                btn.attribute = path
+                views.append([NSTextField(labelWithString: path.lastPathComponent()), btn])
             }
         }
         views.append([Separator(), Separator()])
@@ -78,20 +78,20 @@ class LayoutControlViewController: NSViewController {
             text.cell?.font = boldFont
             views.append([text, NSButton(image: img, target: self, action: #selector(addMasterTemplate))])
         }
-        for url in masterUrls{
+        for path in masterPaths{
             let sv = NSStackView()
             sv.orientation = .horizontal
             if let img = NSImage(systemSymbolName: "square.and.pencil", accessibilityDescription: "Edit template") {
-                let btn = UrlAttributedButton(image: img, target: self, action: #selector(editTemplate(sender:)))
-                btn.url = url
+                let btn = AttributedButton(image: img, target: self, action: #selector(editTemplate(sender:)))
+                btn.attribute = path
                 sv.addArrangedSubview(btn)
             }
-            if url.lastPathComponent != "defaultMaster.xml", let img = NSImage(systemSymbolName: "trash", accessibilityDescription: "Remove Template") {
-                let btn = UrlAttributedButton(image: img, target: self, action: #selector(removeMasterTemplate(sender:)))
-                btn.url = url
+            if path.lastPathComponent() != "defaultMaster.xml", let img = NSImage(systemSymbolName: "trash", accessibilityDescription: "Remove Template") {
+                let btn = AttributedButton(image: img, target: self, action: #selector(removeMasterTemplate(sender:)))
+                btn.attribute = path
                 sv.addArrangedSubview(btn)
             }
-            views.append([NSTextField(labelWithString: url.lastPathComponent), sv])
+            views.append([NSTextField(labelWithString: path.lastPathComponent()), sv])
         }
         views.append([Separator(), Separator()])
         if let img = NSImage(systemSymbolName: "plus.app", accessibilityDescription: "Add Page Template") {
@@ -99,20 +99,20 @@ class LayoutControlViewController: NSViewController {
             text.cell?.font = boldFont
             views.append([text, NSButton(image: img, target: self, action: #selector(addPageTemplate))])
         }
-        for url in pageUrls{
+        for path in pagePaths{
             let sv = NSStackView()
             sv.orientation = .horizontal
             if let img = NSImage(systemSymbolName: "square.and.pencil", accessibilityDescription: "Edit Template") {
-                let btn = UrlAttributedButton(image: img, target: self, action: #selector(editTemplate(sender:)))
-                btn.url = url
+                let btn = AttributedButton(image: img, target: self, action: #selector(editTemplate(sender:)))
+                btn.attribute = path
                 sv.addArrangedSubview(btn)
             }
             if let img = NSImage(systemSymbolName: "trash", accessibilityDescription: "Remove Template") {
-                let btn = UrlAttributedButton(image: img, target: self, action: #selector(removePageTemplate(sender:)))
-                btn.url = url
+                let btn = AttributedButton(image: img, target: self, action: #selector(removePageTemplate(sender:)))
+                btn.attribute = path
                 sv.addArrangedSubview(btn)
             }
-            views.append([NSTextField(labelWithString: url.lastPathComponent), sv])
+            views.append([NSTextField(labelWithString: path.lastPathComponent()), sv])
         }
         views.append([Separator(), Separator()])
         if let img = NSImage(systemSymbolName: "plus.app", accessibilityDescription: "Add Part Template") {
@@ -120,20 +120,20 @@ class LayoutControlViewController: NSViewController {
             text.cell?.font = boldFont
             views.append([text, NSButton(image: img, target: self, action: #selector(addPartTemplate))])
         }
-        for url in partUrls{
+        for path in partPaths{
             let sv = NSStackView()
             sv.orientation = .horizontal
             if let img = NSImage(systemSymbolName: "square.and.pencil", accessibilityDescription: "Edit Template") {
-                let btn = UrlAttributedButton(image: img, target: self, action: #selector(editTemplate(sender:)))
-                btn.url = url
+                let btn = AttributedButton(image: img, target: self, action: #selector(editTemplate(sender:)))
+                btn.attribute = path
                 sv.addArrangedSubview(btn)
             }
             if let img = NSImage(systemSymbolName: "trash", accessibilityDescription: "Remove Template") {
-                let btn = UrlAttributedButton(image: img, target: self, action: #selector(removePartTemplate(sender:)))
-                btn.url = url
+                let btn = AttributedButton(image: img, target: self, action: #selector(removePartTemplate(sender:)))
+                btn.attribute = path
                 sv.addArrangedSubview(btn)
             }
-            views.append([NSTextField(labelWithString: url.lastPathComponent), sv])
+            views.append([NSTextField(labelWithString: path.lastPathComponent()), sv])
         }
         let grid = NSGridView(views: views)
         grid.rowAlignment = .firstBaseline
@@ -143,30 +143,30 @@ class LayoutControlViewController: NSViewController {
     }
 
     func loadUrls(){
-        imageUrls.removeAll()
-        for url in Files.listAllURLs(dirURL: Paths.layoutDirectory){
-            if url.lastPathComponent == "logo.png"{
+        imagePaths.removeAll()
+        for path in Files.listAllFiles(dirPath: Paths.layoutDirectory){
+            if path.lastPathComponent() == "logo.png"{
                 continue
             }
-            let ext = url.pathExtension.lowercased()
+            let ext = path.pathExtension().lowercased()
             if ext == "jpg" || ext == "png" {
-                imageUrls.append(url)
+                imagePaths.append(path)
             }
         }
-        masterUrls.removeAll()
-        var dirUrl = URL(fileURLWithPath: TemplateType.master.rawValue, relativeTo: Paths.templateDirectory)
-        for url in Files.listAllURLs(dirURL: dirUrl){
-            masterUrls.append(url)
+        masterPaths.removeAll()
+        var path = Paths.templateDirectory.appendPath(TemplateType.master.rawValue)
+        for path in Files.listAllFiles(dirPath: path){
+            masterPaths.append(path)
         }
-        pageUrls.removeAll()
-        dirUrl = URL(fileURLWithPath: TemplateType.page.rawValue, relativeTo: Paths.templateDirectory)
-        for url in Files.listAllURLs(dirURL: dirUrl){
-            pageUrls.append(url)
+        pagePaths.removeAll()
+        path = Paths.templateDirectory.appendPath(TemplateType.page.rawValue)
+        for path in Files.listAllFiles(dirPath: path){
+            pagePaths.append(path)
         }
-        partUrls.removeAll()
-        dirUrl = URL(fileURLWithPath: TemplateType.part.rawValue, relativeTo: Paths.templateDirectory)
-        for url in Files.listAllURLs(dirURL: dirUrl){
-            partUrls.append(url)
+        partPaths.removeAll()
+        path = Paths.templateDirectory.appendPath(TemplateType.part.rawValue)
+        for path in Files.listAllFiles(dirPath: path){
+            partPaths.append(path)
         }
     }
 
@@ -181,9 +181,9 @@ class LayoutControlViewController: NSViewController {
         dialog.allowedFileTypes        = ["png"];
 
         if (dialog.runModal() == NSApplication.ModalResponse.OK) {
-            if let result = dialog.url {
-                if Files.deleteFile(url: logoUrl) {
-                    if !Files.copyFile(fromURL: result, toURL: logoUrl) {
+            if let result = dialog.url?.path {
+                if Files.deleteFile(path: logoPath) {
+                    if !Files.copyFile(from: result, to: logoPath) {
                         Log.error("could not copy logo image")
                         return
                     }
@@ -194,8 +194,8 @@ class LayoutControlViewController: NSViewController {
     }
 
     @objc func editStyleSheet(sender: Any){
-        if let btn = sender as? UrlAttributedButton, let url = btn.url{
-            editorController?.editFile(url: url)
+        if let btn = sender as? AttributedButton, let path = btn.attribute{
+            editorController?.editFile(path: path)
         }
     }
 
@@ -210,8 +210,8 @@ class LayoutControlViewController: NSViewController {
         dialog.allowedFileTypes        = ["jpg", "png"];
 
         if (dialog.runModal() == NSApplication.ModalResponse.OK) {
-            if let result = dialog.url {
-                if !Files.copyFile(fromURL: result, toURL: URL(fileURLWithPath: result.lastPathComponent, relativeTo: Paths.layoutDirectory)){
+            if let result = dialog.url?.path {
+                if !Files.copyFile(from: result, to: Paths.layoutDirectory.appendPath(result.lastPathComponent())){
                     Log.error("could not copy image")
                     return
                 }
@@ -221,9 +221,9 @@ class LayoutControlViewController: NSViewController {
     }
 
     @objc func removeImage(sender: Any){
-        if let btn = sender as? UrlAttributedButton, let url = btn.url {
+        if let btn = sender as? AttributedButton, let path = btn.attribute {
             if NSAlert.acceptWarning(message: "Do you really want to delete this image?"){
-                _ = Files.deleteFile(url: url)
+                _ = Files.deleteFile(path: path)
                 loadGrid()
             }
         }
@@ -236,17 +236,17 @@ class LayoutControlViewController: NSViewController {
         if controller.accepted{
             let name = controller.name + "Master"
             if !name.isEmpty{
-                let defaultUrl = URL(fileURLWithPath: "master/defaultMaster.xml" , relativeTo: Paths.defaultTemplateDirectory)
-                if var xml = Files.readTextFile(url: defaultUrl) {
+                let defaultMaster = Paths.defaultTemplateDirectory.appendPath("master/defaultMaster.xml")
+                if var xml = Files.readTextFile(path: defaultMaster) {
                     xml = xml.replacingOccurrences(of: "defaultMaster", with: name)
-                    let url = URL(fileURLWithPath: "master/\(name).xml", relativeTo: Paths.templateDirectory)
-                    if !Files.saveFile(text: xml, url: url) {
+                    let path = Paths.templateDirectory.appendPath("master/\(name).xml")
+                    if !Files.saveFile(text: xml, path: path) {
                         Log.error("could not create template \(name)")
                         return
                     }
                     TemplateCache.loadTemplates(type: .master)
                     loadGrid()
-                    editorController?.editFile(url: url)
+                    editorController?.editFile(path: path)
                 }
             }
         }
@@ -259,17 +259,17 @@ class LayoutControlViewController: NSViewController {
         if controller.accepted{
             let name = controller.name + "Page"
             if !name.isEmpty{
-                let defaultUrl = URL(fileURLWithPath: "page/defaultPage.xml" , relativeTo: Paths.defaultTemplateDirectory)
-                if var xml = Files.readTextFile(url: defaultUrl) {
+                let defaultPage = Paths.defaultTemplateDirectory.appendPath("page/defaultPage.xml")
+                if var xml = Files.readTextFile(path: defaultPage) {
                     xml = xml.replacingOccurrences(of: "defaultPage", with: name)
-                    let url = URL(fileURLWithPath: "page/\(name).xml", relativeTo: Paths.templateDirectory)
-                    if !Files.saveFile(text: xml, url: url) {
+                    let path = Paths.templateDirectory.appendPath("page/\(name).xml")
+                    if !Files.saveFile(text: xml, path: path) {
                         Log.error("could not create template \(name)")
                         return
                     }
                     TemplateCache.loadTemplates(type: .page)
                     loadGrid()
-                    editorController?.editFile(url: url)
+                    editorController?.editFile(path: path)
                 }
             }
         }
@@ -283,17 +283,17 @@ class LayoutControlViewController: NSViewController {
         if controller.accepted{
             let name = controller.name + "Part"
             if !name.isEmpty{
-                let defaultUrl = URL(fileURLWithPath: "part/defaultPart.xml" , relativeTo: Paths.defaultTemplateDirectory)
-                if var xml = Files.readTextFile(url: defaultUrl) {
+                let defaultPart = Paths.defaultTemplateDirectory.appendPath("part/defaultPart.xml")
+                if var xml = Files.readTextFile(path: defaultPart) {
                     xml = xml.replacingOccurrences(of: "defaultPart", with: name)
-                    let url = URL(fileURLWithPath: "part/\(name).xml", relativeTo: Paths.templateDirectory)
-                    if !Files.saveFile(text: xml, url: url) {
+                    let path = Paths.templateDirectory.appendPath("part/\(name).xml")
+                    if !Files.saveFile(text: xml, path: path) {
                         Log.error("could not create template \(name)")
                         return
                     }
                     TemplateCache.loadTemplates(type: .part)
                     loadGrid()
-                    editorController?.editFile(url: url)
+                    editorController?.editFile(path: path)
                 }
             }
         }
@@ -301,15 +301,15 @@ class LayoutControlViewController: NSViewController {
     }
 
     @objc func editTemplate(sender: Any){
-        if let btn = sender as? UrlAttributedButton, let url = btn.url{
-            editorController?.editFile(url: url)
+        if let btn = sender as? AttributedButton, let path = btn.attribute{
+            editorController?.editFile(path: path)
         }
     }
 
     @objc func removeMasterTemplate(sender: Any){
-        if let btn = sender as? UrlAttributedButton, let url = btn.url {
+        if let btn = sender as? AttributedButton, let path = btn.attribute {
             if NSAlert.acceptWarning(message: "Do you really want to delete this template?"){
-                _ = Files.deleteFile(url: url)
+                _ = Files.deleteFile(path: path)
                 TemplateCache.loadTemplates(type: .master)
                 loadGrid()
             }
@@ -317,9 +317,9 @@ class LayoutControlViewController: NSViewController {
     }
 
     @objc func removePageTemplate(sender: Any){
-        if let btn = sender as? UrlAttributedButton, let url = btn.url {
+        if let btn = sender as? AttributedButton, let path = btn.attribute {
             if NSAlert.acceptWarning(message: "Do you really want to delete this template?"){
-                _ = Files.deleteFile(url: url)
+                _ = Files.deleteFile(path: path)
                 TemplateCache.loadTemplates(type: .page)
                 loadGrid()
             }
@@ -327,9 +327,9 @@ class LayoutControlViewController: NSViewController {
     }
 
     @objc func removePartTemplate(sender: Any){
-        if let btn = sender as? UrlAttributedButton, let url = btn.url {
+        if let btn = sender as? AttributedButton, let path = btn.attribute {
             if NSAlert.acceptWarning(message: "Do you really want to delete this template?"){
-                _ = Files.deleteFile(url: url)
+                _ = Files.deleteFile(path: path)
                 TemplateCache.loadTemplates(type: .part)
                 loadGrid()
             }

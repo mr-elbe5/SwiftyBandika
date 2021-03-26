@@ -33,11 +33,11 @@ class Template : ServerPage{
     }
 
     func load(type: TemplateType, fileName: String) -> Bool{
-        let url = URL(fileURLWithPath: type.rawValue + "/" + fileName, relativeTo: Paths.templateDirectory)
-        if !Files.fileExists(url: url){
+        let path = Paths.templateDirectory.appendPath(type.rawValue).appendPath(fileName)
+        if !Files.fileExists(path: path){
             return false
         }
-        if let source = Files.readTextFile(url: url) {
+        if let source = Files.readTextFile(path: path) {
             do {
                 try parse(str: source)
                 let parser = ServerPageParser()

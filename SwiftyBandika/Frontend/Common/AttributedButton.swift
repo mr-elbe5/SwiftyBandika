@@ -13,7 +13,3 @@ import Cocoa
 class AttributedButton : NSButton{
     var attribute: String? = nil
 }
-
-class UrlAttributedButton : NSButton{
-    var url: URL? = nil
-}

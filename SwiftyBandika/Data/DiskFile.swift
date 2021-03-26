@@ -13,9 +13,9 @@ class DiskFile{
     
     var name: String
     var live: Bool
-    var url: URL{
+    var path: String{
         get{
-            URL(fileURLWithPath: name, relativeTo: live ? Paths.fileDirectory : Paths.tempFileDirectory)
+            (live ? Paths.fileDirectory : Paths.tempFileDirectory).appendPath(name)
         }
     }
 
@@ -30,21 +30,21 @@ class DiskFile{
     }
     
     func exists() -> Bool{
-        Files.fileExists(url: url)
+        Files.fileExists(path: path)
     }
 
     func writeToDisk(_ memoryFile: MemoryFile) -> Bool{
-        if Files.fileExists(url: url){
-            _ = Files.deleteFile(url: url)
+        if Files.fileExists(path: path){
+            _ = Files.deleteFile(path: path)
         }
-        return Files.saveFile(data: memoryFile.data, url: url)
+        return Files.saveFile(data: memoryFile.data, path: path)
     }
 
     func makeLive(){
         if !live{
-            let tmpUrl = url
+            let tmpPath = path
             live = true
-            if !Files.moveFile(fromURL: tmpUrl, toURL: url){
+            if !Files.moveFile(from: tmpPath, to: path){
                 Log.error("could not move file to live")
                 live = false
             }

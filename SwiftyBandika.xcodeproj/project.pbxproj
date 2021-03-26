@@ -137,6 +137,8 @@
 		3324DFB86BCAB0FBC5109881 /* FormLineTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324DEE90D5021DA26FCCBCB /* FormLineTag.swift */; };
 		3324DFD56EF3F548AADDFF2F /* LayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D7B67CEE9308E039526D /* LayoutViewController.swift */; };
 		3324DFF3982A635DC28C8226 /* StaticFileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D4DE320DF2173E3EB321 /* StaticFileController.swift */; };
+		4EB6BBE3260DD8F100CD2034 /* NIOHTTP1 in Frameworks */ = {isa = PBXBuildFile; productRef = 4EDD8CFA25EBC65D0044E773 /* NIOHTTP1 */; };
+		4EB6BBE4260DD8F100CD2034 /* NIO in Frameworks */ = {isa = PBXBuildFile; productRef = 4EDD8CFC25EBC65D0044E773 /* NIO */; };
 		4ECFBC8325D2BFA8001F9853 /* LogChunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFBC8225D2BFA8001F9853 /* LogChunk.swift */; };
 		4ECFBC8625D2C008001F9853 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFBC8525D2C008001F9853 /* LogLevel.swift */; };
 		4ED90BE925CD478100A83D34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ED90BE825CD478100A83D34 /* Assets.xcassets */; };
@@ -343,6 +345,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EB6BBE3260DD8F100CD2034 /* NIOHTTP1 in Frameworks */,
+				4EB6BBE4260DD8F100CD2034 /* NIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,10 +700,8 @@
 			);
 			name = SwiftyBandika;
 			packageProductDependencies = (
-				4EDD8CFA25EBC65D0044E773,
-				4EDD8CFC25EBC65D0044E773,
-				4E8B9CB22607599A00345E42,
-				4E903F5F2608A62B009372F0,
+				4EDD8CFA25EBC65D0044E773 /* NIOHTTP1 */,
+				4EDD8CFC25EBC65D0044E773 /* NIO */,
 			);
 			productName = SwiftyBandika;
 			productReference = 4ED90BE325CD478000A83D34 /* SwiftyBandika.app */;
@@ -730,9 +732,7 @@
 			);
 			mainGroup = 4ED90BDA25CD478000A83D34;
 			packageReferences = (
-				4EDD8CF925EBC65D0044E773,
-				4E8B9CB12607599A00345E42,
-				4E903F5E2608A62B009372F0,
+				4EDD8CF925EBC65D0044E773 /* XCRemoteSwiftPackageReference "swift-nio" */,
 			);
 			productRefGroup = 4ED90BE425CD478000A83D34 /* Products */;
 			projectDirPath = "";
@@ -1128,23 +1128,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4E8B9CB12607599A00345E42 = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.2;
-			};
-		};
-		4E903F5E2608A62B009372F0 = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/marmelroy/Zip.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.1;
-			};
-		};
-		4EDD8CF925EBC65D0044E773 = {
+		4EDD8CF925EBC65D0044E773 /* XCRemoteSwiftPackageReference "swift-nio" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-nio.git";
 			requirement = {
@@ -1155,24 +1139,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4E8B9CB22607599A00345E42 = {
+		4EDD8CFA25EBC65D0044E773 /* NIOHTTP1 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E8B9CB12607599A00345E42;
-			productName = SwiftSoup;
-		};
-		4E903F5F2608A62B009372F0 = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E903F5E2608A62B009372F0;
-			productName = Zip;
-		};
-		4EDD8CFA25EBC65D0044E773 = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4EDD8CF925EBC65D0044E773;
+			package = 4EDD8CF925EBC65D0044E773 /* XCRemoteSwiftPackageReference "swift-nio" */;
 			productName = NIOHTTP1;
 		};
-		4EDD8CFC25EBC65D0044E773 = {
+		4EDD8CFC25EBC65D0044E773 /* NIO */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4EDD8CF925EBC65D0044E773;
+			package = 4EDD8CF925EBC65D0044E773 /* XCRemoteSwiftPackageReference "swift-nio" */;
 			productName = NIO;
 		};
 /* End XCSwiftPackageProductDependency section */

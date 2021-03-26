@@ -37,7 +37,7 @@ class FileController: Controller {
     func show(request: Request) -> Response {
         var path = request.path
         path.removeFirst(Router.filesPrefix.count)
-        path = path.withoutExt()
+        path = path.pathWithoutExtension()
         var isPreview = false
         if path.hasPrefix("preview"){
             isPreview = true
@@ -63,9 +63,9 @@ class FileController: Controller {
                 return Response(code: .forbidden)
             }
             Log.info("loading file \(id)")
-            if let data: Data = Files.readFile(url: file.file.url) {
+            if let data: Data = Files.readFile(path: file.file.path) {
                 let download = request.getBool("download")
-                let contentType = file.file.url.path.mimeType()
+                let contentType = file.file.path.mimeType()
                 return Response(data: data, fileName: file.fileName, contentType: contentType, download: download)
             }
             Log.info("reading file for id \(id) failed")
@@ -79,8 +79,8 @@ class FileController: Controller {
                 return Response(code: .forbidden)
             }
             Log.info("loading preview file \(id)")
-            if let pvf = file.previewFile, let data: Data = Files.readFile(url: pvf.url) {
-                let contentType = file.file.url.path.mimeType()
+            if let pvf = file.previewFile, let data: Data = Files.readFile(path: pvf.path) {
+                let contentType = file.file.path.mimeType()
                 return Response(data: data, fileName: file.fileName, contentType: contentType)
             }
             Log.info("reading preview file for id \(id) failed")
@@ -171,9 +171,9 @@ class FileController: Controller {
             // marking as copy
             data.parentId = 0
             data.parentVersion = 0
-            var success = Files.copyFile(fromURL: original.file.url, toURL: data.file.url)
+            var success = Files.copyFile(from: original.file.path, to: data.file.path)
             if original.isImage, let opf = original.previewFile, let npf = data.previewFile {
-                success = success && Files.copyFile(fromURL: opf.url, toURL: npf.url)
+                success = success && Files.copyFile(from: opf.path, to: npf.path)
             }
             if !success {
                 return Response(code: .internalServerError)

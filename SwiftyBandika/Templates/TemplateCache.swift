@@ -16,7 +16,7 @@ struct TemplateCache {
     static var templates = Dictionary<TemplateType, Dictionary<String,Template>>()
 
     static func initialize() {
-        if Files.directoryIsEmpty(url: Paths.templateDirectory) {
+        if Files.directoryIsEmpty(path: Paths.templateDirectory) {
             if DefaultTemplates.createTemplates() {
                 Log.info("created default templates")
             } else {
@@ -40,7 +40,7 @@ struct TemplateCache {
 
     static func loadTemplates(type: TemplateType){
         var dict = Dictionary<String, Template>()
-        let fileNames = Files.listAllFileNames(dirPath: Paths.templateDirectory.path + "/" + type.rawValue)
+        let fileNames = Files.listAllFileNames(dirPath: Paths.templateDirectory + "/" + type.rawValue)
         for fileName in fileNames {
             if fileName.hasSuffix(".xml") {
                 var name = fileName

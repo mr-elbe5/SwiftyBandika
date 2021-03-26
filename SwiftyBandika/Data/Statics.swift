@@ -18,7 +18,7 @@ class Statics: Codable{
 
     static func initialize(){
         Log.info("initializing statics")
-        if !Files.fileExists(url: Paths.staticsFile){
+        if !Files.fileExists(path: Paths.staticsFile){
             instance.initDefaults()
             if !instance.save(){
                 Log.error("could not save statics")
@@ -27,7 +27,7 @@ class Statics: Codable{
                 Log.info("created statics")
             }
         }
-        if let str = Files.readTextFile(url: Paths.staticsFile){
+        if let str = Files.readTextFile(path: Paths.staticsFile){
             if let statics : Statics = Statics.fromJSON(encoded: str){
                 instance = statics
                 Log.info("loaded app statics")
@@ -77,7 +77,7 @@ class Statics: Codable{
     func save() -> Bool{
         Log.info("saving app statics")
         let json = toJSON()
-        if !Files.saveFile(text: json, url: Paths.staticsFile){
+        if !Files.saveFile(text: json, path: Paths.staticsFile){
             Log.warn("app statics could not be saved")
             return false
         }

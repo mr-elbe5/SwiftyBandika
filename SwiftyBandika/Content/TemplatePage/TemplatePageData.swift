@@ -83,7 +83,7 @@ class TemplatePageData : PageData{
     override func createPublishedContent(request: Request) {
         request.setSessionContent(self)
         request.setContent(self)
-        publishedContent = Html.prettyfy(src: getTemplateHtml(request: request))
+        publishedContent = HtmlFormatter.format(src: getTemplateHtml(request: request), indented: false)
         publishDate = App().currentTime
         request.removeSessionContent()
     }

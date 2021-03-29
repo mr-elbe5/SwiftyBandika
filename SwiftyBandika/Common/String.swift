@@ -12,118 +12,20 @@ import Foundation
 
 extension String {
 
-    func indexOf(_ input: String,
-                 options: String.CompareOptions = .literal) -> String.Index? {
-        self.range(of: input, options: options)?.lowerBound
+    public func localize() -> String {
+        Localizer.instance.localize(src: self)
     }
 
-    func lastIndexOf(_ input: String) -> String.Index? {
-        indexOf(input, options: .backwards)
+    public func localize(i: Int) -> String {
+        String(format: localize(), String(i))
     }
 
-    func localize() -> String {
-        NSLocalizedString(self, comment: "")
+    public func localize(s: String) -> String {
+        String(format: localize(), s)
     }
 
-    func localize(i: Int) -> String {
-        String(format: NSLocalizedString(self, comment: ""), String(i))
-    }
-
-    func localize(s: String) -> String {
-        String(format: NSLocalizedString(self, comment: ""), s)
-    }
-
-    func toHtml() -> String {
-        var result = ""
-        for ch in self {
-            switch ch {
-            case "\"": result.append("&quot;")
-            case "'": result.append("&apos;")
-            case "&": result.append("&amp;")
-            case "<": result.append("&lt;")
-            case ">": result.append("&gt;")
-            default: result.append(ch)
-            }
-        }
-        return result
-    }
-
-    func toHtmlMultiline() -> String {
-        self.toHtml().replacingOccurrences(of: "\n", with: "<br/>\n")
-    }
-
-    func toLocalizedHtml() -> String {
-        self.localize().toHtml()
-    }
-
-    func toUri() -> String {
-        var result = ""
-        var code = ""
-        for ch in self {
-            switch ch{
-            case "$" : code = "%24"
-            case "&" : code = "%26"
-            case ":" : code = "%3A"
-            case ";" : code = "%3B"
-            case "=" : code = "%3D"
-            case "?" : code = "%3F"
-            case "@" : code = "%40"
-            case " " : code = "%20"
-            case "\"" : code = "%5C"
-            case "<" : code = "%3C"
-            case ">" : code = "%3E"
-            case "#" : code = "%23"
-            case "%" : code = "%25"
-            case "~" : code = "%7E"
-            case "|" : code = "%7C"
-            case "^" : code = "%5E"
-            case "[" : code = "%5B"
-            case "]" : code = "%5D"
-            default: code = ""
-            }
-            if !code.isEmpty {
-                result.append(code)
-            }
-            else{
-                result.append(ch)
-            }
-        }
-        return result
-    }
-
-    func toXml() -> String {
-        var result = ""
-        for ch in self {
-            switch ch {
-            case "\"": result.append("&quot;")
-            case "'": result.append("&apos;")
-            case "&": result.append("&amp;")
-            case "<": result.append("&lt;")
-            case ">": result.append("&gt;")
-            default: result.append(ch)
-            }
-        }
-        return result
-    }
-
-    func toSafeWebName() -> String {
-        //todo  complete this
-        let discardables = " [' \"><]+äöüÄÖÜß"
-        var result = ""
-        for ch in self {
-            var found = false
-            for dch in discardables{
-                if ch == dch{
-                    found = true
-                    break
-                }
-            }
-            if found{
-                continue
-            }
-            result.append(ch)
-        }
-        return result
+    public func toLocalizedHtml() -> String {
+        localize().toHtml()
     }
 
     func trim() -> String {

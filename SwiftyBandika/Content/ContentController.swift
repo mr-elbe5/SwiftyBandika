@@ -42,7 +42,7 @@ class ContentController: Controller {
             request.addPageVar("description", content.description.trim().toHtml())
             let master = TemplateCache.getTemplate(type: TemplateType.master, name: content.master)
             if let html = master?.getHtml(request: request) {
-                return Response(html: Html.prettyfy(src: html))
+                return Response(html: HtmlFormatter.format(src: html, indented: true))
             }
         } else {
             Log.warn("content id not found : \(id ?? 0)")

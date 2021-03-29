@@ -26,7 +26,7 @@ final class HTTPHandler : ChannelInboundHandler {
         switch reqPart {
         case .head(let header):
             //Log.info(header)
-            request.setHeader(header)
+            request.readHeader(header)
         case .body(var body):
             request.appendBody(&body)
         case .end:

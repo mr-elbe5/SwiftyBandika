@@ -18,7 +18,9 @@ class Log{
     static var chunks = Array<LogChunk>()
     
     static var delegate : LogDelegate? = nil
-    
+
+    static var logFileUrl = Paths.logFile.toFileUrl()!
+
     static func info(_ string: String){
         log(string,level: .info)
     }
@@ -39,5 +41,8 @@ class Log{
         let msg = level.rawValue + Date().dateTimeString() + " " + string
         chunks.append(LogChunk(msg,level: level))
         delegate?.updateLog()
+        Files.appendToFile(text: msg + "\n", url: logFileUrl)
+
     }
+
 }

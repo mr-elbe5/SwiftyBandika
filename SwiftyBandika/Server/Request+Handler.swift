@@ -13,7 +13,7 @@ import NIOHTTP1
 
 extension Request{
 
-    func setHeader(_ header: HTTPRequestHead){
+    func readHeader(_ header: HTTPRequestHead){
         uri = header.uri
         if let idx = uri.firstIndex(of: "?"){
             path = String(uri[uri.startIndex..<idx])
@@ -26,6 +26,7 @@ extension Request{
         }
         method = header.method
         headers = Dictionary(grouping: header.headers, by: { $0.name.lowercased() }).mapValues { $0.compactMap({ $0.value }).joined(separator: ",") }
+        setLanguage()
     }
 
     func setSession(){

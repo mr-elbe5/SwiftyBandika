@@ -11,7 +11,7 @@ import Foundation
 
 struct Paths{
 
-    static let homeDirectory = NSHomeDirectory()
+    static let baseDirectory = NSHomeDirectory()
     static var dataDirectory = "."
     static var fileDirectory = "."
     static var tempFileDirectory = "."
@@ -23,8 +23,9 @@ struct Paths{
     static var nextIdFile = "."
     static var staticsFile = "."
     static var usersFile = "."
+    static var logFile = "."
     
-    static var resourceDirectory = Bundle.main.resourceURL?.path ?? FileManager.default.currentDirectoryPath
+    static var resourceDirectory = Bundle.main.resourceURL?.path ?? baseDirectory
     static var webDirectory = resourceDirectory.appendPath("web")
     static var serverPagesDirectory = resourceDirectory.appendPath("serverPages")
     static var defaultContentDirectory = resourceDirectory.appendPath("defaultContent")
@@ -32,19 +33,24 @@ struct Paths{
     static var defaultLayoutDirectory = resourceDirectory.appendPath("defaultLayout")
 
     static func initPaths(){
-        dataDirectory = homeDirectory.appendPath("BandikaData")
+        dataDirectory = baseDirectory.appendPath("BandikaData")
         fileDirectory = dataDirectory.appendPath("files")
         tempFileDirectory = fileDirectory.appendPath("tmp")
         templateDirectory = dataDirectory.appendPath("templates")
         layoutDirectory = dataDirectory.appendPath("layout")
-        backupDirectory = homeDirectory.appendPath("Backup")
+        backupDirectory = baseDirectory.appendPath("Backup")
         configFile = dataDirectory.appendPath("config.json")
         contentFile = dataDirectory.appendPath("content.json")
         nextIdFile = dataDirectory.appendPath("next.id")
         staticsFile = dataDirectory.appendPath("statics.json")
         usersFile = dataDirectory.appendPath("users.json")
+        logFile = baseDirectory.appendPath("bandika.log")
         assertDirectories()
-        Log.info("home directory is \(homeDirectory)")
+        if !Files.fileExists(path: logFile){
+            _ = Files.saveFile(text: "", path: logFile)
+        }
+        print("log file is \(logFile)")
+        Log.info("home directory is \(baseDirectory)")
         Log.info("data directory is \(dataDirectory)")
         Log.info("file directory is \(fileDirectory)")
         Log.info("template directory is \(templateDirectory)")

@@ -92,6 +92,14 @@ public class Files {
         return false
     }
 
+    static func appendToFile(text: String, url: URL){
+        if let fileHandle = try? FileHandle(forWritingTo: url), let data = text.data(using: .utf8){
+            fileHandle.seekToEndOfFile()
+            fileHandle.write(data)
+            fileHandle.closeFile()
+        }
+    }
+
     static func copyFile(name: String, fromDir: String, toDir: String, replace: Bool = false) -> Bool {
         do {
             let toPath = toDir.appendPath(name)

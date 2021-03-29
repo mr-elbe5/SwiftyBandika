@@ -17,6 +17,7 @@ class Request {
     var method: HTTPMethod = .GET
     var uri: String = ""
     var headers: [String: String] = [:]
+    var language = "en"
     var bytes = [UInt8]()
     var params: [String: Any] = [:]
     var files = [String:MemoryFile]()
@@ -129,6 +130,19 @@ class Request {
     }
 
     init(){
+    }
+
+    func setLanguage(){
+        if var lang = acceptLanguage{
+            lang = lang.lowercased()
+            if lang.count > 2{
+                lang = String(lang[lang.startIndex...lang.index(lang.startIndex, offsetBy: 1)])
+            }
+            language = lang
+        }
+        else {
+            language = "en"
+        }
     }
 
     func setParam(_ name: String, _ value: Any){

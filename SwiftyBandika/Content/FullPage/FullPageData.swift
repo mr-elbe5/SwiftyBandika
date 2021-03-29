@@ -59,13 +59,13 @@ class FullPageData: PageData {
     }
 
     override func createPublishedContent(request: Request) {
-        publishedContent = Html.prettyfy(src: """
+        publishedContent = HtmlFormatter.format(src: """
                                <div class="{{cssClass}}">
                                    {{content}}
                                </div>
                            """.format([
                                 "cssClass": cssClass,
-                                "content": content]))
+                                "content": content]), indented: false)
         publishDate = App().currentTime
     }
 

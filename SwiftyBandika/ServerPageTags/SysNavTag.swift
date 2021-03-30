@@ -22,7 +22,7 @@ class SysNavTag: ServerPageTag {
                         <li class="nav-item">
                         <a class="nav-link fa fa-home" href="/" title="{{_home}}"></a>
                         </li>
-                    """.format(nil))
+                    """.format(language: request.language, nil))
         if (request.isLoggedIn) {
             let content = request.getSafeContent()
             if SystemZone.hasUserAnySystemRight(user: request.user) {
@@ -30,7 +30,7 @@ class SysNavTag: ServerPageTag {
                         <li class="nav-item">
                             <a class="nav-link fa fa-cog" href="/ctrl/admin/openContentAdministration" title="{{_administration}}"></a>
                         </li>
-                        """.format(nil))
+                        """.format(language: request.language, nil))
             }
             if let page = content as? PageData {
                 if request.viewType != ViewType.edit && Right.hasUserEditRight(user: request.user, content: content) {
@@ -38,7 +38,7 @@ class SysNavTag: ServerPageTag {
                         <li class="nav-item">
                             <a class="nav-link fa fa-edit" href="/ctrl/{{type}}/openEditPage/{{id}}" title="{{_editPage}}"></a>
                         </li>
-                        """.format([
+                        """.format(language: request.language, [
                             "type": content.type.rawValue,
                             "id": String(content.id)]))
                     if page.hasUnpublishedDraft() {
@@ -48,7 +48,7 @@ class SysNavTag: ServerPageTag {
                         <li class="nav-item">
                             <a class="nav-link fa fa-eye-slash" href="/ctrl/{{type}}/showDraft/{{id}}" title="{{_showDraft}}" ></a>
                         </li>
-                        """.format([
+                        """.format(language: request.language, [
                             "type": content.type.rawValue,
                             "id": String(content.id)]))
                             } else {
@@ -56,7 +56,7 @@ class SysNavTag: ServerPageTag {
                         <li class="nav-item">
                             <a class="nav-link fa fa-eye" href="/ctrl/{{type}}/showPublished/{{id}}" title="{{_showPublished}}"></a>
                         </li>
-                        """.format([
+                        """.format(language: request.language, [
                             "type": content.type.rawValue,
                             "id": String(content.id)]))
                             }
@@ -66,7 +66,7 @@ class SysNavTag: ServerPageTag {
                         <li class="nav-item">
                             <a class="nav-link fa fa-thumbs-up" href="/ctrl/{{type}}/publishPage/{{id}}" title="{{_publish}}"></a>
                         </li>
-                        """.format([
+                        """.format(language: request.language, [
                             "type": content.type.rawValue,
                             "id": String(content.id)]))
                         }
@@ -82,13 +82,13 @@ class SysNavTag: ServerPageTag {
                         <li class="nav-item">
                             <a class="nav-link fa fa-sign-out" href="/ctrl/user/logout" title="{{_logout}}"></a>
                         </li>
-                        """.format(nil))
+                        """.format(language: request.language, nil))
         } else {
             html.append("""
                         <li class="nav-item">
                             <a class="nav-link fa fa-user-o" href="" onclick="return openModalDialog('/ajax/user/openLogin');" title="{{_login}}"></a>
                         </li>
-                        """.format(nil))
+                        """.format(language: request.language, nil))
         }
         html.append("""
                     </ul>

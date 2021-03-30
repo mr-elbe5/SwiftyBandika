@@ -19,7 +19,7 @@ class FormFileTag: FormLineTag {
         let multiple = getBoolAttribute("multiple", request)
         return """
                <input type="file" class="form-control-file" id="{{name}}" name="{{name}}" {{multiple}}>
-               """.format([
+               """.format(language: request.language, [
                     "name": name,
                     "multiple": multiple ? "multiple" : ""])
     }

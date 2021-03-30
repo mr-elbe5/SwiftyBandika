@@ -25,7 +25,7 @@ class FormTag: ServerPageTag {
 
         html.append("""
                     <form action="{{url}}" method="post" id="{{name}}" name="{{name}}" accept-charset="UTF-8"{{multi}}>
-                    """.format([
+                    """.format(language: request.language, [
                         "url": url,
                         "name": name,
                         "multi": multi ? " enctype=\"multipart/form-data\"" : ""]
@@ -44,7 +44,7 @@ class FormTag: ServerPageTag {
                             {{post}}('{{url}}', params,'{{target}}');
                         });
                     </script>
-                    """.format([
+                    """.format(language: request.language, [
                         "name": name,
                         "serialize": multi ? "serializeFiles" : "serialize",
                         "post": multi ? "postMultiByAjax" : "postByAjax",

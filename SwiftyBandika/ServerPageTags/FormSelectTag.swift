@@ -29,7 +29,7 @@ class FormSelectTag : FormLineTag{
 
     override func getPreControlHtml(request: Request) -> String{
         onChange = getStringAttribute("onchange", request)
-        return FormSelectTag.preControlHtml.format([
+        return FormSelectTag.preControlHtml.format(language: request.language, [
             "name" : name,
             "onchange" : onChange.isEmpty ? "" : "onchange=\"\(onChange)\""]
         )
@@ -39,10 +39,10 @@ class FormSelectTag : FormLineTag{
         FormSelectTag.postControlHtml
     }
 
-    static func getOptionHtml(value: String, isSelected: Bool, text: String) -> String{
+    static func getOptionHtml(request: Request, value: String, isSelected: Bool, text: String) -> String{
         """
         <option value="{{value}}" {{isSelected}}>{{text}}</option>
-        """.format([
+        """.format(language: request.language, [
             "value" : value,
             "isSelected": isSelected ? "selected" : "",
             "text": text

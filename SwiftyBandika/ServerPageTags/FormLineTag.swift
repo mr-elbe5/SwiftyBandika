@@ -51,7 +51,7 @@ class FormLineTag: ServerPageTag {
                 html.append("\"")
             }
             html.append(">")
-            html.append(label.hasPrefix("_") ? label.toLocalizedHtml() : label.toHtml())
+            html.append(label.hasPrefix("_") ? label.toLocalizedHtml(language: request.language) : label.toHtml())
             if (required) {
                 html.append(" <sup>*</sup>")
             }

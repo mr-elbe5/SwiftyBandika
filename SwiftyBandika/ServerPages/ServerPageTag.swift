@@ -45,7 +45,7 @@ class ServerPageTag: ServerPageNode {
 
     func getStringAttribute(_ name: String, _ request: Request, def: String = "") -> String {
         if let value = attributes[name] {
-            return value.format(request.pageVars)
+            return value.format(language: request.language, request.pageVars)
         }
         return def
     }

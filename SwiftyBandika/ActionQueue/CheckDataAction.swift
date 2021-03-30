@@ -24,7 +24,6 @@ class CheckDataAction : QueuedAction{
     }
 
     override func execute() {
-        print("checking data")
         IdService.instance.checkIdChanged()
         UserContainer.instance.checkChanged()
         ContentContainer.instance.checkChanged()

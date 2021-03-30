@@ -31,7 +31,7 @@ extension FullPageData{
              }
             }
         </script>
-        """.format([
+        """.format(language: request.language, [
             "type": type.rawValue.toHtml(),
             "id": String(id),
             "css": cssClass,
@@ -45,7 +45,7 @@ extension FullPageData{
             <div class="{{css}}">
                 {{content}}
             </div>
-        """.format([
+        """.format(language: request.language, [
             "css": cssClass,
             "content": content
         ])

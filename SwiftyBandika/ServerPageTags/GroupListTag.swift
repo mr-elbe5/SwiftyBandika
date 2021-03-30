@@ -27,7 +27,7 @@ class GroupListTag: ServerPageTag {
                                 <a class="icon fa fa-trash-o" href="" onclick="if (confirmDelete()) return linkTo('/ctrl/group/deleteGroup/{{groupId}}?version={{groupVersion}}');" title="{{_delete}}"> </a>
                             </div>
                         </li>
-                        """.format([
+                        """.format(language: request.language, [
                 "groupOpen": String(group.id == groupId),
                 "groupName": group.name.toHtml(),
                 "groupId": String(group.id),

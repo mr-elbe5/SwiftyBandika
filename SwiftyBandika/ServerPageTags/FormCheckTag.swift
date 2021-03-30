@@ -48,7 +48,7 @@ class FormCheckTag: ServerPageTag {
 
     override func getStartHtml(request: Request) -> String {
         var html = ""
-        html.append(getPreHtml().format([
+        html.append(getPreHtml().format(language: request.language, [
             "name": name.toHtml(),
             "value": value.toHtml(),
             "checked": checked ? "checked" : ""
@@ -62,8 +62,8 @@ class FormCheckTag: ServerPageTag {
         return html
     }
 
-    static func getCheckHtml(name: String, value: String, label: String, checked: Bool) -> String{
-        var html = checkPreHtml.format([
+    static func getCheckHtml(request: Request, name: String, value: String, label: String, checked: Bool) -> String{
+        var html = checkPreHtml.format(language: request.language, [
             "name": name.toHtml(),
             "value": value.toHtml(),
             "checked": checked ? "checked" : ""])

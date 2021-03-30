@@ -44,18 +44,18 @@ class SectionTag: ServerPageTag {
                             <div class="btn-group btn-group-sm editheader">
                                 <button class="btn  btn-primary dropdown-toggle fa fa-plus" data-toggle="dropdown"  title="{{newPart}}"></button>
                                 <div class="dropdown-menu">
-                    """.format([
+                    """.format(language: request.language, [
             "css": section.cssClass,
             "id": String(section.sectionId),
             "name": section.name.toHtml(),
-            "newPart": "_newPart".toLocalizedHtml()]))
+            "newPart": "_newPart".toLocalizedHtml(language: request.language)]))
         if let list = TemplateCache.getTemplates(type: TemplateType.part) {
             for template in list.values {
                 html.append("""
                                 <a class="dropdown-item" href="" onclick="return addPart(-1,'{{sectionName}}','{{partType}}','{{templateName}}');">
                                     {{templateDisplayName}}
                                 </a>
-                            """.format([
+                            """.format(language: request.language, [
                     "sectionName": section.name.toHtml(),
                     "partType": PartType.templatepart.rawValue.toHtml(),
                     "templateName": template.name.toHtml(),
@@ -81,7 +81,7 @@ class SectionTag: ServerPageTag {
         var html = ""
         html.append("""
                     <div class="section {{css}}">
-                    """.format([
+                    """.format(language: request.language, [
                         "css": section.cssClass]
         ))
         for partData in section.parts {

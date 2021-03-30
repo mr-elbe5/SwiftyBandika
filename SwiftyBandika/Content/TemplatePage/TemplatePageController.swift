@@ -61,7 +61,7 @@ class TemplatePageController: PageController {
         super.setEditPageVars(contentData: contentData, request: request)
         if let pageData = contentData as? TemplatePageData {
             var str = """
-                      <option value="" "\(pageData.template.isEmpty ? "selected" : "") > \("_pleaseSelect".toLocalizedHtml()) </option>
+                      <option value="" "\(pageData.template.isEmpty ? "selected" : "") > \("_pleaseSelect".toLocalizedHtml(language: request.language)) </option>
                       """
             if let templates = TemplateCache.getTemplates(type: .page) {
                 for tpl in templates.keys {

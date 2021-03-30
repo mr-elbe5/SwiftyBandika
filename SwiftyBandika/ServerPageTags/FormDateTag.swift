@@ -23,7 +23,7 @@ class FormDateTag: FormLineTag {
                         <input type="text" id="{{name}}" name="{{name}}" class="form-control datepicker" value="{{value}}" />
                     </div>
                     <script type="text/javascript">$('#{{name}}').datepicker({language: '{{language}}'});</script>
-                    """.format([
+                    """.format(language: request.language, [
             "name" : name,
             "value" : value.toHtml(),
             "language" : App().language]

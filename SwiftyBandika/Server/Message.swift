@@ -31,9 +31,9 @@ class Message {
 
     func getHtml(request: Request) -> String {
         if request.hasMessage {
-            return Message.messageHtml.format([
+            return Message.messageHtml.format(language: request.language, [
                 "type": type.rawValue,
-                "message": text.hasPrefix("_") ? text.toLocalizedHtml() : text.toHtml()]
+                "message": text.hasPrefix("_") ? text.toLocalizedHtml(language: request.language) : text.toHtml()]
             )
         }
         return ""

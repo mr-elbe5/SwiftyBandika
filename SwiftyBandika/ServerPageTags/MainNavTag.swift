@@ -29,7 +29,7 @@ class MainNavTag: ServerPageTag {
                                 </button>
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul class="navbar-nav mr-auto">
-                    """.format([
+                    """.format(language: request.language, [
                         "appName": Configuration.instance.applicationName.toHtml()]
         ))
         let home = ContentContainer.instance.contentRoot
@@ -55,7 +55,7 @@ class MainNavTag: ServerPageTag {
                                                 <a class="dropdown-item {{active}}"
                                                    href="{{url}}">{{displayName}}
                                                 </a>
-                                """.format([
+                                """.format(language: request.language, [
                                     "active": activeIds.contains(data.id) ? "active" : "",
                                     "url": data.getUrl().toUri(),
                                     "displayName": data.displayName.toHtml()]
@@ -65,7 +65,7 @@ class MainNavTag: ServerPageTag {
                                                 <a class="dropdown-item {{active}}"
                                                    href="{{url}}">{{displayName}}
                                                 </a>
-                                    """.format([
+                                    """.format(language: request.language, [
                                         "active": activeIds.contains(data.id) ? "active" : "",
                                         "url": child.getUrl().toUri(),
                                         "displayName": child.displayName.toHtml()]
@@ -82,7 +82,7 @@ class MainNavTag: ServerPageTag {
                                                href="{{url}}">{{displayName}}
                                             </a>
                                         </li>
-                                """.format([
+                                """.format(language: request.language, [
                                     "active": activeIds.contains(data.id) ? "active" : "",
                                     "url": data.getUrl().toUri(),
                                     "displayName": data.displayName.toHtml()]

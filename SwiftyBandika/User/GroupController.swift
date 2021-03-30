@@ -104,12 +104,12 @@ class GroupController: Controller {
         request.addPageVar("notes", group.notes.trim().toHtml())
         var str = ""
         for zone in SystemZone.allCases {
-            str.append(FormCheckTag.getCheckHtml(name: "zoneright_"+zone.rawValue, value: String(true), label: ("_zone."+zone.rawValue).toLocalizedHtml(), checked: group.hasSystemRight(zone: zone)))
+            str.append(FormCheckTag.getCheckHtml(request: request, name: "zoneright_"+zone.rawValue, value: String(true), label: ("_zone."+zone.rawValue).toLocalizedHtml(language: request.language), checked: group.hasSystemRight(zone: zone)))
         }
         request.addPageVar("rightChecks", str)
         str = ""
         for user in UserContainer.instance.users {
-            str.append(FormCheckTag.getCheckHtml(name: "userIds", value: String(user.id), label: user.name, checked: group.userIds.contains(user.id)))
+            str.append(FormCheckTag.getCheckHtml(request: request, name: "userIds", value: String(user.id), label: user.name, checked: group.userIds.contains(user.id)))
         }
         request.addPageVar("userChecks", str)
         return ForwardResponse(page: "user/editGroup.ajax", request: request)

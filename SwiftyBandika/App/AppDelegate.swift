@@ -16,6 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         Paths.initPaths()
+        Localizer.initialize(languages: ["en","de"])
         initializeData()
         NSApplication.shared.mainMenu = MainMenu()
         mainWindowController.showWindow(nil)

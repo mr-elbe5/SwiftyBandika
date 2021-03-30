@@ -23,7 +23,7 @@ class FormTextAreaTag: FormLineTag {
         value = getStringAttribute("value", request)
         return """
                <textarea id="{{name}}" name="{{name}}" class="form-control" {{value}}>
-               """.format([
+               """.format(language: request.language, [
                     "name": name,
                     "height": height.isEmpty ? "" : "style=\"height:\(height)\"",
                     "value": value]

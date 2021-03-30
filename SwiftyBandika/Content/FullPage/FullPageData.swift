@@ -63,7 +63,7 @@ class FullPageData: PageData {
                                <div class="{{cssClass}}">
                                    {{content}}
                                </div>
-                           """.format([
+                           """.format(language: request.language, [
                                 "cssClass": cssClass,
                                 "content": content]), indented: false)
         publishDate = App().currentTime

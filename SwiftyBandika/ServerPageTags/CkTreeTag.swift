@@ -25,12 +25,12 @@ class CkTreeTag: ServerPageTag {
         html.append("""
                     <section class="treeSection">
                         <ul class="tree pagetree">
-                    """.format(nil))
+                    """.format(language: request.language, nil))
         if Right.hasUserReadRight(user: request.user, contentId: ContentData.ID_ROOT) {
             html.append("""
                             <li class="open">
                                 <span>{{displayName}}</span>
-                        """.format(["displayName" : ContentContainer.instance.contentRoot.displayName]))
+                        """.format(language: request.language, ["displayName" : ContentContainer.instance.contentRoot.displayName]))
             if SystemZone.hasUserSystemRight(user: request.user, zone: .contentEdit) {
                 html.append(getHtml(content: ContentContainer.instance.contentRoot, request: request))
             }
@@ -53,7 +53,7 @@ class CkTreeTag: ServerPageTag {
         html.append("""
                         <li class="files open">
                             <span>{{_files}}</span>
-                    """.format(nil))
+                    """.format(language: request.language, nil))
         // file icons
         if Right.hasUserReadRight(user: request.user, content: content) {
             html.append("""
@@ -65,7 +65,7 @@ class CkTreeTag: ServerPageTag {
                                    <div class="treeline">
                                        <span class="treeImage" id="{{id}}">
                                            {{displayName}}
-                            """.format([
+                            """.format(language: request.language, [
                                 "id": String(file.id),
                                 "displayName": file.displayName.toHtml(),
                                 ]))
@@ -74,7 +74,7 @@ class CkTreeTag: ServerPageTag {
                                         <span class="hoverImage">
                                             <img src="{{previewUrl}}" alt="{{fileName)}}"/>
                                         </span>
-                                """.format([
+                                """.format(language: request.language, [
                                     "fileName": file.fileName.toHtml(),
                                     "previewUrl": file.previewUrl]))
                 }
@@ -86,7 +86,7 @@ class CkTreeTag: ServerPageTag {
                                        </div>
                                    </div>
                                </li>
-                    """.format([
+                    """.format(language: request.language, [
                         "url": file.url.toUri()]))
             }
             html.append("""
@@ -102,7 +102,7 @@ class CkTreeTag: ServerPageTag {
                 html.append("""
                                 <li class="open">
                                     <span>{{displayName}}</span>
-                            """.format(["displayName" : childData.displayName]))
+                            """.format(language: request.language, ["displayName" : childData.displayName]))
                 if Right.hasUserReadRight(user: request.user, content: childData) {
                     html.append(getHtml(content: childData, request: request))
                 }

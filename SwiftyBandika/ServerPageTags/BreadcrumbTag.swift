@@ -30,7 +30,7 @@ class BreadcrumbTag: ServerPageTag {
                                     <a href="{{url}}">{{displayName}}
                                     </a>
                                 </li>
-                            """.format([
+                            """.format(language: request.language, [
                     "url": content.getUrl().toUri(),
                     "displayName": content.displayName.toHtml()]
                 ))
@@ -41,7 +41,7 @@ class BreadcrumbTag: ServerPageTag {
                                     <a>{{displayName}}
                                     </a>
                                 </li>
-                    """.format([
+                    """.format(language: request.language, [
             "displayName": content.displayName.toHtml()]
         ))
         html.append("""

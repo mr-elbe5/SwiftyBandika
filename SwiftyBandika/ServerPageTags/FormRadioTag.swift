@@ -26,8 +26,8 @@ class FormRadioTag: FormCheckTag {
         FormRadioTag.radioPreHtml
     }
 
-    static func getRadioHtml(name: String, value: String, label: String, checked: Bool) -> String{
-        var html = radioPreHtml.format([
+    static func getRadioHtml(request: Request, name: String, value: String, label: String, checked: Bool) -> String{
+        var html = radioPreHtml.format(language: request.language, [
             "name": name.toHtml(),
             "value": value.toHtml(),
             "checked": checked ? "checked" : ""])

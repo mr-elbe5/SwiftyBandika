@@ -32,11 +32,11 @@ class Controller {
     }
 
     func setSuccess(request: Request, _ name: String) {
-        request.setMessage(name.toLocalizedHtml(), type: .success)
+        request.setMessage(name.toLocalizedHtml(language: request.language), type: .success)
     }
 
     func setError(request: Request, _ name: String) {
-        request.setMessage(name.toLocalizedHtml(), type: .danger)
+        request.setMessage(name.toLocalizedHtml(language: request.language), type: .danger)
     }
 
     func showHome(request: Request) -> Response{
@@ -48,7 +48,7 @@ class Controller {
     }
 
     func openAdminPage(page: String, request: Request) -> Response {
-        request.addPageVar("title", (Configuration.instance.applicationName + " | " + "_administration".localize()).toHtml())
+        request.addPageVar("title", (Configuration.instance.applicationName + " | " + "_administration".localize(language: request.language)).toHtml())
         request.addPageVar("includeUrl", page)
         request.addPageVar("hasUserRights", String(SystemZone.hasUserSystemRight(user: request.user, zone: .user)))
         request.addPageVar("hasContentRights", String(SystemZone.hasUserSystemRight(user: request.user, zone: .contentEdit)))

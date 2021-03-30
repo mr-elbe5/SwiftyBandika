@@ -50,7 +50,7 @@ class UserController: Controller {
             return CloseDialogResponse(url: "/", request: request)
         }
         Log.warn("login of user \(login) failed")
-        request.addFormError("_badLogin".localize())
+        request.addFormError("_badLogin".localize(language: request.language))
         return showLogin(request: request)
     }
 
@@ -166,13 +166,13 @@ class UserController: Controller {
                     let newPassword2 = request.getString("newPassword2")
                     if newPassword.count < UserData.minPasswordLength {
                         request.addFormField("newPassword1")
-                        request.addFormError("_passwordLengthError".localize())
+                        request.addFormError("_passwordLengthError".localize(language: request.language))
                         return showChangePassword(user: request.user!, request: request)
                     }
                     if newPassword != newPassword2 {
                         request.addFormField("newPassword1")
                         request.addFormField("newPassword2")
-                        request.addFormError("_passwordsDontMatch".localize())
+                        request.addFormError("_passwordsDontMatch".localize(language: request.language))
                         return showChangePassword(user: request.user!, request: request)
                     }
                     _ = UserContainer.instance.updateUserPassword(data: data, newPassword: newPassword)
@@ -181,7 +181,7 @@ class UserController: Controller {
 
                 } else {
                     request.addFormField("oldPassword");
-                    request.addFormError("_badLogin".localize())
+                    request.addFormError("_badLogin".localize(language: request.language))
                     return showChangePassword(user: request.user!, request: request)
                 }
             }
@@ -231,7 +231,7 @@ class UserController: Controller {
         setUserVars(user: user, request: request)
         var str = ""
         for group in UserContainer.instance.groups{
-            str.append(FormCheckTag.getCheckHtml(name: "groupIds", value: String(group.id), label: group.name, checked: group.userIds.contains(user.id)))
+            str.append(FormCheckTag.getCheckHtml(request: request, name: "groupIds", value: String(group.id), label: group.name, checked: group.userIds.contains(user.id)))
         }
         request.addPageVar("groupChecks", str)
         return ForwardResponse(page: "user/editUser.ajax", request: request)

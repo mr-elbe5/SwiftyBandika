@@ -384,10 +384,10 @@ class ContentController: Controller {
         request.addConditionalPageVar("isHeaderNavSelected", "selected", if: contentData.navType == ContentData.NAV_TYPE_HEADER)
         request.addConditionalPageVar("isFooterNavSelected", "selected", if: contentData.navType == ContentData.NAV_TYPE_FOOTER)
         request.addPageVar("active", contentData.active ? "true" : "false")
-        var str = FormSelectTag.getOptionHtml(value: "", isSelected: contentData.master.isEmpty, text: "_pleaseSelect".toLocalizedHtml())
+        var str = FormSelectTag.getOptionHtml(request: request, value: "", isSelected: contentData.master.isEmpty, text: "_pleaseSelect".toLocalizedHtml(language: request.language))
         if let masters = TemplateCache.getTemplates(type: .master) {
             for masterName in masters.keys {
-                str.append(FormSelectTag.getOptionHtml(value: masterName.toHtml(), isSelected: contentData.master == masterName, text: masterName.toHtml()))
+                str.append(FormSelectTag.getOptionHtml(request: request, value: masterName.toHtml(), isSelected: contentData.master == masterName, text: masterName.toHtml()))
             }
         }
         request.addPageVar("masterOptions", str)
@@ -411,25 +411,25 @@ class ContentController: Controller {
             radioTag.checked = rights != nil
             radioTag.value = ""
             html.append(radioTag.getStartHtml(request: request))
-            html.append("_rightnone".toLocalizedHtml())
+            html.append("_rightnone".toLocalizedHtml(language: request.language))
             html.append(radioTag.getEndHtml(request: request))
             html.append("<br/>")
             radioTag.checked = rights?.includesRight(right: .READ) ?? false
             radioTag.value = String(Right.READ.rawValue)
             html.append(radioTag.getStartHtml(request: request))
-            html.append("_rightread".toLocalizedHtml())
+            html.append("_rightread".toLocalizedHtml(language: request.language))
             html.append(radioTag.getEndHtml(request: request))
             html.append("<br/>")
             radioTag.checked = rights?.includesRight(right: .EDIT) ?? false
             radioTag.value = String(Right.EDIT.rawValue)
             html.append(radioTag.getStartHtml(request: request))
-            html.append("_rightedit".toLocalizedHtml())
+            html.append("_rightedit".toLocalizedHtml(language: request.language))
             html.append(radioTag.getEndHtml(request: request))
             html.append("<br/>")
             radioTag.checked = rights?.includesRight(right: .APPROVE) ?? false
             radioTag.value = String(Right.APPROVE.rawValue)
             html.append(radioTag.getStartHtml(request: request))
-            html.append("_rightapprove".toLocalizedHtml())
+            html.append("_rightapprove".toLocalizedHtml(language: request.language))
             html.append(radioTag.getEndHtml(request: request))
             html.append(lineTag.getEndHtml(request: request))
         }
@@ -456,11 +456,11 @@ class ContentController: Controller {
             select.name = name
             select.label = String(idx)
             select.onChange = onchange
-            html.append(FormSelectTag.preControlHtml.format([
+            html.append(FormSelectTag.preControlHtml.format(language: request.language, [
                 "name": name,
                 "onchange": onchange]))
             for i in 0..<childSortList.count {
-                html.append(FormSelectTag.getOptionHtml(value: String(i), isSelected: i == idx, text: String(i + 1)))
+                html.append(FormSelectTag.getOptionHtml(request: request, value: String(i), isSelected: i == idx, text: String(i + 1)))
             }
             html.append(FormSelectTag.postControlHtml)
             html.append(lineTag.getEndHtml(request: request))

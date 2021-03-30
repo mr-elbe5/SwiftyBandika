@@ -24,7 +24,7 @@ class UserListTag: ServerPageTag {
                             <span>{{userName}}&nbsp;({{userId}})</span>
                             <div class="icons">
                                 <a class="icon fa fa-pencil" href="" onclick="return openModalDialog('/ajax/user/openEditUser/{{userId}}');" title="{{_edit}}"> </a>
-                        """.format([
+                        """.format(language: request.language, [
                 "userOpen": String(user.id == userId),
                 "userName": user.name.toHtml(),
                 "userId": String(user.id)
@@ -32,7 +32,7 @@ class UserListTag: ServerPageTag {
             if (user.id != UserData.ID_ROOT) {
                 html.append("""
                                 <a class="icon fa fa-trash-o" href="" onclick="if (confirmDelete()) return linkTo('/ctrl/user/deleteUser/{{userId}}?version={{userVersion}}');" title="{{_delete}}"> </a>
-                            """.format([
+                            """.format(language: request.language, [
                     "userId": String(user.id),
                     "userVersion": String(user.version)
                 ]))

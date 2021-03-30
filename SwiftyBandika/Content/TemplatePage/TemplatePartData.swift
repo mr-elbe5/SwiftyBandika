@@ -112,7 +112,7 @@ class TemplatePartData: PartData {
             if request.viewType == ViewType.edit {
                 html.append("""
                             <div id="{{wrapperId}}" class="partWrapper {{css}}" title="{{title}}">
-                            """.format([
+                            """.format(language: request.language, [
                     "wrapperId": partWrapperId,
                     "css": partTemplate.css.toHtml(),
                     "title": editTitle.toHtml()]
@@ -121,7 +121,7 @@ class TemplatePartData: PartData {
             } else {
                 html.append("""
                             <div id="{{wrapperId}}" class="partWrapper {{css}}">
-                            """.format([
+                            """.format(language: request.language, [
                     "wrapperId": partWrapperId,
                     "css": partTemplate.css.toHtml()]
                 ))
@@ -140,7 +140,7 @@ class TemplatePartData: PartData {
                     <script type="text/javascript">
                         updatePartEditors($('#{{wrapperId}}'));
                     </script>
-                    """.format([
+                    """.format(language: request.language, [
                         "wrapperId": partWrapperId]))
         return html
     }

@@ -23,8 +23,8 @@ class FooterTag: ServerPageTag {
                                 <a class="nav-link">&copy; {{copyRight}}
                                 </a>
                             </li>
-                    """.format([
-            "copyRight": "_copyright".toLocalizedHtml()]
+                    """.format(language: request.language, [
+            "copyRight": "_copyright".toLocalizedHtml(language: request.language)]
         ))
         for child in ContentContainer.instance.contentRoot.children {
             if child.navType == ContentData.NAV_TYPE_FOOTER && Right.hasUserReadRight(user: request.user, content: child) {
@@ -33,7 +33,7 @@ class FooterTag: ServerPageTag {
                                 <a class="nav-link" href="{{url}}">{{displayName}}
                                 </a>
                             </li>
-                            """.format([
+                            """.format(language: request.language, [
                     "url": child.getUrl().toHtml(),
                     "displayName": child.displayName.toHtml()]
                 ))

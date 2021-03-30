@@ -16,16 +16,16 @@ extension String {
         Localizer.instance.localize(src: self)
     }
 
-    public func localize(i: Int) -> String {
-        String(format: localize(), String(i))
-    }
-
-    public func localize(s: String) -> String {
-        String(format: localize(), s)
+    public func localize(language: String, def: String? = nil) -> String {
+        Localizer.instance.localize(src: self, language: language, def: def)
     }
 
     public func toLocalizedHtml() -> String {
         localize().toHtml()
+    }
+
+    public func toLocalizedHtml(language: String, def: String? = nil) -> String {
+        localize(language: language, def: def).toHtml()
     }
 
     func trim() -> String {
@@ -101,7 +101,7 @@ extension String {
         return self
     }
 
-    public func format(_ params: [String: String]?) -> String {
+    public func format(language: String, _ params: [String: String]?) -> String {
         var s = ""
         var p1: String.Index = startIndex
         var p2: String.Index
@@ -118,7 +118,7 @@ extension String {
                         break
                     }
                     if key.hasPrefix("_") {
-                        s.append(key.toLocalizedHtml())
+                        s.append(key.toLocalizedHtml(language: language))
                     } else if let value = params![key] {
                         s.append(value)
                     }

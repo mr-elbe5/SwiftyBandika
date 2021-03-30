@@ -14,7 +14,7 @@ class ServerPageCode: ServerPageNode{
     var code: String = ""
 
     override func getHtml(request: Request) -> String{
-        code.format(request.pageVars)
+        code.format(language: request.language, request.pageVars)
     }
 
 }

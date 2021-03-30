@@ -23,7 +23,7 @@ class FormTextTag : FormLineTag{
         maxLength = getIntAttribute("maxLength", request, def: 0)
         return """
                <input type="text" id="{{name}}" name="{{name}}" class="form-control" value="{{value}}" {{maxLength}} />
-               """.format([
+               """.format(language: request.language, [
                     "name" : name,
                     "value" : value,
                     "maxLength" : maxLength > 0 ? "maxlength=\" \(maxLength)\"" : ""]

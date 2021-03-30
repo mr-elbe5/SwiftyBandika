@@ -21,10 +21,10 @@ extension PartData {
                                         <div class="btn-group btn-group-sm" role="group">
                                             <button type="button" class="btn btn-secondary fa fa-plus dropdown-toggle" data-toggle="dropdown" title="{{title}}"></button>
                                             <div class="dropdown-menu">
-                    """.format([
+                    """.format(language: request.language, [
             "positionName": partPositionName,
             "value": String(position),
-            "title": "_newPart".toLocalizedHtml()]
+            "title": "_newPart".toLocalizedHtml(language: request.language)]
         ))
         if let templates = TemplateCache.getTemplates(type: TemplateType.part) {
             for tpl in templates.values {
@@ -32,7 +32,7 @@ extension PartData {
                                                         <a class="dropdown-item" href="" onclick="return addPart({{partId}},'{{sectionName}}','{{partType}}','{{templateName}}');">
                                                              {{displayName}}
                                                         </a>
-                            """.format([
+                            """.format(language: request.language, [
                     "partId": String(partId),
                     "sectionName": sectionName.toHtml(),
                     "partType": PartType.templatepart.rawValue.toHtml(),
@@ -58,7 +58,7 @@ extension PartData {
                                         </div>
                                     </div>
                                 </div>
-                    """.format([
+                    """.format(language: request.language, [
             "partId": String(partId)]
         ))
         return html

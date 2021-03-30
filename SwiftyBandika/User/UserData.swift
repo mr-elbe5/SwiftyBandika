@@ -159,7 +159,7 @@ class UserData: BaseData {
             if s1 == s2 {
                 setPassword(password: s1)
             } else {
-                request.addFormError("_passwordsDontMatch".localize())
+                request.addFormError("_passwordsDontMatch".localize(language: request.language))
                 request.addFormField("password")
                 request.addFormField("passwordCopy")
             }

@@ -21,12 +21,12 @@ class ContentTreeTag: ServerPageTag {
                     <section class="treeSection">
                         <div><a href="/ctrl/admin/clearClipboard">{{_clearClipboard}}</a></div>
                         <ul class="tree pagetree">
-                    """.format(nil))
+                    """.format(language: request.language, nil))
         if Right.hasUserReadRight(user: request.user, contentId: ContentData.ID_ROOT) {
             html.append("""
                             <li class="open">
                                 <span>{{displayName}}</span>
-                        """.format(["displayName" : ContentContainer.instance.contentRoot.displayName]))
+                        """.format(language: request.language, ["displayName" : ContentContainer.instance.contentRoot.displayName]))
             if SystemZone.hasUserSystemRight(user: request.user, zone: .contentEdit) {
                 html.append(getHtml(content: ContentContainer.instance.contentRoot, request: request))
             }
@@ -64,46 +64,46 @@ class ContentTreeTag: ServerPageTag {
                        <a class="icon fa fa-eye" href="" onclick="return linkTo('/ctrl/{{type}}/show/{{id}}');" title="{{_view}}"> </a>
                        <a class="icon fa fa-pencil" href="" onclick="return openModalDialog('/ajax/{{type}}/openEditContentData/{{id}}');" title="{{_edit}}"> </a>
                        <a class="icon fa fa-key" href="" onclick="return openModalDialog('/ajax/{{type}}/openEditRights/{{id}}');" title="{{_rights}}"> </a>             
-                    """.format(params))
+                    """.format(language: request.language, params))
             // cut, copy
             if content.id != ContentData.ID_ROOT {
                 html.append("""
                         <a class ="icon fa fa-scissors" href = "" onclick = "return linkTo('/ctrl/{{type}}/cutContent/{{id}}');" title = "{{_cut}}"> </a>
                         <a class ="icon fa fa-copy" href = "" onclick = "return linkTo('/ctrl/{{type}}/copyContent/{{id}}');" title = "{{_copy}}"> </a>
-                    """.format(params))
+                    """.format(language: request.language, params))
             }
             // sort children
             if !content.children.isEmpty {
                 html.append("""
                         <a class ="icon fa fa-sort" href = "" onclick = "return openModalDialog('/ajax/{{type}}/openSortChildPages/{{id}}');" title = "{{_sortChildPages}}"> </a>              
-                    """.format(params))
+                    """.format(language: request.language, params))
             }
             // delete
             if content.id != ContentData.ID_ROOT {
                 html.append("""
                         <a class ="icon fa fa-trash-o" href = "" onclick = "if (confirmDelete()) return linkTo('/ctrl/{{type}}/deleteContent/{{id}}');" title = "{{_delete}}"> </a>
-                    """.format(params))
+                    """.format(language: request.language, params))
             }
             // paste
             if Clipboard.instance.hasData(type: .content) {
                 html.append("""
                         <a class ="icon fa fa-paste" href = "/ctrl/{{type}}/pasteContent?parentId={{id}}&parentVersion={{version}}" title = "{{_pasteContent}}"> </a>
-                    """.format(params))
+                    """.format(language: request.language, params))
             }
             // new content
             if !content.childTypes.isEmpty {
                 html.append("""
                         <a class ="icon fa fa-plus dropdown-toggle" data-toggle = "dropdown" title = "{{_newContent}}" > </a>
                         <div class ="dropdown-menu">
-                    """.format(nil))
+                    """.format(language: request.language, nil))
                 for type in content.childTypes {
                     html.append("""
                             <a class ="dropdown-item" onclick = "return openModalDialog('/ajax/{{type}}/openCreateContentData?parentId={{id}}&type={{pageType}}');">{{pageTypeName}}</a>
-                    """.format([
+                    """.format(language: request.language, [
                         "type": content.type.rawValue,
                         "id": String(content.id),
                         "pageType": type.rawValue,
-                        "pageTypeName": "_type.\(type.rawValue)".toLocalizedHtml()]))
+                        "pageTypeName": "_type.\(type.rawValue)".toLocalizedHtml(language: request.language)]))
                 }
                 html.append("""
                         </div>      
@@ -120,7 +120,7 @@ class ContentTreeTag: ServerPageTag {
         html.append("""
                         <li class="files open">
                             <span>{{_files}}</span>
-                    """.format(nil))
+                    """.format(language: request.language, nil))
         // file icons
         if Right.hasUserEditRight(user: request.user, content: content) {
             html.append("""
@@ -130,14 +130,14 @@ class ContentTreeTag: ServerPageTag {
             if Clipboard.instance.hasData(type: .file) {
                 html.append("""
                                 <a class="icon fa fa-paste" href="/ctrl/file/pasteFile?parentId={{id}}&parentVersion={{version}}" title="{{_pasteFile}}"> </a>
-                            """.format(params))
+                            """.format(language: request.language, params))
             }
             // new file
             html.append("""
                                 <a class="icon fa fa-plus" onclick="return openModalDialog('/ajax/file/openCreateFile?parentId={{id}}');" title="{{_newFile}}">
                                 </a>
                             </div>
-                        """.format(params))
+                        """.format(language: request.language, params))
         }
         if Right.hasUserEditRight(user: request.user, content: content) {
             html.append("""
@@ -155,13 +155,13 @@ class ContentTreeTag: ServerPageTag {
                                    <div class="treeline">
                                        <span class="treeImage" id="{{id}}">
                                            {{displayName}}
-                            """.format(fileParams))
+                            """.format(language: request.language, fileParams))
                 if file.isImage {
                     html.append("""
                                            <span class="hoverImage">
                                                 <img src="{{previewUrl}}" alt="{{fileName)}}"/>
                                             </span>
-                                """.format(fileParams))
+                                """.format(language: request.language, fileParams))
                 }
                 // single file icons
                 html.append("""
@@ -176,7 +176,7 @@ class ContentTreeTag: ServerPageTag {
                                        </div>
                                    </div>
                                </li>
-                    """.format(fileParams))
+                    """.format(language: request.language, fileParams))
             }
             html.append("""
                         </ul>
@@ -191,7 +191,7 @@ class ContentTreeTag: ServerPageTag {
                 html.append("""
                                 <li class="open">
                                     <span>{{displayName}}</span>
-                            """.format(["displayName" : childData.displayName]))
+                            """.format(language: request.language, ["displayName" : childData.displayName]))
                 if Right.hasUserReadRight(user: request.user, content: childData) {
                     html.append(getHtml(content: childData, request: request))
                 }

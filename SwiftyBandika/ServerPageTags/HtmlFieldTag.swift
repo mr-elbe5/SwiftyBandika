@@ -32,7 +32,7 @@ class HtmlFieldTag: ServerPageTag {
                                             filebrowserImageBrowseUrl : '/ajax/ckeditor/openImageBrowser/{{contentId}}'
                                             });
                                   </script>
-                            """.format([
+                            """.format(language: request.language, [
                                 "identifier": field.identifier,
                                 "content": field.content.isEmpty ? content.toHtml() : field.content,
                                 "fieldContent": field.content.toHtml(),

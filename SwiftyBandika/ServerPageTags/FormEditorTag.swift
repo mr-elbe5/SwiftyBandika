@@ -25,7 +25,7 @@ class FormEditorTag : FormLineTag{
         height = getStringAttribute("height", request)
         return """
                <textarea id="{{name}}" name="{{name}}" data-editor="{{type}}" data-gutter="1" {{height}}>
-               """.format([
+               """.format(language: request.language, [
                     "name" :  name,
                     "type" : type,
                     "height" : height.isEmpty ? "" : "style=\"height:\(height)\""]
@@ -36,9 +36,9 @@ class FormEditorTag : FormLineTag{
         """
                 </textarea>
                 <small id="{{name}}Hint" class="form-text text-muted">{{hint}}</small>
-        """.format([
+        """.format(language: request.language, [
                 "name" : name,
-                "hint" : hint.hasPrefix("_") ? hint.toLocalizedHtml() : hint.toHtml()]
+                "hint" : hint.hasPrefix("_") ? hint.toLocalizedHtml(language: request.language) : hint.toHtml()]
         )
     }
 

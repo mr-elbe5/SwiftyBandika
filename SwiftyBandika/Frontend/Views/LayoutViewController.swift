@@ -8,6 +8,7 @@
 */
 
 import Cocoa
+import BandikaSwiftBase
 
 class LayoutViewController: NSSplitViewController {
     

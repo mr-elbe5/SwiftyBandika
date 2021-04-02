@@ -8,6 +8,7 @@
 */
 
 import Cocoa
+import BandikaSwiftBase
 
 class LogViewController: NSViewController, LogDelegate {
     
@@ -58,9 +59,8 @@ class LogViewController: NSViewController, LogDelegate {
     
     func updateLog(){
         DispatchQueue.main.async{
-            for chunk in Log.chunks{
-                if !chunk.displayed{
-                    chunk.displayed = true
+            if let chunks = Log.getChunks(){
+                for chunk in chunks{
                     self.appendText(chunk: chunk)
                 }
             }

@@ -8,16 +8,19 @@
 */
 
 import Cocoa
+import BandikaSwiftBase
 
 @main
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, RouterDelegate {
 
     lazy var mainWindowController = MainWindowController()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        Paths.initPaths()
-        Localizer.initialize(languages: ["en","de"])
+        Log.useQueue = true
+        Paths.initPaths(baseDirectory: NSHomeDirectory(), resourceDirectory: Bundle.main.resourceURL?.path ?? NSHomeDirectory())
+        Localizer.instance.initialize(languages: ["en","de"], bundleLocation: Paths.resourceDirectory)
         initializeData()
+        Router.instance.delegate = self
         NSApplication.shared.mainMenu = MainMenu()
         mainWindowController.showWindow(nil)
         ActionQueue.instance.addRegularAction(CleanupAction())
@@ -35,6 +38,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
+        ActionQueue.instance.checkActions()
+        ActionQueue.instance.stop()
+    }
+    
+    func startApplication() {
+    }
+    
+    func stopApplication() {
+        HttpServer.instance.stop()
         ActionQueue.instance.checkActions()
         ActionQueue.instance.stop()
     }

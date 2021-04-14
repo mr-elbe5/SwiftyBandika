@@ -8,7 +8,7 @@
 */
 
 import Cocoa
-import BandikaSwiftBase
+import SwiftyLog
 
 class LogViewController: NSViewController, LogDelegate {
     
@@ -40,7 +40,7 @@ class LogViewController: NSViewController, LogDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Log.delegate = self
+        Log.useDelegate(self, useQueue: true)
         updateLog()
     }
     

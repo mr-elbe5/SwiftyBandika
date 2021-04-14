@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/mr-elbe5/BandikaSwiftBase",
         "state": {
           "branch": null,
-          "revision": "76cfd490a24fcb3791608ea31a3da98a319c64ca",
-          "version": "1.0.0"
+          "revision": "1d3af3a69acadc1f652a15c8146aeb4c22cc176a",
+          "version": "1.1.14"
         }
       },
       {
@@ -17,6 +17,42 @@
           "branch": null,
           "revision": "6d3ca7e54e06a69d0f2612c2ce8bb8b7319085a4",
           "version": "2.26.0"
+        }
+      },
+      {
+        "package": "SwiftyDataExtensions",
+        "repositoryURL": "https://github.com/mr-elbe5/SwiftyDataExtensions",
+        "state": {
+          "branch": null,
+          "revision": "7ed8d32e305f82a7c323d3b1c5d3a575f159c868",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "SwiftyHttpServer",
+        "repositoryURL": "https://github.com/mr-elbe5/SwiftyHttpServer",
+        "state": {
+          "branch": null,
+          "revision": "d48a03f1393e869ca0dbf4535ce0f0abb32cfb91",
+          "version": "1.1.11"
+        }
+      },
+      {
+        "package": "SwiftyLog",
+        "repositoryURL": "https://github.com/mr-elbe5/SwiftyLog",
+        "state": {
+          "branch": null,
+          "revision": "e11959ff65fc6ba9dec7fde91add6236f2837e2b",
+          "version": "1.0.3"
+        }
+      },
+      {
+        "package": "SwiftyStringExtensions",
+        "repositoryURL": "https://github.com/mr-elbe5/SwiftyStringExtensions",
+        "state": {
+          "branch": null,
+          "revision": "54306b92452fb3fbda2b741a94ec4035ccfa8ace",
+          "version": "1.0.6"
         }
       }
     ]

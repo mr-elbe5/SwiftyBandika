@@ -8,6 +8,7 @@
 */
 
 import Cocoa
+import SwiftyLog
 import BandikaSwiftBase
 
 class EditorViewController: NSViewController {

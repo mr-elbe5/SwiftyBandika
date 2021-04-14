@@ -8,6 +8,8 @@
 */
 
 import Cocoa
+import SwiftyLog
+import SwiftyHttpServer
 import BandikaSwiftBase
 
 class ServerControlViewController: NSViewController, HttpServerStateDelegate {
@@ -47,7 +49,7 @@ class ServerControlViewController: NSViewController, HttpServerStateDelegate {
         super.viewDidLoad()
         if Configuration.instance.autostart{
             DispatchQueue.global(qos: .userInitiated).async {
-                HttpServer.instance.start()
+                HttpServer.instance.start(host: Configuration.instance.host, port: Configuration.instance.webPort)
             }
         }
     }
@@ -124,7 +126,7 @@ class ServerControlViewController: NSViewController, HttpServerStateDelegate {
         }
         else{
             DispatchQueue.global(qos: .userInitiated).async {
-                HttpServer.instance.start()
+                HttpServer.instance.start(host: Configuration.instance.host, port: Configuration.instance.webPort)
             }
         }
     }

@@ -8,6 +8,8 @@
 */
 
 import Cocoa
+import SwiftyLog
+import SwiftyHttpServer
 import BandikaSwiftBase
 
 class MainWindowController: NSWindowController, NSWindowDelegate, NSToolbarDelegate {
@@ -120,7 +122,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSToolbarDeleg
             return
         }
         DispatchQueue.global(qos: .userInitiated).async {
-            HttpServer.instance.start()
+            HttpServer.instance.start(host: Configuration.instance.host, port: Configuration.instance.webPort)
         }
     }
 

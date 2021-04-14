@@ -8,6 +8,9 @@
 */
 
 import Cocoa
+import SwiftyHttpServer
+import SwiftyLog
+import SwiftyStringExtensions
 import BandikaSwiftBase
 
 @main
@@ -15,16 +18,33 @@ class AppDelegate: NSObject, NSApplicationDelegate, RouterDelegate {
 
     lazy var mainWindowController = MainWindowController()
     
+    func getShutdownCode() -> String {
+            Statics.instance.shutdownCode
+        }
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        Log.useQueue = true
+        Log.useLog(level: .info)
+        if let url = URL(string: Paths.logFile) {
+            if !Log.useLogFile(url: url){
+                print("log file not found")
+            }
+        }
+        Log.useDelegate(nil, useQueue: true)
         Paths.initPaths(baseDirectory: NSHomeDirectory(), resourceDirectory: Bundle.main.resourceURL?.path ?? NSHomeDirectory())
-        Localizer.instance.initialize(languages: ["en","de"], bundleLocation: Paths.resourceDirectory)
+        TagFactory.addBasicTypes()
+        TagFactory.addBandikaTypes()
+        ControllerCache.addBandikaTypes()
+        StringLocalizer.initialize(languages: ["en","de"], bundleLocation: Paths.resourceDirectory)
         initializeData()
-        Router.instance.delegate = self
+        let router = BandikaRouter()
+        router.delegate = self
+        router.shutdownCode = Statics.instance.shutdownCode
+        HttpServer.instance.router = router
         NSApplication.shared.mainMenu = MainMenu()
         mainWindowController.showWindow(nil)
         ActionQueue.instance.addRegularAction(CleanupAction())
         ActionQueue.instance.start()
+        Log.info("Your shutdown link is 'http://\(Configuration.instance.host):\(Configuration.instance.webPort)/shutdown/\(Statics.instance.shutdownCode)'")
     }
 
     func initializeData(){
@@ -42,10 +62,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, RouterDelegate {
         ActionQueue.instance.stop()
     }
     
-    func startApplication() {
+    public func startApplication() {
     }
     
-    func stopApplication() {
+    public func stopApplication() {
         HttpServer.instance.stop()
         ActionQueue.instance.checkActions()
         ActionQueue.instance.stop()

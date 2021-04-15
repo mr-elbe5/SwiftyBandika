@@ -44,7 +44,6 @@
 		4ED90CD925CD56A200A83D34 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED90CD325CD56A200A83D34 /* MainWindowController.swift */; };
 		4ED90CED25CD6C6800A83D34 /* Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED90CEC25CD6C6800A83D34 /* Insets.swift */; };
 		4ED90D0F25CD798C00A83D34 /* NSTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED90D0E25CD798C00A83D34 /* NSTextView.swift */; };
-		4ED90D3025CD923800A83D34 /* serverPages in Resources */ = {isa = PBXBuildFile; fileRef = 4ED90D2F25CD923800A83D34 /* serverPages */; };
 		4ED90D3325CD924600A83D34 /* web in Resources */ = {isa = PBXBuildFile; fileRef = 4ED90D3225CD924600A83D34 /* web */; };
 /* End PBXBuildFile section */
 
@@ -87,7 +86,6 @@
 		4ED90CD325CD56A200A83D34 /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		4ED90CEC25CD6C6800A83D34 /* Insets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Insets.swift; sourceTree = "<group>"; };
 		4ED90D0E25CD798C00A83D34 /* NSTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTextView.swift; sourceTree = "<group>"; };
-		4ED90D2F25CD923800A83D34 /* serverPages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = serverPages; sourceTree = "<group>"; };
 		4ED90D3225CD924600A83D34 /* web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = web; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,7 +115,6 @@
 		4ED90BDA25CD478000A83D34 = {
 			isa = PBXGroup;
 			children = (
-				4ED90D2F25CD923800A83D34 /* serverPages */,
 				4ED90D3225CD924600A83D34 /* web */,
 				4ED90BE525CD478000A83D34 /* SwiftyBandika */,
 				4ED90BE425CD478000A83D34 /* Products */,
@@ -269,7 +266,6 @@
 				4ED90BE925CD478100A83D34 /* Assets.xcassets in Resources */,
 				4ED90D3325CD924600A83D34 /* web in Resources */,
 				4ED90BEC25CD478100A83D34 /* MainMenu.xib in Resources */,
-				4ED90D3025CD923800A83D34 /* serverPages in Resources */,
 				3324DAFED5C30A9A22723E19 /* defaultTemplates in Resources */,
 				3324D8F89A38AD79C5ACDA08 /* defaultLayout in Resources */,
 				3324D3191EBFEDEC2185C194 /* Credits.html in Resources */,
@@ -462,7 +458,7 @@
 				CODE_SIGN_ENTITLEMENTS = SwiftyBandika/SwiftyBandika.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.1.0;
+				CURRENT_PROJECT_VERSION = 1.1.1;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = SwiftyBandika/Info.plist;
@@ -471,7 +467,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyBandika;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -486,7 +482,7 @@
 				CODE_SIGN_ENTITLEMENTS = SwiftyBandika/SwiftyBandika.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.1.0;
+				CURRENT_PROJECT_VERSION = 1.1.1;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = SwiftyBandika/Info.plist;
@@ -495,7 +491,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyBandika;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -531,7 +527,7 @@
 			repositoryURL = "https://github.com/mr-elbe5/BandikaSwiftBase";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.14;
+				minimumVersion = 1.1.19;
 			};
 		};
 		4EDD8CF925EBC65D0044E773 /* XCRemoteSwiftPackageReference "swift-nio" */ = {

@@ -31,6 +31,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, RouterDelegate {
         }
         Log.useDelegate(nil, useQueue: true)
         Paths.initPaths(baseDirectory: NSHomeDirectory(), resourceDirectory: Bundle.main.resourceURL?.path ?? NSHomeDirectory())
+        ServerPageController.instance.useBaseResources()
         TagFactory.addBasicTypes()
         TagFactory.addBandikaTypes()
         ControllerCache.addBandikaTypes()

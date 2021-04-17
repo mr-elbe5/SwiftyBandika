@@ -6,8 +6,17 @@
         "repositoryURL": "https://github.com/mr-elbe5/BandikaSwiftBase",
         "state": {
           "branch": null,
-          "revision": "e0137f3948fa225b53a9e147cf3530e9838f0285",
-          "version": "1.1.19"
+          "revision": "6edc64117621751589cb0d920c0e4c16d127fa24",
+          "version": "1.1.31"
+        }
+      },
+      {
+        "package": "swift-crypto",
+        "repositoryURL": "https://github.com/apple/swift-crypto",
+        "state": {
+          "branch": null,
+          "revision": "3bea268b223651c4ab7b7b9ad62ef9b2d4143eb6",
+          "version": "1.1.6"
         }
       },
       {
@@ -33,17 +42,17 @@
         "repositoryURL": "https://github.com/mr-elbe5/SwiftyHttpServer",
         "state": {
           "branch": null,
-          "revision": "4fda28adcc5999aa018f91796b19bb92b22adcd5",
-          "version": "1.1.12"
+          "revision": "34f3f7b7caba04795bf1649aec83da73da0927ff",
+          "version": "1.1.19"
         }
       },
       {
         "package": "SwiftyLog",
-        "repositoryURL": "https://github.com/mr-elbe5/SwiftyLog",
+        "repositoryURL": "https://github.com/mr-elbe5/SwiftyLog.git",
         "state": {
           "branch": null,
-          "revision": "e11959ff65fc6ba9dec7fde91add6236f2837e2b",
-          "version": "1.0.3"
+          "revision": "20478a501fa8d80ecdebfd4cf1a8d6b6ebf86f07",
+          "version": "1.1.0"
         }
       },
       {
@@ -51,8 +60,8 @@
         "repositoryURL": "https://github.com/mr-elbe5/SwiftyStringExtensions",
         "state": {
           "branch": null,
-          "revision": "54306b92452fb3fbda2b741a94ec4035ccfa8ace",
-          "version": "1.0.6"
+          "revision": "1a5aeec2eb9170d459de689489b43975323e51ba",
+          "version": "1.0.8"
         }
       }
     ]

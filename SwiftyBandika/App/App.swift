@@ -24,10 +24,6 @@ extension NSApplication{
         }
     }
 
-    var language : String{
-        Statics.instance.defaultLocale.languageCode ?? "en"
-    }
-
     var currentTime : Date{
         get{
             Date()

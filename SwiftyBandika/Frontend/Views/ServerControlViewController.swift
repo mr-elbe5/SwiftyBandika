@@ -24,6 +24,8 @@ class ServerControlViewController: NSViewController, HttpServerStateDelegate {
     var resourcePathField : NSTextField!
     var backupPathField : NSTextField!
     var saveConfigButton: NSButton!
+    var resetPasswordButton: NSButton!
+    var resetLogFileButton: NSButton!
     var backupButton: NSButton!
     var restoreButton : NSButton!
 
@@ -76,6 +78,10 @@ class ServerControlViewController: NSViewController, HttpServerStateDelegate {
         views.append([NSTextField(labelWithString: "Autostart:"), autostartField])
         saveConfigButton = NSButton(title: "Save Configuration", target: self, action: #selector(saveConfiguration))
         views.append([NSGridCell.emptyContentView, saveConfigButton])
+        resetPasswordButton = NSButton(title: "Reset root password", target: self, action: #selector(resetPassword))
+        views.append([NSGridCell.emptyContentView, resetPasswordButton])
+        resetLogFileButton = NSButton(title: "Reset log file", target: self, action: #selector(resetLogFile))
+        views.append([NSGridCell.emptyContentView, resetLogFileButton])
         dataPathField = NSTextField(wrappingLabelWithString: Paths.dataDirectory)
         dataPathField.lineBreakMode = .byWordWrapping
         views.append([NSTextField(labelWithString: "Data files location:"), dataPathField])
@@ -137,6 +143,17 @@ class ServerControlViewController: NSViewController, HttpServerStateDelegate {
         Configuration.instance.applicationName = applicationNameField.stringValue
         Configuration.instance.autostart = autostartField.state == .on
         _ = Configuration.instance.save()
+    }
+    
+    @objc func resetPassword() {
+        if let root = UserContainer.instance.getUser(id: UserData.ID_ROOT){
+            root.setPassword(password: "pass")
+            UserContainer.instance.setHasChanged()
+        }
+    }
+    
+    @objc func resetLogFile() {
+        Log.resetLogFile()
     }
 
     @objc func backupData() {

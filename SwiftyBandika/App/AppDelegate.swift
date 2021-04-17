@@ -24,13 +24,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, RouterDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         Log.useLog(level: .info)
+        Log.useDelegate(nil, useQueue: true)
+        Paths.initPaths(baseDirectory: NSHomeDirectory(), resourceDirectory: Bundle.main.resourceURL?.path ?? NSHomeDirectory())
         if let url = URL(string: Paths.logFile) {
             if !Log.useLogFile(url: url){
                 print("log file not found")
             }
         }
-        Log.useDelegate(nil, useQueue: true)
-        Paths.initPaths(baseDirectory: NSHomeDirectory(), resourceDirectory: Bundle.main.resourceURL?.path ?? NSHomeDirectory())
         ServerPageController.instance.useBaseResources()
         TagFactory.addBasicTypes()
         TagFactory.addBandikaTypes()

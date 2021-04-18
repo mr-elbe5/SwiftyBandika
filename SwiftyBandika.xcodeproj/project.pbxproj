@@ -28,7 +28,6 @@
 		4E3D04DF2617054A004403B0 /* NIOHTTP1 in Frameworks */ = {isa = PBXBuildFile; productRef = 4EDD8CFA25EBC65D0044E773 /* NIOHTTP1 */; };
 		4E3D04E02617054A004403B0 /* NIO in Frameworks */ = {isa = PBXBuildFile; productRef = 4EDD8CFC25EBC65D0044E773 /* NIO */; };
 		4E3D04E62617061D004403B0 /* BandikaSwiftBase in Frameworks */ = {isa = PBXBuildFile; productRef = 4E3D04E52617061D004403B0 /* BandikaSwiftBase */; };
-		4EC21C01262B41F200667AFE /* SwiftyLog in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC21C00262B41F200667AFE /* SwiftyLog */; };
 		4ED90BE925CD478100A83D34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ED90BE825CD478100A83D34 /* Assets.xcassets */; };
 		4ED90BEC25CD478100A83D34 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ED90BEA25CD478100A83D34 /* MainMenu.xib */; };
 		4ED90C9625CD508700A83D34 /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED90C8B25CD508700A83D34 /* NSMenuItem.swift */; };
@@ -96,7 +95,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E3D04DF2617054A004403B0 /* NIOHTTP1 in Frameworks */,
-				4EC21C01262B41F200667AFE /* SwiftyLog in Frameworks */,
 				4E3D04E62617061D004403B0 /* BandikaSwiftBase in Frameworks */,
 				4E3D04E02617054A004403B0 /* NIO in Frameworks */,
 			);
@@ -217,7 +215,6 @@
 				4EDD8CFA25EBC65D0044E773 /* NIOHTTP1 */,
 				4EDD8CFC25EBC65D0044E773 /* NIO */,
 				4E3D04E52617061D004403B0 /* BandikaSwiftBase */,
-				4EC21C00262B41F200667AFE /* SwiftyLog */,
 			);
 			productName = SwiftyBandika;
 			productReference = 4ED90BE325CD478000A83D34 /* SwiftyBandika.app */;
@@ -250,7 +247,6 @@
 			packageReferences = (
 				4EDD8CF925EBC65D0044E773 /* XCRemoteSwiftPackageReference "swift-nio" */,
 				4E3D04E42617061D004403B0 /* XCRemoteSwiftPackageReference "BandikaSwiftBase" */,
-				4EC21BFF262B41F200667AFE /* XCRemoteSwiftPackageReference "SwiftyLog" */,
 			);
 			productRefGroup = 4ED90BE425CD478000A83D34 /* Products */;
 			projectDirPath = "";
@@ -531,15 +527,7 @@
 			repositoryURL = "https://github.com/mr-elbe5/BandikaSwiftBase";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.31;
-			};
-		};
-		4EC21BFF262B41F200667AFE /* XCRemoteSwiftPackageReference "SwiftyLog" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mr-elbe5/SwiftyLog.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
+				minimumVersion = 1.1.32;
 			};
 		};
 		4EDD8CF925EBC65D0044E773 /* XCRemoteSwiftPackageReference "swift-nio" */ = {
@@ -557,11 +545,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E3D04E42617061D004403B0 /* XCRemoteSwiftPackageReference "BandikaSwiftBase" */;
 			productName = BandikaSwiftBase;
-		};
-		4EC21C00262B41F200667AFE /* SwiftyLog */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4EC21BFF262B41F200667AFE /* XCRemoteSwiftPackageReference "SwiftyLog" */;
-			productName = SwiftyLog;
 		};
 		4EDD8CFA25EBC65D0044E773 /* NIOHTTP1 */ = {
 			isa = XCSwiftPackageProductDependency;

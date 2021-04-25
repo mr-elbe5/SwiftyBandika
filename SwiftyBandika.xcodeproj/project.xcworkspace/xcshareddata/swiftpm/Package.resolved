@@ -56,6 +56,15 @@
         }
       },
       {
+        "package": "SwiftyMacViewExtensions",
+        "repositoryURL": "https://github.com/mr-elbe5/SwiftyMacViewExtensions",
+        "state": {
+          "branch": null,
+          "revision": "56d3dfa63b9ecf8601dae15348a9290109106d1e",
+          "version": "1.0.0"
+        }
+      },
+      {
         "package": "SwiftyStringExtensions",
         "repositoryURL": "https://github.com/mr-elbe5/SwiftyStringExtensions",
         "state": {

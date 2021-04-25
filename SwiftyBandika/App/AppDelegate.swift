@@ -32,6 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, RouterDelegate {
             }
         }
         ServerPageController.instance.useBaseResources()
+        StaticFileController.instance.useBaseFiles()
         TagFactory.addBasicTypes()
         TagFactory.addBandikaTypes()
         ControllerCache.addBandikaTypes()

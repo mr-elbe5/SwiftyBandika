@@ -36,7 +36,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, RouterDelegate {
         TagFactory.addBasicTypes()
         TagFactory.addBandikaTypes()
         ControllerCache.addBandikaTypes()
-        StringLocalizer.initialize(languages: ["en","de"], bundleLocation: Paths.resourceDirectory)
+        let languages = ["en","de"]
+        Log.info("loading languages \(languages)")
+        if !StringLocalizer.initialize(languages: languages, bundleLocation: Paths.resourceDirectory){
+            Log.warn("not all languages could be loaded")
+        }
         initializeData()
         let router = BandikaRouter()
         router.delegate = self

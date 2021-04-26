@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/mr-elbe5/BandikaSwiftBase",
         "state": {
           "branch": null,
-          "revision": "1f788907dfea8ea2097f5f78ef21f3a83852732a",
-          "version": "1.1.35"
+          "revision": "8e71114155ee3bbca5c372b8364be7deed8f1928",
+          "version": "1.1.36"
         }
       },
       {
@@ -69,8 +69,8 @@
         "repositoryURL": "https://github.com/mr-elbe5/SwiftyStringExtensions",
         "state": {
           "branch": null,
-          "revision": "53b7f6b51030b8f8c9338f71a76eb1c27bf56739",
-          "version": "1.1.0"
+          "revision": "eafd227fbaedef5b413bb54d5e9607c7f9cc56f6",
+          "version": "1.1.1"
         }
       }
     ]

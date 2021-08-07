@@ -67,7 +67,7 @@ class ServerControlViewController: NSViewController, HttpServerStateDelegate {
         startStopButton.keyEquivalent = "\r"
         statusField = NSTextField(labelWithString: "")
         views.append([startStopButton, statusField])
-        views.append([Separator(), Separator()])
+        views.append([NSBox().asSeparator(), NSBox().asSeparator()])
         applicationNameField = NSTextField(string: Configuration.instance.applicationName)
         views.append([NSTextField(labelWithString: "Application name:"), applicationNameField])
         hostField = NSTextField(string: Configuration.instance.host)
@@ -86,11 +86,11 @@ class ServerControlViewController: NSViewController, HttpServerStateDelegate {
         dataPathField = NSTextField(wrappingLabelWithString: Paths.dataDirectory)
         dataPathField.lineBreakMode = .byWordWrapping
         views.append([NSTextField(labelWithString: "Data files location:"), dataPathField])
-        views.append([Separator(), Separator()])
+        views.append([NSBox().asSeparator(), NSBox().asSeparator()])
         resourcePathField = NSTextField(wrappingLabelWithString: Paths.resourceDirectory)
         resourcePathField.lineBreakMode = .byWordWrapping
         views.append([NSTextField(labelWithString: "Resources location:"), resourcePathField])
-        views.append([Separator(), Separator()])
+        views.append([NSBox().asSeparator(), NSBox().asSeparator()])
         views.append([NSTextField(labelWithString: "Backups:"), NSGridCell.emptyContentView])
         for path in backupPaths{
             let sv = NSStackView()

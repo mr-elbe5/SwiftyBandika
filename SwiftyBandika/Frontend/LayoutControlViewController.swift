@@ -53,7 +53,7 @@ class LayoutControlViewController: NSViewController {
             text.cell?.font = boldFont
             views.append([text, NSButton(image: img, target: self, action: #selector(replaceLogo))])
         }
-        views.append([Separator(), Separator()])
+        views.append([NSBox().asSeparator(), NSBox().asSeparator()])
         if let img = NSImage(systemSymbolName: "square.and.pencil", accessibilityDescription: "Edit style sheet") {
             let text = NSTextField(labelWithString: "Style Sheet")
             text.cell?.font = boldFont
@@ -61,7 +61,7 @@ class LayoutControlViewController: NSViewController {
             btn.attribute = cssPath
             views.append([text, btn])
         }
-        views.append([Separator(), Separator()])
+        views.append([NSBox().asSeparator(), NSBox().asSeparator()])
         if let img = NSImage(systemSymbolName: "plus.app", accessibilityDescription: "Add Image") {
             let text = NSTextField(labelWithString: "Style Images")
             text.cell?.font = boldFont
@@ -75,7 +75,7 @@ class LayoutControlViewController: NSViewController {
                 views.append([NSTextField(labelWithString: path.lastPathComponent()), btn])
             }
         }
-        views.append([Separator(), Separator()])
+        views.append([NSBox().asSeparator(), NSBox().asSeparator()])
         if let img = NSImage(systemSymbolName: "plus.app", accessibilityDescription: "Add Master Template") {
             let text = NSTextField(labelWithString: "Master Templates")
             text.cell?.font = boldFont
@@ -96,7 +96,7 @@ class LayoutControlViewController: NSViewController {
             }
             views.append([NSTextField(labelWithString: path.lastPathComponent()), sv])
         }
-        views.append([Separator(), Separator()])
+        views.append([NSBox().asSeparator(), NSBox().asSeparator()])
         if let img = NSImage(systemSymbolName: "plus.app", accessibilityDescription: "Add Page Template") {
             let text = NSTextField(labelWithString: "Page templates")
             text.cell?.font = boldFont
@@ -117,7 +117,7 @@ class LayoutControlViewController: NSViewController {
             }
             views.append([NSTextField(labelWithString: path.lastPathComponent()), sv])
         }
-        views.append([Separator(), Separator()])
+        views.append([NSBox().asSeparator(), NSBox().asSeparator()])
         if let img = NSImage(systemSymbolName: "plus.app", accessibilityDescription: "Add Part Template") {
             let text = NSTextField(labelWithString: "Part templates")
             text.cell?.font = boldFont

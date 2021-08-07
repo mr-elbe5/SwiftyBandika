@@ -481,7 +481,7 @@
 			repositoryURL = "https://github.com/mr-elbe5/SwiftyMacViewExtensions";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 1.1.3;
 			};
 		};
 		4EDD8CF925EBC65D0044E773 /* XCRemoteSwiftPackageReference "swift-nio" */ = {

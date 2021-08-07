@@ -28,7 +28,7 @@ class NewTemplateViewController:NSViewController {
         let views = [
             [NSTextField(labelWithString: "Template file name"), NSGridCell.emptyContentView],
             [fileNameField, NSTextField(labelWithString: templateExtension)],
-            [Separator(), Separator()],
+            [NSBox().asSeparator(), NSBox().asSeparator()],
             [cancelButton, okButton]
         ]
         let grid = NSGridView(views: views)

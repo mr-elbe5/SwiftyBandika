@@ -1,5 +1,5 @@
 /*
- SwiftyBandika CMS - A Swift based Content Management System with JSON Database
+ SwiftyMacViewExtensions
  Copyright (C) 2021 Michael Roennau
 
  This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
@@ -9,27 +9,19 @@
 
 import Cocoa
 
-class HelpWindowController: PopupWindowController, NSWindowDelegate {
+class PopupWindow: NSWindow {
 
-    convenience init() {
-        self.init(windowNibName: "")
+    var parentFrame : NSRect? = nil
+
+    // positions itself centered in frame of calling window
+    override func center() {
+        if let frame = parentFrame{
+            let ownPosition = self.frame
+            let newTopLeft = NSMakePoint(frame.minX + frame.width/2 - ownPosition.width/2, frame.minY + frame.height/2 + ownPosition.height/2)
+            self.setFrameTopLeftPoint(newTopLeft)
+            return
+        }
+        super.center()
     }
     
-    override func loadWindow() {
-        let window = popupWindow()
-        window.title = "SwiftyBandika Help"
-        window.delegate = self
-        contentViewController = HelpViewController()
-        
-        self.window = window
-        
-    }
-
-    func windowDidBecomeKey(_ notification: Notification) {
-        window?.level = .statusBar
-    }
-    func windowWillClose(_ notification: Notification) {
-        NSApp.stopModal()
-    }
-
 }

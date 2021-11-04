@@ -25,7 +25,6 @@
 		4E3D04DF2617054A004403B0 /* NIOHTTP1 in Frameworks */ = {isa = PBXBuildFile; productRef = 4EDD8CFA25EBC65D0044E773 /* NIOHTTP1 */; };
 		4E3D04E02617054A004403B0 /* NIO in Frameworks */ = {isa = PBXBuildFile; productRef = 4EDD8CFC25EBC65D0044E773 /* NIO */; };
 		4E3D04E62617061D004403B0 /* BandikaSwiftBase in Frameworks */ = {isa = PBXBuildFile; productRef = 4E3D04E52617061D004403B0 /* BandikaSwiftBase */; };
-		4EB4DFA02635FFE4004AC608 /* SwiftyMacViewExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB4DF9F2635FFE4004AC608 /* SwiftyMacViewExtensions */; };
 		4ED90BE925CD478100A83D34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ED90BE825CD478100A83D34 /* Assets.xcassets */; };
 		4ED90BEC25CD478100A83D34 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ED90BEA25CD478100A83D34 /* MainMenu.xib */; };
 		4ED90CA325CD516E00A83D34 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4ED90CA525CD516E00A83D34 /* Localizable.strings */; };
@@ -35,6 +34,21 @@
 		4ED90CD625CD56A200A83D34 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED90CD025CD56A200A83D34 /* MainMenu.swift */; };
 		4ED90CD825CD56A200A83D34 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED90CD225CD56A200A83D34 /* MainWindow.swift */; };
 		4ED90CD925CD56A200A83D34 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED90CD325CD56A200A83D34 /* MainWindowController.swift */; };
+		4EEA786927346E6D00DE6BC4 /* NSBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA785A27346E6C00DE6BC4 /* NSBox.swift */; };
+		4EEA786A27346E6D00DE6BC4 /* NSWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA785B27346E6C00DE6BC4 /* NSWindowController.swift */; };
+		4EEA786B27346E6D00DE6BC4 /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA785C27346E6C00DE6BC4 /* NSMenuItem.swift */; };
+		4EEA786C27346E6D00DE6BC4 /* NSScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA785D27346E6C00DE6BC4 /* NSScrollView.swift */; };
+		4EEA786D27346E6D00DE6BC4 /* AttributedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA785E27346E6C00DE6BC4 /* AttributedButton.swift */; };
+		4EEA786E27346E6D00DE6BC4 /* NSTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA785F27346E6C00DE6BC4 /* NSTextView.swift */; };
+		4EEA786F27346E6D00DE6BC4 /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA786027346E6D00DE6BC4 /* NSView.swift */; };
+		4EEA787027346E6D00DE6BC4 /* Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA786127346E6D00DE6BC4 /* Insets.swift */; };
+		4EEA787127346E6D00DE6BC4 /* PopupWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA786227346E6D00DE6BC4 /* PopupWindow.swift */; };
+		4EEA787227346E6D00DE6BC4 /* NSGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA786327346E6D00DE6BC4 /* NSGridView.swift */; };
+		4EEA787327346E6D00DE6BC4 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA786427346E6D00DE6BC4 /* WindowController.swift */; };
+		4EEA787427346E6D00DE6BC4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA786527346E6D00DE6BC4 /* ViewController.swift */; };
+		4EEA787527346E6D00DE6BC4 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA786627346E6D00DE6BC4 /* Alert.swift */; };
+		4EEA787627346E6D00DE6BC4 /* CodableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA786727346E6D00DE6BC4 /* CodableColor.swift */; };
+		4EEA787727346E6D00DE6BC4 /* PopupWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA786827346E6D00DE6BC4 /* PopupWindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +80,21 @@
 		4ED90CD025CD56A200A83D34 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		4ED90CD225CD56A200A83D34 /* MainWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		4ED90CD325CD56A200A83D34 /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		4EEA785A27346E6C00DE6BC4 /* NSBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSBox.swift; sourceTree = "<group>"; };
+		4EEA785B27346E6C00DE6BC4 /* NSWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSWindowController.swift; sourceTree = "<group>"; };
+		4EEA785C27346E6C00DE6BC4 /* NSMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMenuItem.swift; sourceTree = "<group>"; };
+		4EEA785D27346E6C00DE6BC4 /* NSScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSScrollView.swift; sourceTree = "<group>"; };
+		4EEA785E27346E6C00DE6BC4 /* AttributedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedButton.swift; sourceTree = "<group>"; };
+		4EEA785F27346E6C00DE6BC4 /* NSTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTextView.swift; sourceTree = "<group>"; };
+		4EEA786027346E6D00DE6BC4 /* NSView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
+		4EEA786127346E6D00DE6BC4 /* Insets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Insets.swift; sourceTree = "<group>"; };
+		4EEA786227346E6D00DE6BC4 /* PopupWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupWindow.swift; sourceTree = "<group>"; };
+		4EEA786327346E6D00DE6BC4 /* NSGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSGridView.swift; sourceTree = "<group>"; };
+		4EEA786427346E6D00DE6BC4 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		4EEA786527346E6D00DE6BC4 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4EEA786627346E6D00DE6BC4 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		4EEA786727346E6D00DE6BC4 /* CodableColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableColor.swift; sourceTree = "<group>"; };
+		4EEA786827346E6D00DE6BC4 /* PopupWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupWindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +103,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E3D04DF2617054A004403B0 /* NIOHTTP1 in Frameworks */,
-				4EB4DFA02635FFE4004AC608 /* SwiftyMacViewExtensions in Frameworks */,
 				4E3D04E62617061D004403B0 /* BandikaSwiftBase in Frameworks */,
 				4E3D04E02617054A004403B0 /* NIO in Frameworks */,
 			);
@@ -118,6 +146,7 @@
 				4ED90BEE25CD478100A83D34 /* SwiftyBandika.entitlements */,
 				4ED90BED25CD478100A83D34 /* Info.plist */,
 				4ED90BE825CD478100A83D34 /* Assets.xcassets */,
+				4EEA785927346E5000DE6BC4 /* Base */,
 				4ED90BFB25CD49D700A83D34 /* Frontend */,
 				4ED90CA525CD516E00A83D34 /* Localizable.strings */,
 				4ED90BEA25CD478100A83D34 /* MainMenu.xib */,
@@ -148,6 +177,28 @@
 			path = Frontend;
 			sourceTree = "<group>";
 		};
+		4EEA785927346E5000DE6BC4 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				4EEA786627346E6D00DE6BC4 /* Alert.swift */,
+				4EEA785E27346E6C00DE6BC4 /* AttributedButton.swift */,
+				4EEA786727346E6D00DE6BC4 /* CodableColor.swift */,
+				4EEA786127346E6D00DE6BC4 /* Insets.swift */,
+				4EEA785A27346E6C00DE6BC4 /* NSBox.swift */,
+				4EEA786327346E6D00DE6BC4 /* NSGridView.swift */,
+				4EEA785C27346E6C00DE6BC4 /* NSMenuItem.swift */,
+				4EEA785D27346E6C00DE6BC4 /* NSScrollView.swift */,
+				4EEA785F27346E6C00DE6BC4 /* NSTextView.swift */,
+				4EEA786027346E6D00DE6BC4 /* NSView.swift */,
+				4EEA785B27346E6C00DE6BC4 /* NSWindowController.swift */,
+				4EEA786227346E6D00DE6BC4 /* PopupWindow.swift */,
+				4EEA786827346E6D00DE6BC4 /* PopupWindowController.swift */,
+				4EEA786527346E6D00DE6BC4 /* ViewController.swift */,
+				4EEA786427346E6D00DE6BC4 /* WindowController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -168,7 +219,6 @@
 				4EDD8CFA25EBC65D0044E773 /* NIOHTTP1 */,
 				4EDD8CFC25EBC65D0044E773 /* NIO */,
 				4E3D04E52617061D004403B0 /* BandikaSwiftBase */,
-				4EB4DF9F2635FFE4004AC608 /* SwiftyMacViewExtensions */,
 			);
 			productName = SwiftyBandika;
 			productReference = 4ED90BE325CD478000A83D34 /* SwiftyBandika.app */;
@@ -201,7 +251,6 @@
 			packageReferences = (
 				4EDD8CF925EBC65D0044E773 /* XCRemoteSwiftPackageReference "swift-nio" */,
 				4E3D04E42617061D004403B0 /* XCRemoteSwiftPackageReference "BandikaSwiftBase" */,
-				4EB4DF9E2635FFE4004AC608 /* XCRemoteSwiftPackageReference "SwiftyMacViewExtensions" */,
 			);
 			productRefGroup = 4ED90BE425CD478000A83D34 /* Products */;
 			projectDirPath = "";
@@ -234,23 +283,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EEA786B27346E6D00DE6BC4 /* NSMenuItem.swift in Sources */,
 				4ED90CB425CD52EA00A83D34 /* HelpViewController.swift in Sources */,
 				4ED90CD925CD56A200A83D34 /* MainWindowController.swift in Sources */,
 				4ED90CB325CD52EA00A83D34 /* HelpWindowController.swift in Sources */,
 				4ED90CD625CD56A200A83D34 /* MainMenu.swift in Sources */,
 				4ED90CD525CD56A200A83D34 /* LogViewController.swift in Sources */,
+				4EEA787727346E6D00DE6BC4 /* PopupWindowController.swift in Sources */,
+				4EEA787227346E6D00DE6BC4 /* NSGridView.swift in Sources */,
+				4EEA786A27346E6D00DE6BC4 /* NSWindowController.swift in Sources */,
+				4EEA786C27346E6D00DE6BC4 /* NSScrollView.swift in Sources */,
 				4ED90CD825CD56A200A83D34 /* MainWindow.swift in Sources */,
+				4EEA786E27346E6D00DE6BC4 /* NSTextView.swift in Sources */,
 				3324D90430EDEF42CDD4FE37 /* EditorViewController.swift in Sources */,
 				3324D72C1B51BA9436851BB7 /* LayoutControlViewController.swift in Sources */,
 				3324DFD56EF3F548AADDFF2F /* LayoutViewController.swift in Sources */,
 				3324DCE3D918BABE8862061D /* MainTabViewController.swift in Sources */,
+				4EEA786927346E6D00DE6BC4 /* NSBox.swift in Sources */,
+				4EEA787027346E6D00DE6BC4 /* Insets.swift in Sources */,
+				4EEA787327346E6D00DE6BC4 /* WindowController.swift in Sources */,
+				4EEA787527346E6D00DE6BC4 /* Alert.swift in Sources */,
 				3324D4DD3892593ABD9F22F8 /* ServerControlViewController.swift in Sources */,
 				3324DDA71EC2F41A25854697 /* ServerViewController.swift in Sources */,
+				4EEA787427346E6D00DE6BC4 /* ViewController.swift in Sources */,
+				4EEA787627346E6D00DE6BC4 /* CodableColor.swift in Sources */,
 				3324DF0C36675C3F9A2DBFC7 /* NewTemplateWindowController.swift in Sources */,
 				3324D78ADC8480AD102045FA /* NewTemplateViewController.swift in Sources */,
+				4EEA787127346E6D00DE6BC4 /* PopupWindow.swift in Sources */,
+				4EEA786F27346E6D00DE6BC4 /* NSView.swift in Sources */,
 				3324DBEF455ABDC098197762 /* AppDelegate.swift in Sources */,
 				3324D32D43BE2E8C8CD3E321 /* App.swift in Sources */,
 				3324D78A3015B595B6679C1B /* README.md in Sources */,
+				4EEA786D27346E6D00DE6BC4 /* AttributedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,15 +537,7 @@
 			repositoryURL = "https://github.com/mr-elbe5/BandikaSwiftBase";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.36;
-			};
-		};
-		4EB4DF9E2635FFE4004AC608 /* XCRemoteSwiftPackageReference "SwiftyMacViewExtensions" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mr-elbe5/SwiftyMacViewExtensions";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.3;
+				minimumVersion = 1.2.1;
 			};
 		};
 		4EDD8CF925EBC65D0044E773 /* XCRemoteSwiftPackageReference "swift-nio" */ = {
@@ -499,11 +555,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E3D04E42617061D004403B0 /* XCRemoteSwiftPackageReference "BandikaSwiftBase" */;
 			productName = BandikaSwiftBase;
-		};
-		4EB4DF9F2635FFE4004AC608 /* SwiftyMacViewExtensions */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4EB4DF9E2635FFE4004AC608 /* XCRemoteSwiftPackageReference "SwiftyMacViewExtensions" */;
-			productName = SwiftyMacViewExtensions;
 		};
 		4EDD8CFA25EBC65D0044E773 /* NIOHTTP1 */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -8,9 +8,8 @@
 */
 
 import Cocoa
-import SwiftyLog
 import BandikaSwiftBase
-import SwiftyMacViewExtensions
+
 
 class LayoutControlViewController: NSViewController {
 

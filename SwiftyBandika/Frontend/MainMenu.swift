@@ -8,7 +8,6 @@
 */
 
 import Cocoa
-import SwiftyMacViewExtensions
 
 class MainMenu: NSMenu {
     

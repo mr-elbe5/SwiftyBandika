@@ -9,7 +9,6 @@
 
 import Foundation
 import Cocoa
-import SwiftyMacViewExtensions
 
 class NewTemplateViewController:NSViewController {
 

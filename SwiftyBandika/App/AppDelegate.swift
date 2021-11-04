@@ -8,9 +8,6 @@
 */
 
 import Cocoa
-import SwiftyHttpServer
-import SwiftyLog
-import SwiftyStringExtensions
 import BandikaSwiftBase
 
 @main
@@ -68,10 +65,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, RouterDelegate {
         ActionQueue.instance.stop()
     }
     
-    public func startApplication() {
+    func startApplication() {
     }
     
-    public func stopApplication() {
+    func stopApplication() {
         HttpServer.instance.stop()
         ActionQueue.instance.checkActions()
         ActionQueue.instance.stop()

@@ -8,8 +8,7 @@
 */
 
 import Cocoa
-import SwiftyLog
-import SwiftyMacViewExtensions
+import BandikaSwiftBase
 
 class LogViewController: NSViewController, LogDelegate {
     

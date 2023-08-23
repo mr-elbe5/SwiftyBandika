@@ -1,3 +1,7 @@
+This project is discontinued on GitHub.
+
+You can find it on Gitea at https://git.elbe5cloud.de/miro/SwiftyBandika
+
 # SwiftyBandika
 
 A CMS server app for the Mac, based on Swift, NIO and JSON Persistance

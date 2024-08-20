@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,6 +22,9 @@
 		3324DDA71EC2F41A25854697 /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324DD070C33E5E276013F75 /* ServerViewController.swift */; };
 		3324DF0C36675C3F9A2DBFC7 /* NewTemplateWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D47C2CC998E76521ED82 /* NewTemplateWindowController.swift */; };
 		3324DFD56EF3F548AADDFF2F /* LayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D7B67CEE9308E039526D /* LayoutViewController.swift */; };
+		4E3C5F342C7526300018774C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3C5F332C7526300018774C /* main.swift */; };
+		4E3C5F3D2C7526CD0018774C /* BandikaSwiftBase in Frameworks */ = {isa = PBXBuildFile; productRef = 4E3C5F3C2C7526CD0018774C /* BandikaSwiftBase */; };
+		4E3C5F3F2C75271C0018774C /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3C5F3E2C75271C0018774C /* Application.swift */; };
 		4E3D04E62617061D004403B0 /* BandikaSwiftBase in Frameworks */ = {isa = PBXBuildFile; productRef = 4E3D04E52617061D004403B0 /* BandikaSwiftBase */; };
 		4ED90BE925CD478100A83D34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ED90BE825CD478100A83D34 /* Assets.xcassets */; };
 		4ED90BEC25CD478100A83D34 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ED90BEA25CD478100A83D34 /* MainMenu.xib */; };
@@ -49,6 +52,18 @@
 		4EEA787727346E6D00DE6BC4 /* PopupWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA786827346E6D00DE6BC4 /* PopupWindowController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4E3C5F2F2C7526300018774C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3324D015935DAEA803AAD475 /* ServerControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerControlViewController.swift; sourceTree = "<group>"; };
 		3324D14EA2A90A0FD798DEF8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -65,6 +80,11 @@
 		3324DCB06E1A55CC323A5D48 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		3324DD070C33E5E276013F75 /* ServerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
 		3324DF16913F64CBECFC73DB /* LayoutControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutControlViewController.swift; sourceTree = "<group>"; };
+		4E3C5F312C7526300018774C /* SwiftyBandikaCL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftyBandikaCL; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E3C5F332C7526300018774C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		4E3C5F3E2C75271C0018774C /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		4E3C5F412C7527250018774C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Localizable.strings; sourceTree = "<group>"; };
+		4E3C5F432C7527300018774C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		4ED90BE325CD478000A83D34 /* SwiftyBandika.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyBandika.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ED90BE825CD478100A83D34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4ED90BEB25CD478100A83D34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -96,6 +116,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4E3C5F2E2C7526300018774C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E3C5F3D2C7526CD0018774C /* BandikaSwiftBase in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4ED90BE025CD478000A83D34 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -116,15 +144,59 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		4E3C5F322C7526300018774C /* SwiftyBandikaCL */ = {
+			isa = PBXGroup;
+			children = (
+				4E3C5F382C7526650018774C /* Application */,
+				4E3C5F3A2C7526650018774C /* de.lproj */,
+				4E3C5F392C7526650018774C /* en.lproj */,
+				4E3C5F332C7526300018774C /* main.swift */,
+			);
+			path = SwiftyBandikaCL;
+			sourceTree = "<group>";
+		};
+		4E3C5F382C7526650018774C /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				4E3C5F3E2C75271C0018774C /* Application.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		4E3C5F392C7526650018774C /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				4E3C5F422C7527300018774C /* Localizable.strings */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
+		4E3C5F3A2C7526650018774C /* de.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				4E3C5F402C7527250018774C /* Localizable.strings */,
+			);
+			path = de.lproj;
+			sourceTree = "<group>";
+		};
+		4E3C5F3B2C7526CD0018774C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4ED90BDA25CD478000A83D34 = {
 			isa = PBXGroup;
 			children = (
 				4ED90BE525CD478000A83D34 /* SwiftyBandika */,
+				4E3C5F322C7526300018774C /* SwiftyBandikaCL */,
 				4ED90BE425CD478000A83D34 /* Products */,
 				3324D1E4FB7331B82B1ABA26 /* defaultTemplates */,
 				3324D2E5729D563DE502F2BF /* defaultLayout */,
 				3324D14EA2A90A0FD798DEF8 /* README.md */,
 				3324DA4D2E33043EB56E89DF /* defaultContent */,
+				4E3C5F3B2C7526CD0018774C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				4ED90BE325CD478000A83D34 /* SwiftyBandika.app */,
+				4E3C5F312C7526300018774C /* SwiftyBandikaCL */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -198,6 +271,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4E3C5F302C7526300018774C /* SwiftyBandikaCL */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E3C5F372C7526300018774C /* Build configuration list for PBXNativeTarget "SwiftyBandikaCL" */;
+			buildPhases = (
+				4E3C5F2D2C7526300018774C /* Sources */,
+				4E3C5F2E2C7526300018774C /* Frameworks */,
+				4E3C5F2F2C7526300018774C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftyBandikaCL;
+			packageProductDependencies = (
+				4E3C5F3C2C7526CD0018774C /* BandikaSwiftBase */,
+			);
+			productName = SwiftyBandikaCL;
+			productReference = 4E3C5F312C7526300018774C /* SwiftyBandikaCL */;
+			productType = "com.apple.product-type.tool";
+		};
 		4ED90BE225CD478000A83D34 /* SwiftyBandika */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4ED90BF125CD478100A83D34 /* Build configuration list for PBXNativeTarget "SwiftyBandika" */;
@@ -224,9 +317,12 @@
 		4ED90BDB25CD478000A83D34 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					4E3C5F302C7526300018774C = {
+						CreatedOnToolsVersion = 15.4;
+					};
 					4ED90BE225CD478000A83D34 = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -250,6 +346,7 @@
 			projectRoot = "";
 			targets = (
 				4ED90BE225CD478000A83D34 /* SwiftyBandika */,
+				4E3C5F302C7526300018774C /* SwiftyBandikaCL */,
 			);
 		};
 /* End PBXProject section */
@@ -272,6 +369,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4E3C5F2D2C7526300018774C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E3C5F3F2C75271C0018774C /* Application.swift in Sources */,
+				4E3C5F342C7526300018774C /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4ED90BDF25CD478000A83D34 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -314,6 +420,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		4E3C5F402C7527250018774C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4E3C5F412C7527250018774C /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		4E3C5F422C7527300018774C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4E3C5F432C7527300018774C /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		4ED90BEA25CD478100A83D34 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -334,6 +456,41 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4E3C5F352C7526300018774C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5UG99476V8;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		4E3C5F362C7526300018774C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5UG99476V8;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		4ED90BEF25CD478100A83D34 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -504,6 +661,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4E3C5F372C7526300018774C /* Build configuration list for PBXNativeTarget "SwiftyBandikaCL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E3C5F352C7526300018774C /* Debug */,
+				4E3C5F362C7526300018774C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4ED90BDE25CD478000A83D34 /* Build configuration list for PBXProject "SwiftyBandika" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -536,6 +702,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4E3C5F3C2C7526CD0018774C /* BandikaSwiftBase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E3D04E42617061D004403B0 /* XCRemoteSwiftPackageReference "BandikaSwiftBase" */;
+			productName = BandikaSwiftBase;
+		};
 		4E3D04E52617061D004403B0 /* BandikaSwiftBase */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4E3D04E42617061D004403B0 /* XCRemoteSwiftPackageReference "BandikaSwiftBase" */;

@@ -1,0 +1,34 @@
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">{{_editGroup}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <spg:form url="{{url}}" name="groupform" ajax="true">
+            <div class="modal-body">
+                <spg:formerror/>
+                <h3>{{_settings}}</h3>
+                <spg:line label="_id">{{id}}
+                </spg:line>
+                <spg:text name="name" label="_name" required="true" value="{{name}}"/>
+                <spg:textarea name="notes" label="_notes" height="5rem">{{notes}}</spg:textarea>
+                <spg:line label="_globalRights" padded = "true">
+                    {{rightChecks}}
+                </spg:line>
+                <spg:line label="_users" padded = "true">
+                    {{userChecks}}
+                </spg:line>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">{{_close}}
+                </button>
+                <button type="submit" class="btn btn-primary">{{_save}}
+                </button>
+            </div>
+        </spg:form>
+    </div>
+</div>
+
+

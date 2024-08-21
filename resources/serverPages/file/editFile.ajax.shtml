@@ -1,0 +1,34 @@
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">{{_editFile}}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <spg:form url="{{url}}" name="fileform" ajax="true" multi="true">
+            <div class="modal-body">
+                <spg:formerror/>
+                <spg:line label="_idAndFileName">{{id}} - {{fileName}}
+                </spg:line>
+                <spg:line label="_creation">{{creationDate}} - {{creatorName}}
+                </spg:line>
+                <spg:line label="_lastChange">{{changeDate}} - {{changerName}}
+                </spg:line>
+
+                <spg:file name="file" label="_file" required="{{fileRequired}}"/>
+                <spg:text name="displayName" label="_name" value="{{displayName}}"/>
+                <spg:textarea name="description" label="_description" height="3em">{{description}}</spg:textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">{{_close}}
+                </button>
+                <button type="submit" class="btn btn-primary">{{_save}}
+                </button>
+            </div>
+        </spg:form>
+    </div>
+</div>
+
+

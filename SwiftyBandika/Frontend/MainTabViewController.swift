@@ -9,7 +9,7 @@
 
 import Foundation
 import Cocoa
-import BandikaSwiftBase
+
 
 class MainTabViewController: NSViewController{
 

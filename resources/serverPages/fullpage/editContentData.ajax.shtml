@@ -1,0 +1,58 @@
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">{{_editContentData}}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <spg:form url="{{url}}" name="pageform" ajax="true" >
+            <div class="modal-body">
+                <spg:formerror/>
+                <h3>{{_settings}}
+                </h3>
+                <spg:line label="_idAndUrl">{{id}}
+                </spg:line>
+                <spg:line label="_creation">{{creationDate}} - {{creatorName}}
+                </spg:line>
+                <spg:line label="_lastChange">{{changeDate}} - {{changerName}}
+                </spg:line>
+                <spg:text name="displayName" label="_name" required="true" value="{{displayName}}"/>
+                <spg:textarea name="description" label="_description" height="5em">{{description}}</spg:textarea>
+                <spg:select name="accessType" label="_accessType">
+                    <option value="OPEN" {{isOpenSelected}}>{{_accessTypeOpen}}
+                    </option>
+                    <option value="INHERIT" {{isInheritsSelected}}>{{_accessTypeInherits}}
+                    </option>
+                    <option value="INDIVIDUAL" {{isIndividualSAelected}}>{{_accessTypeIndividual}}
+                    </option>
+                </spg:select>
+                <spg:select name="navType" label="_navType">
+                    <option value="NONE" {{isNoneNavSelected}}>{{_navTypeNone}}
+                    </option>
+                    <option value="HEADER" {{isHeaderNavSelected}}>{{_navTypeHeader}}
+                    </option>
+                    <option value="FOOTER" {{isFooterNavSelected}}>{{_navTypeFooter}}
+                    </option>
+                </spg:select>
+                <spg:line label="_active" padded="true">
+                    <spg:check name="active" value="true" checked="{{active}}"/>
+                </spg:line>
+                <spg:text name="cssClass" label="_cssClass" required="false" value="{{cssClass}}"/>
+                <spg:select name="master" label="_masterLayout" required="true">
+                    {{masterOptions}}
+                </spg:select>
+                <jsp:include page = "/WEB-INF/_jsp/fullpage/contentFormFields.inc.jsp" flush="true" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">{{_close}}
+                </button>
+                <button type="submit" class="btn btn-primary">{{_save}}
+                </button>
+            </div>
+        </spg:form>
+    </div>
+</div>
+
+

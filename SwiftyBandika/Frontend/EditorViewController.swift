@@ -8,7 +8,7 @@
 */
 
 import Cocoa
-import BandikaSwiftBase
+
 
 class EditorViewController: NSViewController {
 
